@@ -16,10 +16,16 @@
   <!-- SPAWN ROOM PARAMETERS DEFINITION -->
   <param name="room_sdf_file" type="str" value="$(find dist_project)/models/room/model.sdf" />
 
-  <!-- ROBOTS PARAMETER DEFINITION-->
+  <!-- UNICYCLE PARAMETER DEFINITION-->
   <arg name="model" default="$(find dist_project)/urdf/unicycle.urdf.xacro" />
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
-  <param name="robot_coordinate_file" type="str" value="$(find dist_project)/coordinates/robot_coordinates.csv" />
+  <param name="unicycle_description" command="$(find xacro)/xacro $(arg model)" />
+  <param name="unicycle_coordinate_file" type="str" value="$(find dist_project)/coordinates/unicycle_coordinates.csv" />
+
+  <!-- DRONE PARAMETER DEFINITION-->
+  <!--  TODO: fallo!  -->
+  <arg name="drone_model" default="$(find dist_project)/urdf/drone.urdf.xacro" />
+  <param name="drone_description" command="$(find xacro)/xacro $(arg drone_model)" />
+  <param name="drone_coordinate_file" type="str" value="$(find dist_project)/coordinates/drone_coordinates.csv" />
 
   <!-- UWB DISTANCE SIMULATOR NODE PARAMETERS -->
   <param name="initialization_time" type="int" value="5" />

@@ -118,7 +118,7 @@ class KalmanEstimator:
             expected_distances.append(dist_exp)
         
 
-	    # Covariance matrix of measurement process
+        # Covariance matrix of measurement process
         # As previously defined the measurements are subject to a gaussian noise whose amplitude is proportional to the acutal measurement. 
         # The matrix R will be a diagonal one with elements the parameter defined before that multiplies the actual measure squared, I add a regularization term
         R = 0.015 * np.eye(len(ids)) @ np.square(Z) + 0.5 * np.eye(len(ids))
@@ -140,7 +140,7 @@ class KalmanEstimator:
 
 
         # We wait for a user-designed number of callback to wait for the kalman filter to reach a good estimate starting from null mu vector
-        # In this moment the robot is going in a straight line, we wait 10 more callback to get a new position and estimate theta as the result of a arctan2
+        # At this moment the robot is going in a straight line, we wait 10 more callback to get a new position and estimate theta as the result of a arctan2
         number_of_callback = 30
         if (self.actual_callback < number_of_callback + 11):
             if self.actual_callback == number_of_callback:

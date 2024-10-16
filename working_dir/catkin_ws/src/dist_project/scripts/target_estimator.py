@@ -26,16 +26,16 @@ class TargetEstimator:
         # Target lectures list from other robots
         self.robot_tags = []
 
-        # Subscritpion to global topic to publish data to share
+        # Subscription to global topic to publish data to share
         self.pub_tag = rospy.Publisher("/processing_data", robot_data, queue_size=1)
 
         # Subscription to local topic to publish the final target estimate
         self.pub_target = rospy.Publisher("target_estimate", Pose, queue_size=1)
 
-        # Subscritpion to local topic for target height
+        # Subscription to local topic for target height
         self.sub_height = rospy.Subscriber("target_height", Point, self.target_callback)
 
-        # Subscritpion to local topic for x,y values (robot position)
+        # Subscription to local topic for x,y values (robot position)
         self.sub_pos = rospy.Subscriber("localization_data_topic", Pose, self.localization_callback)
 
     
@@ -68,7 +68,7 @@ class TargetEstimator:
             if not self.start_publishing:
                 # Subscription to global topic for communication
                 self.sub_data = rospy.Subscriber("/processing_data", robot_data, self.gather_callback)
-                self.start_publishing = 1
+                self.start_publishing = True
 
             # Addition of the self-tag to the list of tags
             present = False
@@ -224,7 +224,7 @@ class TargetEstimator:
                     distance = np.sqrt((tag.x - target_x)**2 + (tag.y - target_y)**2)
                     # Vertical angle computation proportional to target_height value
                     vertical_angle = tag.target_height * VERTICAL_TILT
-                    # Direct consequence from the definition of tangent
+                    # Direct consequence of the definition of tangent
                     quotes.append(np.tan(vertical_angle) * distance)
 
                     # Uncertainty computation via law of propagation of error

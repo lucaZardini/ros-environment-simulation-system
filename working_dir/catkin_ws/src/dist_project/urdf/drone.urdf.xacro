@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<robot name="common_drone" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<!-- Colors -->
+<material name="Blue">
+<color rgba="0.0 0.0 0.8 1.0"/>
+</material>
+
+<material name="Gray">
+<color rgba="0.5 0.5 0.5 1.0"/>
+</material>
+
+<!-- Base Link -->
+<link name="base_link">
+<visual>
+  <geometry>
+    <box size="1.0 1.5 0.1"/>
+  </geometry>
+  <material name="Blue"/>
+</visual>
+<collision>
+  <geometry>
+    <box size="1.0 1.5 0.1"/>
+  </geometry>
+</collision>
+<inertial>
+  <mass value="5.0"/>
+  <origin xyz="0 0 0"/>
+  <inertia ixx="0.5" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="0.5"/>
+</inertial>
+</link>
+
+<!-- Propellers -->
+<xacro:macro name="propeller" params="name x y z">
+<link name="${name}">
+  <visual>
+    <geometry>
+      <cylinder radius="0.1" length="0.02"/>
+    </geometry>
+    <material name="Gray"/>
+  </visual>
+  <collision>
+    <geometry>
+      <cylinder radius="0.1" length="0.02"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="0.1"/>
+    <origin xyz="0 0 0"/>
+    <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+  </inertial>
+</link>
+<joint name="${name}_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="${name}"/>
+  <origin xyz="${x} ${y} ${z}"/>
+</joint>
+</xacro:macro>
+
+<xacro:propeller name="propeller_front_left" x="0.5" y="0.5" z="0.1"/>
+<xacro:propeller name="propeller_front_right" x="0.5" y="-0.5" z="0.1"/>
+<xacro:propeller name="propeller_back_left" x="-0.5" y="0.5" z="0.1"/>
+<xacro:propeller name="propeller_back_right" x="-0.5" y="-0.5" z="0.1"/>
+
+<!-- Sensors -->
+<!-- GPS -->
+<link name="gps_link">
+<visual>
+  <geometry>
+    <box size="0.1 0.1 0.1"/>
+  </geometry>
+  <material name="Gray"/>
+</visual>
+</link>
+<joint name="gps_joint" type="fixed">
+<parent link="base_link"/>
+<child link="gps_link"/>
+<origin xyz="0 0 0.2"/>
+</joint>
+<gazebo>
+<plugin name="gps_plugin" filename="libgazebo_ros_gps.so">
+  <alwaysOn>true</alwaysOn>
+  <updateRate>10</updateRate>
+  <robotNamespace>/drone</robotNamespace>
+  <topicName>gps</topicName>
+  <frameName>gps_link</frameName>
+</plugin>
+</gazebo>
+
+<!-- Sonar -->
+<link name="sonar_link">
+<visual>
+  <geometry>
+    <cylinder radius="0.05" length="0.1"/>
+  </geometry>
+  <material name="Gray"/>
+</visual>
+</link>
+<joint name="sonar_joint" type="fixed">
+<parent link="base_link"/>
+<child link="sonar_link"/>
+<origin xyz="0 0 0.1"/>
+</joint>
+<gazebo>
+<plugin name="sonar_plugin" filename="libgazebo_ros_range.so">
+  <alwaysOn>true</alwaysOn>
+  <updateRate>10</updateRate>
+  <robotNamespace>/drone</robotNamespace>
+  <topicName>sonar</topicName>
+  <frameName>sonar_link</frameName>
+  <radiation>ultrasound</radiation>
+  <fov>0.5</fov>
+  <minRange>0.2</minRange>
+  <maxRange>10.0</maxRange>
+</plugin>
+</gazebo>
+
+<!-- Compass -->
+<link name="compass_link">
+<visual>
+  <geometry>
+    <box size="0.05 0.05 0.05"/>
+  </geometry>
+  <material name="Gray"/>
+</visual>
+</link>
+<joint name="compass_joint" type="fixed">
+<parent link="base_link"/>
+<child link="compass_link"/>
+<origin xyz="0 0 0.15"/>
+</joint>
+<gazebo>
+<plugin name="compass_plugin" filename="libgazebo_ros_imu.so">
+  <alwaysOn>true</alwaysOn>
+  <updateRate>10</updateRate>
+  <robotNamespace>/drone</robotNamespace>
+  <topicName>compass</topicName>
+  <frameName>compass_link</frameName>
+</plugin>
+</gazebo>
+
+<!-- IMU -->
+<link name="imu_link">
+<visual>
+  <geometry>
+    <box size="0.1 0.1 0.1"/>
+  </geometry>
+  <material name="Gray"/>
+</visual>
+</link>
+<joint name="imu_joint" type="fixed">
+<parent link="base_link"/>
+<child link="imu_link"/>
+<origin xyz="0 0 0.1"/>
+</joint>
+<gazebo>
+<plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+  <alwaysOn>true</alwaysOn>
+  <updateRate>10</updateRate>
+  <robotNamespace>/drone</robotNamespace>
+  <topicName>imu</topicName>
+  <frameName>imu_link</frameName>
+</plugin>
+</gazebo>
+
+<!-- Downward-Facing Camera -->
+<link name="camera_link">
+<visual>
+  <geometry>
+    <box size="0.1 0.1 0.1"/>
+  </geometry>
+  <material name="Gray"/>
+</visual>
+</link>
+<joint name="camera_joint" type="fixed">
+<parent link="base_link"/>
+<child link="camera_link"/>
+<origin xyz="0 0 -0.1"/>
+</joint>
+<gazebo reference="camera_link">
+<sensor name="camera" type="camera">
+  <pose>0 0 0 0 1.5708 0</pose> <!-- 90 degrees rotation to look downwards -->
+  <visualize>true</visualize>
+  <update_rate>30</update_rate>
+  <camera>
+    <horizontal_fov>1.047</horizontal_fov>
+    <image>
+      <width>640</width>
+      <height>480</height>
+      <format>R8G8B8</format>
+    </image>
+    <clip>
+      <near>0.1</near>
+      <far>100</far>
+    </clip>
+  </camera>
+  <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+    <alwaysOn>true</alwaysOn>
+    <updateRate>30</updateRate>
+    <cameraName>downward_camera</cameraName>
+    <frameName>camera_link</frameName>
+    <robotNamespace>/drone</robotNamespace>
+    <imageTopicName>camera/image_raw</imageTopicName>
+    <cameraInfoTopicName>camera/camera_info</cameraInfoTopicName>
+  </plugin>
+</sensor>
+</gazebo>
+
+<!-- Gazebo Plugin for Position Publishing -->
+<gazebo>
+<plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+  <alwaysOn>true</alwaysOn>
+  <updateRate>10</updateRate>
+  <bodyName>base_link</bodyName>
+  <topicName>ground_truth/state</topicName>
+  <frameName>world</frameName>
+</plugin>
+</gazebo>
+
+</robot>

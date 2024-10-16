@@ -20,9 +20,9 @@ class BlobDetector:
     def __init__(self, thr_min, thr_max, blur=15, blob_params=None, detection_window=None):
 
         # Parameters setting
-        self.set_threshold(thr_min, thr_max)
-        self.set_blur(blur)
-        self.set_blob_params(blob_params)
+        self._threshold = [thr_min, thr_max]
+        self._blur = blur
+        self._blob_params = blob_params
         self.detection_window = detection_window
 
         # Variable holding the point
@@ -207,15 +207,6 @@ class BlobDetector:
         x = (keyPoint.pt[0] - center_x) / center_x
         y = (keyPoint.pt[1] - center_y) / center_y
         return x, y
-
-    def set_threshold(self, thr_min, thr_max):
-        self._threshold = [thr_min, thr_max]
-
-    def set_blur(self, blur):
-        self._blur = blur
-
-    def set_blob_params(self, blob_params):
-        self._blob_params = blob_params
 
     def callback(self, data):
         try:

@@ -35,7 +35,7 @@ class UwbSimulation:
         # I called them tag_0 with increasing numbers
         uwb_id = 'uwb_anchor_'
 
-        # I start the listener from the package tf to get the transformation between the world frame and each tag. This was a easy way to implement id dynamically without using directly the coordinate csv file. I will retrieve the informations of the anchors directly from the simulation. 
+        # I start the listener from the package tf to get the transformation between the world frame and each tag. This was a easy way to implement id dynamically without using directly the coordinate csv file. I will retrieve the information of the anchors directly from the simulation.
         listener = tf.TransformListener()
 
         try:
@@ -83,7 +83,7 @@ class UwbSimulation:
             distances.append(dist)
             ids.append(i)
 
-        # Once the distances have been calculated these informations can be published
+        # Once the distances have been calculated these information can be published
         self.publish_data(ids, distances)
     
     def calculate_distance(self, uwb_pose):

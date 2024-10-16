@@ -65,7 +65,7 @@
 </xacro:macro>
 
 <!-- BASE-GROUND -->
-<!-- Center of main box projected to groudn -->
+<!-- Center of main box projected to ground -->
 <link name="base_ground">
     <inertial>
         <mass value="0.0001" />

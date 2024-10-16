@@ -49,3 +49,10 @@ Once inside the docker container, in order to start the simulation run the follo
 roslaunch dist_project init.launch
 ```
 It will also open a window containing the point of view of the camera of one of the unicycles and a open source software called plotjuggler. See `plotjuggler` folder for further instructions
+
+### Docker image
+
+The starting docker image can be found at the following link
+```
+https://hub.docker.com/r/marcosterlo/ubuntu/tags
+```
