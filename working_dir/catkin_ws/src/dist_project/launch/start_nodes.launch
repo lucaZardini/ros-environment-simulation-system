@@ -6,14 +6,15 @@
     <!-- ARGUMENT VALUE HOLDING THE TOTAL NUMBER OF ROBOTS, IT WILL BE PASSED FROM THE PYTHON SCRIPT -->
     <arg name="num_unicycles" default="1" />
     <arg name="num_drones" default="1" />
+    <arg name="ns" default="$(arg num_unicycles)" />
+    <arg name="nd" default="$(arg num_drones)" />
 
     <!-- UNICYCLE NODES -->
 
-    <arg name="ns" default="$(arg num_unicycles)" />
     <group ns="$(eval 'unicycle' + str(arg('ns')))">
         <!-- I CREATE THE FIRST NAMESPACE STARTING FROM THE LAST ROBOT -->
         <!-- HERE WILL BE STARTED ALL THE NECESSARY NODES FOR EACH ROBOT -->
-        
+
             <!-- NODE THAT SIMULATES THE UWB TAGS'S DISTANCE FROM EACH ROBOT -->
             <node name="uwb_dist_sim" pkg="dist_project" type="uwb_dist_sim.py" />
 
@@ -30,7 +31,7 @@
             <node name="target_estimator" pkg="dist_project" type="target_estimator.py" >
                 <param name="namespace" value="$(arg ns)" />
             </node>
-        
+
         <!-- NODE THAT IF UNCOMMENTED LAUNCH A SIMPLE TERMINAL CONTROLLER FOR THE ROBOT, USED FOR PLOTTING PURPOSES -->
         <!-- <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" /> -->
     </group>
@@ -40,19 +41,18 @@
     </include>
 
     <!-- DRONE NODES -->
-    <arg name="ns" default="$(arg num_drones)" />
-        <group ns="$(eval 'drone' + str(arg('ns')))">
+        <group ns="$(eval 'drone' + str(arg('nd')))">
             <node name="uwb_dist_sim_drone" pkg="dist_project" type="uwb_dist_sim_drone.py" />
             <node name="motion_planner_drone" pkg="dist_project" type="motion_planner_drone.py" />
             <node name="kalman_localization_drone" pkg="dist_project" type="kalman_localization_drone.py" />
             <node name="image_processing_drone" pkg="dist_project" type="image_processing_drone.py" />
             <node name="target_estimator_drone" pkg="dist_project" type="target_estimator_drone.py">
-                <param name="namespace" value="$(arg ns)" />
+                <param name="namespace" value="$(arg nd)" />
             </node>
         </group>
-        <include file="$(find dist_project)/launch/start_nodes.launch" if="$(eval arg('ns') - 1 >= 0)">
+        <include file="$(find dist_project)/launch/start_nodes.launch" if="$(eval arg('nd') - 1 >= 0)">
             <arg name="num_unicycles" value="$(arg num_unicycles)" />
-            <arg name="num_drones" value="$(eval arg('ns') - 1)" />
+            <arg name="num_drones" value="$(eval arg('nd') - 1)" />
         </include>
 
 </launch>
