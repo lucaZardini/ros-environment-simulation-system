@@ -22,8 +22,7 @@
   <param name="unicycle_coordinate_file" type="str" value="$(find dist_project)/coordinates/unicycle_coordinates.csv" />
 
   <!-- DRONE PARAMETER DEFINITION-->
-  <!--  TODO: fallo!  -->
-  <arg name="drone_model" default="$(find dist_project)/urdf/drone.urdf.xacro" />
+  <arg name="drone_model" default="$(find dist_project)/urdf/drone2.urdf.xacro" />
   <param name="drone_description" command="$(find xacro)/xacro $(arg drone_model)" />
   <param name="drone_coordinate_file" type="str" value="$(find dist_project)/coordinates/drone_coordinates.csv" />
 
@@ -50,6 +49,6 @@
   <node pkg="rqt_image_view" type="rqt_image_view" name="camera_blob_viewer" />  
 
   <!-- INITIALIZE PLOT MANAGER NODE -->
-  <node pkg="plotjuggler" type="plotjuggler" name="plotjuggler" />
+<!--   <node pkg="plotjuggler" type="plotjuggler" name="plotjuggler" /> -->
 
 </launch>

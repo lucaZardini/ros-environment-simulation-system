@@ -38,7 +38,7 @@ git clone https://github.com/Marcosterlo/Distributed_project.git
 To run the Docker container for this project, use the following command. You will need to replace `/path/to/your/local/folder` with the local folder where this GitHub repository has been cloned to.
 
 ```sh
-sudo docker run --name ubuntu_ros -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /Users/luca/Documents/university/Distributed_project:/home/marco/shared --env="DISPLAY=$DISPLAY" --privileged --shm-size 2g --rm -i -t --user=marco --workdir=/home/marco marcosterlo/ubuntu:ros bash
+sudo docker run --name ubuntu_ros -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system:/home/marco/shared --env="DISPLAY=$DISPLAY" --privileged --shm-size 2g --rm -i -t --user=marco --workdir=/home/marco marcosterlo/ubuntu:ros bash
 ```
 
 ## Usage

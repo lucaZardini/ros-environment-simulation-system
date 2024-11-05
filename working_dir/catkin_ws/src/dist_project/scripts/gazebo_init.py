@@ -98,9 +98,9 @@ def spawn_robot(x, y, id):
 
         spawn_unicycle = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
         # The arguments required are the name of the robot, the parsed robot description from the URDF file, the namespace definition, the initial pose and the parent reference frame
-        spawn_unicycle("robot_" + id,
+        spawn_unicycle("unicycle_" + id,
             unicycle_description,
-            "/robot" + id,
+            "/unicycle" + id,
             pose,
             "world"
         )
@@ -109,15 +109,14 @@ def spawn_robot(x, y, id):
         rospy.logerr("Robot " + id + " initializer failed: %s", e)
 
 
-# TODO: implement this
-def spawn_drone(x, y, id):
+def spawn_drone(x, y, z, id):
     # Same logic as before with some twist
     rospy.wait_for_service('/gazebo/spawn_urdf_model')
     try:
         pose = Pose()
         pose.position.x = x
         pose.position.y = y
-        pose.position.z = 1
+        pose.position.z = z
         pose.orientation.x = 0
         pose.orientation.y = 0
         pose.orientation.z = 0
@@ -127,7 +126,7 @@ def spawn_drone(x, y, id):
         # The arguments required are the name of the robot, the parsed robot description from the URDF file, the namespace definition, the initial pose and the parent reference frame
         spawn_drone_service("drone_" + id,
             drone_description,
-            "/drone" + id, # TODO: check if this is correct
+            "/drone" + id,
             pose,
             "world"
         )
@@ -234,9 +233,10 @@ if __name__ == "__main__":
         # I call the function for each line (unicycle)
         spawn_robot(pos[0], pos[1], str(i))
 
-    for i, pos in enumerate(unicycle_positions):
-        # I call the function for each line (unicycle)
-        spawn_drone(pos[0], pos[1], str(i))
+    for i, pos in enumerate(drone_positions):
+        # I call the function for each line (drone)
+        print(pos)
+        spawn_drone(pos[0], pos[1], pos[2], str(i))
 
     # Tf publishing 
     broadcaster = tf2_ros.StaticTransformBroadcaster()

@@ -1,0 +1,52 @@
+<!-- GPS sensor -->
+<link name="gps_link">
+    <pose>0 0 -0.15 0 0 0</pose>
+    <visual>
+        <geometry>
+            <sphere>
+                <radius>0.02</radius>
+            </sphere>
+        </geometry>
+        <material>
+            <ambient>0.2 0.2 0.8 1</ambient>
+        </material>
+    </visual>
+    <collision>
+        <geometry>
+            <sphere>
+                <radius>0.02</radius>
+            </sphere>
+        </geometry>
+    </collision>
+    <inertial>
+        <mass>0.01</mass> <!-- Small mass for the GPS -->
+        <inertia>
+            <ixx>0.00001</ixx>
+            <iyy>0.00001</iyy>
+            <izz>0.00001</izz>
+        </inertia>
+    </inertial>
+</link>
+
+<joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="0 0 -0.15" rpy="0 0 0"/> <!-- Adjust as necessary to attach to base -->
+</joint>
+
+<gazebo reference="gps_link">
+    <sensor type="gps" name="gps_sensor">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>5.0</updateRate> <!-- Set as needed -->
+        <plugin name="gps_plugin" filename="libgazebo_ros_gps.so">
+            <ros>
+                <namespace>/drone</namespace>
+                <remapping>odom:=gps</remapping>
+            </ros>
+            <gpsNoise>
+                <horizontal>1.0</horizontal> <!-- GPS noise parameters -->
+                <vertical>1.0</vertical>
+            </gpsNoise>
+        </plugin>
+    </sensor>
+</gazebo>

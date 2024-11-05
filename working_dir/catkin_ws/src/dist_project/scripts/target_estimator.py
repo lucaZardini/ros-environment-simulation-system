@@ -261,7 +261,8 @@ if __name__ == '__main__':
     # Parameters import
     rate_val = rospy.get_param("/target_estimator_rate")
     id = rospy.get_param('~namespace')
-    namespace = "robot" + str(id)
+    # TODO: change it
+    namespace = "unicycle" + str(id)
 
     # Class initialization
     target_estimator = TargetEstimator(namespace)

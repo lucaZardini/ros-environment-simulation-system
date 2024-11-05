@@ -26,6 +26,7 @@ if __name__ == "__main__":
     target_topics = []
 
     # Topic list creation
+    # TODO: change it to a more general way
     for i in range(n_robots):
         id = "robot" + str(i)
         gt_topics.append("/" + id + "/ground_truth/state")
