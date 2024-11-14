@@ -1,5 +1,6 @@
 import rospy
 from geometry_msgs.msg import Twist, Point, Pose
+from enum import Enum
 
 # Constants
 TARGET_REACHED_Y_THRESHOLD = -0.5
@@ -15,6 +16,13 @@ TURN_SPEED = 0.5
 # APPROACH -> In this state the robot approaches the target and corrects the orientation with a simple PID controller
 # TARGET_REACHED -> In this state the robots stops moving and starts publishing the target height seen from its own point of view in its own camera reference frame
 
+class RobotState(Enum):
+    INIT = "INIT"
+    SEARCH = "SEARCH"
+    APPROACH = "APPROACH"
+    TARGET_REACHED = "TARGET_REACHED"
+
+
 class MotionPlanner:
 
     def __init__(self):
@@ -22,7 +30,7 @@ class MotionPlanner:
         # Variable to hold the target height
         self.target_height = 0
         # Variable to hold current state
-        self.current_state = "INIT"
+        self.current_state = RobotState.INIT
         # Variables for PD control
         self.integral = 0
         self.previous_error = 0
@@ -41,7 +49,7 @@ class MotionPlanner:
     
     def init_callback(self, data):
         # In this simple callback we unregister from the init_move topic and switch the state, it will be invoked only once
-        self.current_state = "SEARCH"
+        self.current_state = RobotState.SEARCH
         self.init_sub.unregister()
 
     def blob_callback(self, data):
@@ -51,11 +59,11 @@ class MotionPlanner:
         error = -x
 
         # We act only if we are currently searching or moving towards a target
-        if self.current_state == "SEARCH" or self.current_state == "APPROACH":
+        if self.current_state == RobotState.SEARCH or self.current_state == RobotState.APPROACH:
             # The robot stops moving towards the target once it is close enough, this is translated in the y coordinate of the target being above a certain value chosen a priori, the sign is inverted since we are referring to the camera reference frame
             if y < TARGET_REACHED_Y_THRESHOLD:
                 # State switch
-                self.current_state = "TARGET_REACHED"
+                self.current_state = RobotState.TARGET_REACHED
                 # Update of variable holding target_height
                 self.target_height = y
                 self.sub.unregister()
@@ -63,7 +71,7 @@ class MotionPlanner:
                 self.pub_target = rospy.Publisher("target_height", Point, queue_size=1)
             else:
                 # If the robot is not close enough we are still approaching the target
-                self.current_state = "APPROACH"
+                self.current_state = RobotState.APPROACH
                 # I call a function that holds the control logic of a simple PID controller
                 self.move_towards_target(error)
     
@@ -93,14 +101,14 @@ class MotionPlanner:
     
     # This is the finite state machine controller that will be invoked continously
     def execute_state_machine(self):
-        if self.current_state == "INIT":
+        if self.current_state == RobotState.INIT:
             # This is the command to slowly move forward until we have a good estimate of the orientation
             self.publish_velocity(0.1, 0)
-        elif self.current_state == "SEARCH":
+        elif self.current_state == RobotState.SEARCH:
             # If the robot is still searching for a target it's only commanded to turn on the spot
             self.publish_velocity(0, TURN_SPEED)
-        elif self.current_state == "TARGET_REACHED":
-            # If the target is reached the robot stops and continuosly publishes the target height
+        elif self.current_state == RobotState.TARGET_REACHED:
+            # If the target is reached, the robot stops and continuously publishes the target height
             self.publish_velocity(0, 0)
             message = Point()
             message.z = self.target_height
@@ -125,6 +133,8 @@ if __name__ == "__main__":
             # Main loop where the finite state machine controller is invoked
             motion_planner.execute_state_machine()
             rate.sleep()
+    except rospy.ROSInterruptException:
+        rospy.loginfo("Program shutdown: Motion planner node interrupted")
     except rospy.ROSInternalException:
         rospy.loginfo("Motion planner node interrupted")
 

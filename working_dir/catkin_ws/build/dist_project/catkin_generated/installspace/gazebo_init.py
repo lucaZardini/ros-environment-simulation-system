@@ -9,7 +9,7 @@ import tf2_ros
 import time
 import roslaunch
 
-# Import parameters defined in deploy.launch
+# Import parameters defined in init.launch
 
 # Tag parameters import
 z_height = rospy.get_param("tag_height")
@@ -25,8 +25,12 @@ target_sdf_file = rospy.get_param("target_sdf_file")
 room_sdf_file = rospy.get_param("room_sdf_file")
 
 # Unicycle parameters import
-robot_file_dir = rospy.get_param("robot_coordinate_file")
-robot_description = rospy.get_param("robot_description")
+unicycle_file_dir = rospy.get_param("unicycle_coordinate_file")
+unicycle_description = rospy.get_param("unicycle_description")
+
+# Drone parameters import
+drone_file_dir = rospy.get_param("drone_coordinate_file")
+drone_description = rospy.get_param("drone_description")
 
 # General parameters import
 init_time = rospy.get_param("/initialization_time")
@@ -94,15 +98,41 @@ def spawn_robot(x, y, id):
 
         spawn_unicycle = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
         # The arguments required are the name of the robot, the parsed robot description from the URDF file, the namespace definition, the initial pose and the parent reference frame
-        spawn_unicycle("robot_" + id,
-            robot_description, 
-            "/robot" + id,
+        spawn_unicycle("unicycle_" + id,
+            unicycle_description,
+            "/unicycle" + id,
             pose,
             "world"
         )
 
     except rospy.ServiceException as e:
         rospy.logerr("Robot " + id + " initializer failed: %s", e)
+
+
+def spawn_drone(x, y, z, id):
+    # Same logic as before with some twist
+    rospy.wait_for_service('/gazebo/spawn_urdf_model')
+    try:
+        pose = Pose()
+        pose.position.x = x
+        pose.position.y = y
+        pose.position.z = z
+        pose.orientation.x = 0
+        pose.orientation.y = 0
+        pose.orientation.z = 0
+        pose.orientation.w = 0
+
+        spawn_drone_service = rospy.ServiceProxy('/gazebo/spawn_urdf_model', SpawnModel)
+        # The arguments required are the name of the robot, the parsed robot description from the URDF file, the namespace definition, the initial pose and the parent reference frame
+        spawn_drone_service("drone_" + id,
+            drone_description,
+            "/drone" + id,
+            pose,
+            "world"
+        )
+
+    except rospy.ServiceException as e:
+        rospy.logerr("Drone robot " + id + " initializer failed: %s", e)
 
 def spawn_room():
     # Same logic as before but simplier
@@ -167,13 +197,21 @@ if __name__ == "__main__":
             target_positions.append(row)
 
     # List to add the robots' initial coordinates read from csv file
-    robot_positions = []
-    with open(robot_file_dir, 'r') as f:
+    unicycle_positions = []
+    with open(unicycle_file_dir, 'r') as f:
         csvreader = csv.reader(f) 
         for row in csvreader:
             # I cast to float each coordinate value
             row = [float(x) for x in row]
-            robot_positions.append(row)
+            unicycle_positions.append(row)
+
+    # List to add the drone' initial coordinates read from csv file
+    drone_positions = []
+    with open(drone_file_dir, 'r') as f:
+        csvreader = csv.reader(f)
+        for row in csvreader:
+            row = [float(x) for x in row]
+            drone_positions.append(row)
 
     # Initialization of the node
     rospy.init_node("gazebo_initializer_node")
@@ -191,22 +229,29 @@ if __name__ == "__main__":
         # I call the function for each line (target)
         spawn_target(pos[0], pos[1], str(i))
 
-    for i, pos in enumerate(robot_positions):
-        # I call the function for each line (robot)
+    for i, pos in enumerate(unicycle_positions):
+        # I call the function for each line (unicycle)
         spawn_robot(pos[0], pos[1], str(i))
+
+    for i, pos in enumerate(drone_positions):
+        # I call the function for each line (drone)
+        print(pos)
+        spawn_drone(pos[0], pos[1], pos[2], str(i))
 
     # Tf publishing 
     broadcaster = tf2_ros.StaticTransformBroadcaster()
 
     time.sleep(init_time)
 
-    # The next piece of code is used to recursively launch a launch file that initialize all the nodes with respect to each robot. 
-    # I run it here directly so to create the correct and dynamic number of nodes and namespace with respect to the number of robots in the csv file\
+    # The next piece of code is used to recursively launch a launch file that initialize all the nodes with respect to each unicycle robot.
+    # I run it here directly so to create the correct and dynamic number of nodes and namespace with respect to the number of unicycle robots in the csv file\
     uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
     roslaunch.configure_logging(uuid)
 
-    # I specify the path of the new launch file and the argument corresponding to the total number of robots
-    launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_nodes.launch', 'ns:=' + str(len(robot_positions) - 1)]
+    # I specify the path of the new launch file and the argument corresponding to the total number of unicycle robots
+    launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_nodes.launch',
+                       'num_unicycles:=' + str(len(unicycle_positions) - 1),
+                       'num_drones:=' + str(len(drone_positions) - 1)]
     roslaunch_args = launch_argument[1:]
     roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(launch_argument)[0], roslaunch_args)]
     launch = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
