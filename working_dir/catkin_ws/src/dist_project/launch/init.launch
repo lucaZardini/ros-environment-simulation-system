@@ -22,7 +22,7 @@
   <param name="unicycle_coordinate_file" type="str" value="$(find dist_project)/coordinates/unicycle_coordinates.csv" />
 
   <!-- DRONE PARAMETER DEFINITION-->
-  <arg name="drone_model" default="$(find dist_project)/urdf/drone_gps2_camera.urdf.xacro" />
+  <arg name="drone_model" default="$(find dist_project)/urdf/drone_gps2_camera_sonar.urdf.xacro" />
   <param name="drone_description" command="$(find xacro)/xacro $(arg drone_model)" />
   <param name="drone_coordinate_file" type="str" value="$(find dist_project)/coordinates/drone_coordinates.csv" />
 

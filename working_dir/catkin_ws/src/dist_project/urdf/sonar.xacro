@@ -4,10 +4,10 @@
   <!-- LV-MaxSonar-EZ3 MB1030 -->
   <xacro:macro
     name="Sonar_MB1030"
-    params="namespace parent_link"L>
+    params="parent_link">
     <!-- params="namespace parent_link *origin"> -->
     <xacro:sonar_plugin_macro
-      namespace="${namespace}"
+      namespace=""
       parent_link="${parent_link}"
       mass="0.0043"
       min_range="0.381"
@@ -41,7 +41,7 @@
       ">
 
     <!-- sonar link -->
-    <link name="${namespace}/sonar_link">
+    <link name="sonar_link">
       <inertial>
         <mass value="${mass}"/>
         <xacro:insert_block name="origin"/>
@@ -50,16 +50,15 @@
     </link>
 
     <!-- sonar joint -->
-    <joint name="${namespace}/sonar_joint" type="fixed">
-      <xacro:insert_block name="origin"/>
-      <parent link="${parent_link}"/>
-      <child link="${namespace}/sonar_link"/>
+    <joint name="sonar_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/> <parent link="base_link"/>
+      <child link="sonar_link"/>
       <limit upper="0" lower="0" effort="0" velocity="0"/>
     </joint>
 
     <!-- attach a sonar -->
-    <gazebo reference="${namespace}/sonar_link">
-      <sensor type="ray" name="${namespace}/sonar">
+    <gazebo reference="sonar_link">
+      <sensor type="ray" name="sonar">
         <ray>
           <scan>
             <horizontal>
@@ -83,8 +82,7 @@
         </ray>
 
         <!-- load range plugin -->
-        <plugin filename="libhector_gazebo_ros_sonar.so" name="${namespace}_sonar">
-          <robotNamespace>${namespace}</robotNamespace>
+        <plugin filename="libhector_gazebo_ros_sonar.so" name="sonar">
           <gaussianNoise>${noise}</gaussianNoise>
           <updateRate>${update_rate}</updateRate>
           <topicName>sonar</topicName>
