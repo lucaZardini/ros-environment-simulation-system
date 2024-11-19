@@ -1,3 +1,5 @@
+import random
+
 import rospy
 from geometry_msgs.msg import Wrench, Point, Pose
 from sensor_msgs.msg import NavSatFix
@@ -5,12 +7,13 @@ from enum import Enum
 
 # Constants
 TARGET_REACHED_Y_THRESHOLD = -0.5
-PID_KP = 1.5
-PID_KI = 0
-PID_KD = 0.1
+PID_KP = 3.5
+PID_KI = 0.1
+PID_KD = 0.2
 FORWARD_SPEED = 0.2
 TURN_SPEED = 0.5
-TARGET_ALTITUDE = 0.5
+TARGET_ALTITUDE = 2.5
+RATE = 10
 
 # The idea was to create a finite state machine that switch between
 # INIT -> the robot goes forward in one direction for a given amount of time until the estimation of its orientation is good enough since we don't have previous information on it
@@ -27,6 +30,7 @@ class AltitudeStabilizer:
         # Variables for PD control
         self.integral = 0
         self.previous_error = 0
+        self.target_reached = False
 
         # Topic to publish control input
         self.pub = rospy.Publisher("vertical_lift_force", Wrench, queue_size=1)
@@ -40,19 +44,37 @@ class AltitudeStabilizer:
         x, y, altitude = data.latitude, data.longitude, data.altitude
 
         error = TARGET_ALTITUDE - altitude
+        # self.stabilize_altitude(error)
+
+        if error > 0:
+            self.publish_force(14.7 + 0.05)
+        else:
+            self.publish_force(14.7 - 0.05)
+        # else:
+        #     force = 14.7 + random.uniform(-0.1, 0.1)
+        #     self.publish_force(force)
 
         # I call a function that holds the control logic of a simple PID controller
-        self.stabilize_altitude(error)
-    
+
     def stabilize_altitude(self, error: float):
         # This functions manages the control input of the robot, it just takes as input the error
         
         # Update integral and derivative values
-        self.integral += error
-        derivative = error - self.previous_error
+        dt = 1.0 / RATE
+        self.integral += error * dt
+        # integral_limit = 100
+        # self.integral = min(max(self.integral, -integral_limit), integral_limit)
+        # self.integral = self.integral * 0.9  # Gradually reduce integral action
+
+        derivative = (error - self.previous_error) / dt
 
         # Simple logic
         control_input = PID_KP * error + PID_KI * self.integral + PID_KD * derivative
+
+        # max_thrust = 13.7 + 5.0  # Maximum force you can apply
+        # min_thrust = 13.7 + 0.0  # Minimum force you can apply
+        # control_input = max(min(control_input, max_thrust), min_thrust)
+
         # Update of previous error with the current value
         self.previous_error = error
 
@@ -77,7 +99,7 @@ if __name__ == "__main__":
     rospy.init_node("altitude_stabilizer_drone", anonymous=True)
 
     # Parameters import
-    rate_val = 1
+    rate_val = RATE
 
     # Class initialilzation
     altitude_stabilizer = AltitudeStabilizer()
