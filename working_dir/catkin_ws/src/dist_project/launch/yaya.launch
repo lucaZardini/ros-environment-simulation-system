@@ -1,0 +1,37 @@
+<!-- RECURSIVE LAUNCH FILE TO INITIALIZE ALL THE NODES IN THE CORRECT NAMESPACE -->
+
+<!-- TODO: check if the recursion is correct -->
+<launch>
+<group ns="drone0">
+<arg name="drone_model" default="/home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_description/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro" />
+
+<param name="robot_description" command="$(find xacro)/xacro '$(arg drone_model)' base_link_frame:=base_link world_frame:=world" />
+
+
+<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
+    <param name="publish_frequency" type="double" value="50.0"  />
+<!--                 <param name="robot_description" value="$(arg robot_description)" /> -->
+</node>
+
+
+<node name="ground_truth_to_tf" pkg="message_to_tf" type="message_to_tf" output="screen">
+<param name="odometry_topic" value="ground_truth/state" />
+<param name="frame_id" value="world" />
+<param name="tf_prefix" value="" />
+</node>
+
+
+
+<group>
+<param name="controller/state_topic" value="" />
+<param name="controller/imu_topic" value="" />
+</group>
+<include file= "$(find hector_quadrotor_controller)/launch/controller.launch" />
+
+<arg name="motors" default="robbe_2827-34_epp1045" />
+<rosparam command="load" file="$(find hector_quadrotor_model)/param/quadrotor_aerodynamics.yaml" />
+<rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
+
+
+</group>
+</launch>
