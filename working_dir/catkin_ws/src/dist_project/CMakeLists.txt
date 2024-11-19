@@ -167,6 +167,7 @@ catkin_install_python(PROGRAMS
   scripts/image_processing.py
   scripts/target_estimator.py
   scripts/altitude_stabilizer_drone.py
+  scripts/initialize_robot.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

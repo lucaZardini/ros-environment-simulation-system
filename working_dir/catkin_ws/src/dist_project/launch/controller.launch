@@ -2,10 +2,15 @@
 
 <!-- TODO: check if the recursion is correct -->
 <launch>
-<group ns="drone0">
+
+<arg name="num_drones" default="1" />
+<arg name="nd" default="$(arg num_drones)" />
+<group ns="$(eval 'drone' + str(arg('nd') - 1 ))">
+
 <arg name="drone_model" default="/home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_description/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro" />
 
 <param name="robot_description" command="$(find xacro)/xacro '$(arg drone_model)' base_link_frame:=base_link world_frame:=world" />
+<param name="drone_description" command="$(find xacro)/xacro '$(arg drone_model)' base_link_frame:=base_link world_frame:=world" />
 
 
 <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" >
@@ -31,7 +36,10 @@
 <arg name="motors" default="robbe_2827-34_epp1045" />
 <rosparam command="load" file="$(find hector_quadrotor_model)/param/quadrotor_aerodynamics.yaml" />
 <rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
-
-
 </group>
+
+<include file="$(find dist_project)/launch/controller.launch" if="$(eval arg('nd') - 1 > 0)">
+    <arg name="num_drones" value="$(eval arg('nd') - 1)" />
+</include>
+
 </launch>

@@ -199,7 +199,7 @@ if __name__ == "__main__":
     # List to add the robots' initial coordinates read from csv file
     unicycle_positions = []
     with open(unicycle_file_dir, 'r') as f:
-        csvreader = csv.reader(f) 
+        csvreader = csv.reader(f)
         for row in csvreader:
             # I cast to float each coordinate value
             row = [float(x) for x in row]

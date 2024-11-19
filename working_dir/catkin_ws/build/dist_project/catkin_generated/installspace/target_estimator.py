@@ -185,7 +185,7 @@ class TargetEstimator:
             self.robot_tags.append(data)
 
         # When the list contains at least 2 different tags from 2 robots it estimates the target position
-        if (len(self.robot_tags) >= 2):        
+        if len(self.robot_tags) >= 2:
             
             # lines will be a list of tuples containing the slope and y intercept of the direction line of each robot
             slopes = []

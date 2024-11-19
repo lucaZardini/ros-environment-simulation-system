@@ -115,6 +115,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/altitude_stabilizer_drone.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/gazebo_init.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/image_processing.py"
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/initialize_robot.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/kalman_localization.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/motion_planner.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/target_estimator.py"
