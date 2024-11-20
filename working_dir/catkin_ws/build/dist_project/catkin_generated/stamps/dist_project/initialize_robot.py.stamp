@@ -17,8 +17,8 @@ class RobotInitializer:
         self.drone_height = drone_height
         self.unicycle_speed = unicycle_speed
         self.drone_speed = drone_speed
-        self.run_initialization()
         self.pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
+        self.run_initialization()
 
         # self.sub = rospy.Subscriber("fix", NavSatFix, self.gps_callback)  # TODO: rename
 

@@ -5,7 +5,8 @@
 <arg name="num_drones" default="1" />
 <arg name="nd" default="$(arg num_drones)" />
 <group ns="$(eval 'drone' + str(arg('nd') - 1 ))">
-<node name="robot_initializer_node" pkg="dist_project" type="initialize_robot.py" /> -->
+    <node name="robot_initializer_node" pkg="dist_project" type="initialize_robot.py" />
+    <node name="uwb_simulation_3d" pkg="dist_project" type="uwb_dist_sim_3d.py" /> -->
 </group>
 <include file="$(find dist_project)/launch/run_execution.launch" if="$(eval arg('nd') - 1 > 0)">
     <arg name="num_drones" value="$(eval arg('nd') - 1)" />
