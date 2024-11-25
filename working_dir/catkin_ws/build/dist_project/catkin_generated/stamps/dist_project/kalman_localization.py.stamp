@@ -132,7 +132,7 @@ class KalmanEstimator:
         # I define the Kalman gain as the matrix W
         W = (self.sigma @ H.T) @ S_inv
 
-        # Maen vector update
+        # Mean vector update
         self.mu = self.mu + W @ (np.array(Z) - np.array(expected_distances))
 
         # Sigma vector update

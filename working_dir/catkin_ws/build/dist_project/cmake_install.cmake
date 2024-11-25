@@ -127,3 +127,15 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/uwb_dist_sim_3d.py")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/image_processing_drone.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/gps_translation.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/kalman_localization_3d.py")
+endif()
+
