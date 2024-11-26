@@ -170,7 +170,7 @@ catkin_install_python(PROGRAMS
   scripts/initialize_robot.py
   scripts/uwb_dist_sim_3d.py
   scripts/image_processing_drone.py
-  scripts/gps_translation.py
+  scripts/gps_to_coordinate.py
   scripts/kalman_localization_3d.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

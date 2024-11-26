@@ -114,7 +114,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/package.xml"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/altitude_stabilizer_drone.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/gazebo_init.py"
-  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/gps_translation.py"
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/gps_to_coordinate.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/image_processing.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/image_processing_drone.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/initialize_robot.py"

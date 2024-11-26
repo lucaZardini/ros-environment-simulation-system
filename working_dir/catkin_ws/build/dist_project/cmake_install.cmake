@@ -132,7 +132,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/gps_translation.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/gps_to_coordinate.py")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
