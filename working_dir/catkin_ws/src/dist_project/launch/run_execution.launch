@@ -9,6 +9,7 @@
     <node name="uwb_simulation_3d" pkg="dist_project" type="uwb_dist_sim_3d.py" /> -->
     <node name="image_processing_drone" pkg="dist_project" type="image_processing_drone.py" /> -->
     <node name="gps_conversion" pkg="dist_project" type="gps_to_coordinate.py" /> -->
+    <node name="kalman_localization" pkg="dist_project" type="kalman_localization_3d.py" />
 </group>
 <include file="$(find dist_project)/launch/run_execution.launch" if="$(eval arg('nd') - 1 > 0)">
     <arg name="num_drones" value="$(eval arg('nd') - 1)" />
