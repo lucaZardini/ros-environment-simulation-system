@@ -55,6 +55,8 @@ include dist_project/CMakeFiles/dist_project_generate_messages_nodejs.dir/progre
 
 dist_project/CMakeFiles/dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/uwb_data.js
 dist_project/CMakeFiles/dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/robot_data.js
+dist_project/CMakeFiles/dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_data.js
+dist_project/CMakeFiles/dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_assignment_data.js
 
 
 /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/uwb_data.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
@@ -67,9 +69,21 @@ dist_project/CMakeFiles/dist_project_generate_messages_nodejs: /home/marco/share
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from dist_project/robot_data.msg"
 	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg
 
+/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_data.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_data.js: /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from dist_project/target_data.msg"
+	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg
+
+/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_assignment_data.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_assignment_data.js: /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from dist_project/target_assignment_data.msg"
+	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg
+
 dist_project_generate_messages_nodejs: dist_project/CMakeFiles/dist_project_generate_messages_nodejs
 dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/uwb_data.js
 dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/robot_data.js
+dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_data.js
+dist_project_generate_messages_nodejs: /home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_assignment_data.js
 dist_project_generate_messages_nodejs: dist_project/CMakeFiles/dist_project_generate_messages_nodejs.dir/build.make
 
 .PHONY : dist_project_generate_messages_nodejs

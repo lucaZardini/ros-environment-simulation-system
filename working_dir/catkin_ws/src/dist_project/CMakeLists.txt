@@ -52,6 +52,7 @@ add_message_files(
   uwb_data.msg
   robot_data.msg
   target_data.msg
+  target_assignment_data.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -172,6 +173,7 @@ catkin_install_python(PROGRAMS
   scripts/image_processing_drone.py
   scripts/gps_to_coordinate.py
   scripts/kalman_localization_3d.py
+  scripts/motion_planner_drone.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

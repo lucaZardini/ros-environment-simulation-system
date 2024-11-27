@@ -24,17 +24,17 @@ add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg" "geographic_msgs/WayPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature:geographic_msgs/GeoPoint:uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/GeographicMap"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg" "std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/GeographicMap:geographic_msgs/WayPoint:uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg" "geographic_msgs/WayPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature:geographic_msgs/GeoPoint:uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg" "std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/WayPoint:uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint:geographic_msgs/GeoPose:std_msgs/Header:geographic_msgs/GeoPoseStamped"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg" "std_msgs/Header:geometry_msgs/Quaternion:geographic_msgs/GeoPoseStamped:geographic_msgs/GeoPoint:geographic_msgs/GeoPose"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg" NAME_WE)
@@ -49,22 +49,22 @@ add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg" "geographic_msgs/GeoPoint:geometry_msgs/Quaternion"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg" "geographic_msgs/GeoPose:geometry_msgs/Quaternion:geographic_msgs/GeoPoint"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint:geographic_msgs/GeoPose"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg" "geographic_msgs/GeoPose:std_msgs/Header:geometry_msgs/Quaternion:geographic_msgs/GeoPoint"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint:std_msgs/Header:geographic_msgs/GeoPose"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint:geographic_msgs/GeoPose:std_msgs/Header:geographic_msgs/GeoPoseWithCovariance"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg" "std_msgs/Header:geographic_msgs/GeoPoseWithCovariance:geographic_msgs/GeoPoint:geographic_msgs/GeoPose:geometry_msgs/Quaternion"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg" NAME_WE)
@@ -79,12 +79,12 @@ add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg" "geographic_msgs/WayPoint:geographic_msgs/BoundingBox:geographic_msgs/RouteSegment:geographic_msgs/GeoPoint:uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg" "std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/RouteSegment:geographic_msgs/WayPoint:uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/BoundingBox"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg" "uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg" "std_msgs/Header:uuid_msgs/UniqueID:geographic_msgs/KeyValue"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg" NAME_WE)
@@ -94,27 +94,27 @@ add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg" "uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/KeyValue"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg" "geographic_msgs/GeoPoint:uuid_msgs/UniqueID:geographic_msgs/KeyValue"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv" "geographic_msgs/WayPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature:geographic_msgs/GeoPoint:uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/GeographicMap"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv" "std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/GeographicMap:geographic_msgs/WayPoint:uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv" "geometry_msgs/Quaternion:geographic_msgs/GeoPoint:geographic_msgs/GeoPath:uuid_msgs/UniqueID:geographic_msgs/GeoPose:std_msgs/Header:geographic_msgs/GeoPoseStamped"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv" "std_msgs/Header:geographic_msgs/GeoPath:uuid_msgs/UniqueID:geometry_msgs/Quaternion:geographic_msgs/GeoPoseStamped:geographic_msgs/GeoPoint:geographic_msgs/GeoPose"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv" "uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/RoutePath:geographic_msgs/KeyValue"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv" "std_msgs/Header:uuid_msgs/UniqueID:geographic_msgs/KeyValue:geographic_msgs/RoutePath"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv" NAME_WE)
 add_custom_target(_geographic_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv" "geographic_msgs/WayPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature:geographic_msgs/GeoPoint:uuid_msgs/UniqueID:std_msgs/Header:geographic_msgs/KeyValue:geographic_msgs/GeographicMapChanges:geographic_msgs/GeographicMap"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "geographic_msgs" "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv" "std_msgs/Header:geographic_msgs/GeographicMapChanges:geographic_msgs/GeographicMap:geographic_msgs/KeyValue:geographic_msgs/WayPoint:uuid_msgs/UniqueID:geographic_msgs/GeoPoint:geographic_msgs/BoundingBox:geographic_msgs/MapFeature"
 )
 
 #
@@ -132,19 +132,19 @@ _generate_msg_cpp(geographic_msgs
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
@@ -162,25 +162,25 @@ _generate_msg_cpp(geographic_msgs
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
@@ -198,13 +198,13 @@ _generate_msg_cpp(geographic_msgs
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_cpp(geographic_msgs
@@ -216,7 +216,7 @@ _generate_msg_cpp(geographic_msgs
 _generate_msg_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 
@@ -224,25 +224,25 @@ _generate_msg_cpp(geographic_msgs
 _generate_srv_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_cpp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/geographic_msgs
 )
 
@@ -317,19 +317,19 @@ _generate_msg_eus(geographic_msgs
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
@@ -347,25 +347,25 @@ _generate_msg_eus(geographic_msgs
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
@@ -383,13 +383,13 @@ _generate_msg_eus(geographic_msgs
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_eus(geographic_msgs
@@ -401,7 +401,7 @@ _generate_msg_eus(geographic_msgs
 _generate_msg_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 
@@ -409,25 +409,25 @@ _generate_msg_eus(geographic_msgs
 _generate_srv_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_eus(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/geographic_msgs
 )
 
@@ -502,19 +502,19 @@ _generate_msg_lisp(geographic_msgs
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
@@ -532,25 +532,25 @@ _generate_msg_lisp(geographic_msgs
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
@@ -568,13 +568,13 @@ _generate_msg_lisp(geographic_msgs
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_lisp(geographic_msgs
@@ -586,7 +586,7 @@ _generate_msg_lisp(geographic_msgs
 _generate_msg_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 
@@ -594,25 +594,25 @@ _generate_msg_lisp(geographic_msgs
 _generate_srv_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_lisp(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/geographic_msgs
 )
 
@@ -687,19 +687,19 @@ _generate_msg_nodejs(geographic_msgs
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
@@ -717,25 +717,25 @@ _generate_msg_nodejs(geographic_msgs
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
@@ -753,13 +753,13 @@ _generate_msg_nodejs(geographic_msgs
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_nodejs(geographic_msgs
@@ -771,7 +771,7 @@ _generate_msg_nodejs(geographic_msgs
 _generate_msg_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 
@@ -779,25 +779,25 @@ _generate_msg_nodejs(geographic_msgs
 _generate_srv_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_nodejs(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/geographic_msgs
 )
 
@@ -872,19 +872,19 @@ _generate_msg_py(geographic_msgs
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
@@ -902,25 +902,25 @@ _generate_msg_py(geographic_msgs
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovarianceStamped.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseWithCovariance.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
@@ -938,13 +938,13 @@ _generate_msg_py(geographic_msgs
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteNetwork.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RouteSegment.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_msg_py(geographic_msgs
@@ -956,7 +956,7 @@ _generate_msg_py(geographic_msgs
 _generate_msg_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 
@@ -964,25 +964,25 @@ _generate_msg_py(geographic_msgs
 _generate_srv_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetGeoPath.srv"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPath.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoseStamped.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/GetRoutePlan.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/RoutePath.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 _generate_srv_py(geographic_msgs
   "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/srv/UpdateGeographicMap.srv"
   "${MSG_I_FLAGS}"
-  "/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMapChanges.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeographicMap.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/KeyValue.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/WayPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/unique_identifier/uuid_msgs/msg/UniqueID.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/GeoPoint.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/BoundingBox.msg;/home/marco/shared/working_dir/catkin_ws/src/geographic_info/geographic_msgs/msg/MapFeature.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/geographic_msgs
 )
 

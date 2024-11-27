@@ -22,6 +22,8 @@
   <param name="unicycle_coordinate_file" type="str" value="$(find dist_project)/coordinates/unicycle_coordinates.csv" />
 
   <!-- DRONE PARAMETER DEFINITION-->
+<!--   <rosparam file="$(find dist_project)/params/drone_simulation.yaml" command="load" /> -->
+
   <arg name="drone_model" default="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro" />
   <param name="drone_description" command="$(find xacro)/xacro $(arg drone_model)" />
   <param name="drone_coordinate_file" type="str" value="$(find dist_project)/coordinates/drone_coordinates.csv" />

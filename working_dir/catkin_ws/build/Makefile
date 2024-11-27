@@ -1403,6 +1403,32 @@ geographic_msgs_generate_messages_eus/fast:
 .PHONY : geographic_msgs_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named dist_project_genpy
+
+# Build rule for target.
+dist_project_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dist_project_genpy
+.PHONY : dist_project_genpy
+
+# fast build rule for target.
+dist_project_genpy/fast:
+	$(MAKE) -f dist_project/CMakeFiles/dist_project_genpy.dir/build.make dist_project/CMakeFiles/dist_project_genpy.dir/build
+.PHONY : dist_project_genpy/fast
+
+#=============================================================================
+# Target rules for targets named dist_project_generate_messages_py
+
+# Build rule for target.
+dist_project_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dist_project_generate_messages_py
+.PHONY : dist_project_generate_messages_py
+
+# fast build rule for target.
+dist_project_generate_messages_py/fast:
+	$(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build
+.PHONY : dist_project_generate_messages_py/fast
+
+#=============================================================================
 # Target rules for targets named dist_project_generate_messages
 
 # Build rule for target.
@@ -1440,6 +1466,32 @@ dist_project_generate_messages_lisp: cmake_check_build_system
 dist_project_generate_messages_lisp/fast:
 	$(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_lisp.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_lisp.dir/build
 .PHONY : dist_project_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named _dist_project_generate_messages_check_deps_target_data
+
+# Build rule for target.
+_dist_project_generate_messages_check_deps_target_data: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _dist_project_generate_messages_check_deps_target_data
+.PHONY : _dist_project_generate_messages_check_deps_target_data
+
+# fast build rule for target.
+_dist_project_generate_messages_check_deps_target_data/fast:
+	$(MAKE) -f dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/build.make dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/build
+.PHONY : _dist_project_generate_messages_check_deps_target_data/fast
+
+#=============================================================================
+# Target rules for targets named _dist_project_generate_messages_check_deps_target_assignment_data
+
+# Build rule for target.
+_dist_project_generate_messages_check_deps_target_assignment_data: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _dist_project_generate_messages_check_deps_target_assignment_data
+.PHONY : _dist_project_generate_messages_check_deps_target_assignment_data
+
+# fast build rule for target.
+_dist_project_generate_messages_check_deps_target_assignment_data/fast:
+	$(MAKE) -f dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/build.make dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/build
+.PHONY : _dist_project_generate_messages_check_deps_target_assignment_data/fast
 
 #=============================================================================
 # Target rules for targets named dist_project_generate_messages_eus
@@ -1544,32 +1596,6 @@ dist_project_gennodejs: cmake_check_build_system
 dist_project_gennodejs/fast:
 	$(MAKE) -f dist_project/CMakeFiles/dist_project_gennodejs.dir/build.make dist_project/CMakeFiles/dist_project_gennodejs.dir/build
 .PHONY : dist_project_gennodejs/fast
-
-#=============================================================================
-# Target rules for targets named dist_project_generate_messages_py
-
-# Build rule for target.
-dist_project_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dist_project_generate_messages_py
-.PHONY : dist_project_generate_messages_py
-
-# fast build rule for target.
-dist_project_generate_messages_py/fast:
-	$(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build
-.PHONY : dist_project_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named dist_project_genpy
-
-# Build rule for target.
-dist_project_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 dist_project_genpy
-.PHONY : dist_project_genpy
-
-# fast build rule for target.
-dist_project_genpy/fast:
-	$(MAKE) -f dist_project/CMakeFiles/dist_project_genpy.dir/build.make dist_project/CMakeFiles/dist_project_genpy.dir/build
-.PHONY : dist_project_genpy/fast
 
 #=============================================================================
 # Target rules for targets named roscpp_generate_messages_cpp
@@ -3967,9 +3993,13 @@ help:
 	@echo "... _geographic_msgs_generate_messages_check_deps_GeoPath"
 	@echo "... _geographic_msgs_generate_messages_check_deps_UpdateGeographicMap"
 	@echo "... geographic_msgs_generate_messages_eus"
+	@echo "... dist_project_genpy"
+	@echo "... dist_project_generate_messages_py"
 	@echo "... dist_project_generate_messages"
 	@echo "... _dist_project_generate_messages_check_deps_robot_data"
 	@echo "... dist_project_generate_messages_lisp"
+	@echo "... _dist_project_generate_messages_check_deps_target_data"
+	@echo "... _dist_project_generate_messages_check_deps_target_assignment_data"
 	@echo "... dist_project_generate_messages_eus"
 	@echo "... _dist_project_generate_messages_check_deps_uwb_data"
 	@echo "... dist_project_geneus"
@@ -3978,8 +4008,6 @@ help:
 	@echo "... dist_project_generate_messages_cpp"
 	@echo "... dist_project_generate_messages_nodejs"
 	@echo "... dist_project_gennodejs"
-	@echo "... dist_project_generate_messages_py"
-	@echo "... dist_project_genpy"
 	@echo "... roscpp_generate_messages_cpp"
 	@echo "... roscpp_generate_messages_eus"
 	@echo "... rosgraph_msgs_generate_messages_nodejs"

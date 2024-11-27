@@ -1,6 +1,6 @@
 import rospy
 from enum import Enum
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, Pose
 
 
 class RobotType(Enum):
@@ -18,6 +18,7 @@ class RobotInitializer:
         self.unicycle_speed = unicycle_speed
         self.drone_speed = drone_speed
         self.pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
+        self.init_pub = rospy.Publisher("init", Pose, queue_size=1)
         self.run_initialization()
 
         # self.sub = rospy.Subscriber("fix", NavSatFix, self.gps_callback)  # TODO: rename
@@ -48,6 +49,8 @@ class RobotInitializer:
         twist_message.linear.z = 0
         self.pub.publish(twist_message)
         rospy.loginfo(f">>>> Drone has reached the desired height of {self.drone_height} =====")
+        while True:
+            self.init_pub.publish(Pose())
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/uwb_data.msg;/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+messages_str = "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/uwb_data.msg;/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg;/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg;/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
 services_str = ""
 pkg_name = "dist_project"
 dependencies_str = "std_msgs"

@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/robot_data.js"
+  "/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_assignment_data.js"
+  "/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/target_data.js"
   "/home/marco/shared/working_dir/catkin_ws/devel/share/gennodejs/ros/dist_project/msg/uwb_data.js"
   "CMakeFiles/dist_project_generate_messages_nodejs"
 )

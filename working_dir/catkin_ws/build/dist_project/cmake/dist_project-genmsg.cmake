@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "dist_project: 2 messages, 0 services")
+message(STATUS "dist_project: 4 messages, 0 services")
 
 set(MSG_I_FLAGS "-Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
@@ -27,6 +27,16 @@ add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dist_project" "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" ""
 )
 
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dist_project" "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" ""
+)
+
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
+add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dist_project" "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" ""
+)
+
 #
 #  langs = gencpp;geneus;genlisp;gennodejs;genpy
 #
@@ -41,6 +51,18 @@ _generate_msg_cpp(dist_project
 )
 _generate_msg_cpp(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dist_project
+)
+_generate_msg_cpp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dist_project
+)
+_generate_msg_cpp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dist_project
@@ -64,6 +86,10 @@ get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/d
 add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(dist_project_gencpp)
@@ -82,6 +108,18 @@ _generate_msg_eus(dist_project
 )
 _generate_msg_eus(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project
+)
+_generate_msg_eus(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project
+)
+_generate_msg_eus(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project
@@ -105,6 +143,10 @@ get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/d
 add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(dist_project_geneus)
@@ -123,6 +165,18 @@ _generate_msg_lisp(dist_project
 )
 _generate_msg_lisp(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project
+)
+_generate_msg_lisp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project
+)
+_generate_msg_lisp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project
@@ -146,6 +200,10 @@ get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/d
 add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(dist_project_genlisp)
@@ -164,6 +222,18 @@ _generate_msg_nodejs(dist_project
 )
 _generate_msg_nodejs(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project
+)
+_generate_msg_nodejs(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project
+)
+_generate_msg_nodejs(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project
@@ -187,6 +257,10 @@ get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/d
 add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(dist_project_gennodejs)
@@ -209,6 +283,18 @@ _generate_msg_py(dist_project
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project
 )
+_generate_msg_py(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project
+)
+_generate_msg_py(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project
+)
 
 ### Generating Services
 
@@ -227,6 +313,10 @@ add_dependencies(dist_project_generate_messages dist_project_generate_messages_p
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/uwb_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

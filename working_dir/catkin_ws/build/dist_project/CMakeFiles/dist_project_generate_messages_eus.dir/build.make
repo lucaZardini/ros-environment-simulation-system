@@ -55,6 +55,8 @@ include dist_project/CMakeFiles/dist_project_generate_messages_eus.dir/progress.
 
 dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/uwb_data.l
 dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/robot_data.l
+dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_data.l
+dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_assignment_data.l
 dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/manifest.l
 
 
@@ -68,13 +70,25 @@ dist_project/CMakeFiles/dist_project_generate_messages_eus: /home/marco/shared/w
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from dist_project/robot_data.msg"
 	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg
 
+/home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_data.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_data.l: /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from dist_project/target_data.msg"
+	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg
+
+/home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_assignment_data.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_assignment_data.l: /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from dist_project/target_assignment_data.msg"
+	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg -Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p dist_project -o /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg
+
 /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for dist_project"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/marco/shared/working_dir/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp manifest code for dist_project"
 	cd /home/marco/shared/working_dir/catkin_ws/build/dist_project && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project dist_project std_msgs
 
 dist_project_generate_messages_eus: dist_project/CMakeFiles/dist_project_generate_messages_eus
 dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/uwb_data.l
 dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/robot_data.l
+dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_data.l
+dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/msg/target_assignment_data.l
 dist_project_generate_messages_eus: /home/marco/shared/working_dir/catkin_ws/devel/share/roseus/ros/dist_project/manifest.l
 dist_project_generate_messages_eus: dist_project/CMakeFiles/dist_project_generate_messages_eus.dir/build.make
 

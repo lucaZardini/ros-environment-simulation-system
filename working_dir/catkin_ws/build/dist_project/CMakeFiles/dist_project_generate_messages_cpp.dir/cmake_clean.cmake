@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "/home/marco/shared/working_dir/catkin_ws/devel/include/dist_project/robot_data.h"
+  "/home/marco/shared/working_dir/catkin_ws/devel/include/dist_project/target_assignment_data.h"
+  "/home/marco/shared/working_dir/catkin_ws/devel/include/dist_project/target_data.h"
   "/home/marco/shared/working_dir/catkin_ws/devel/include/dist_project/uwb_data.h"
   "CMakeFiles/dist_project_generate_messages_cpp"
 )

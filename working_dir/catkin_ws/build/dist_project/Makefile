@@ -68,18 +68,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
@@ -91,6 +79,29 @@ install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
+	/usr/bin/ctest --force-new-ctest-process $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+
+.PHONY : test/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -113,17 +124,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-
-.PHONY : test/fast
 
 # Special rule for the target list_install_components
 list_install_components:
@@ -166,6 +166,36 @@ preinstall/fast:
 depend:
 	cd /home/marco/shared/working_dir/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+dist_project/CMakeFiles/dist_project_genpy.dir/rule:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/dist_project_genpy.dir/rule
+.PHONY : dist_project/CMakeFiles/dist_project_genpy.dir/rule
+
+# Convenience name for target.
+dist_project_genpy: dist_project/CMakeFiles/dist_project_genpy.dir/rule
+
+.PHONY : dist_project_genpy
+
+# fast build rule for target.
+dist_project_genpy/fast:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_genpy.dir/build.make dist_project/CMakeFiles/dist_project_genpy.dir/build
+.PHONY : dist_project_genpy/fast
+
+# Convenience name for target.
+dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
+.PHONY : dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
+
+# Convenience name for target.
+dist_project_generate_messages_py: dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
+
+.PHONY : dist_project_generate_messages_py
+
+# fast build rule for target.
+dist_project_generate_messages_py/fast:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build
+.PHONY : dist_project_generate_messages_py/fast
 
 # Convenience name for target.
 dist_project/CMakeFiles/dist_project_generate_messages.dir/rule:
@@ -211,6 +241,36 @@ dist_project_generate_messages_lisp: dist_project/CMakeFiles/dist_project_genera
 dist_project_generate_messages_lisp/fast:
 	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_lisp.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_lisp.dir/build
 .PHONY : dist_project_generate_messages_lisp/fast
+
+# Convenience name for target.
+dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/rule:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/rule
+.PHONY : dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/rule
+
+# Convenience name for target.
+_dist_project_generate_messages_check_deps_target_data: dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/rule
+
+.PHONY : _dist_project_generate_messages_check_deps_target_data
+
+# fast build rule for target.
+_dist_project_generate_messages_check_deps_target_data/fast:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/build.make dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_data.dir/build
+.PHONY : _dist_project_generate_messages_check_deps_target_data/fast
+
+# Convenience name for target.
+dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/rule:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/rule
+.PHONY : dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/rule
+
+# Convenience name for target.
+_dist_project_generate_messages_check_deps_target_assignment_data: dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/rule
+
+.PHONY : _dist_project_generate_messages_check_deps_target_assignment_data
+
+# fast build rule for target.
+_dist_project_generate_messages_check_deps_target_assignment_data/fast:
+	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/build.make dist_project/CMakeFiles/_dist_project_generate_messages_check_deps_target_assignment_data.dir/build
+.PHONY : _dist_project_generate_messages_check_deps_target_assignment_data/fast
 
 # Convenience name for target.
 dist_project/CMakeFiles/dist_project_generate_messages_eus.dir/rule:
@@ -332,36 +392,6 @@ dist_project_gennodejs/fast:
 	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_gennodejs.dir/build.make dist_project/CMakeFiles/dist_project_gennodejs.dir/build
 .PHONY : dist_project_gennodejs/fast
 
-# Convenience name for target.
-dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule:
-	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
-.PHONY : dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
-
-# Convenience name for target.
-dist_project_generate_messages_py: dist_project/CMakeFiles/dist_project_generate_messages_py.dir/rule
-
-.PHONY : dist_project_generate_messages_py
-
-# fast build rule for target.
-dist_project_generate_messages_py/fast:
-	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build.make dist_project/CMakeFiles/dist_project_generate_messages_py.dir/build
-.PHONY : dist_project_generate_messages_py/fast
-
-# Convenience name for target.
-dist_project/CMakeFiles/dist_project_genpy.dir/rule:
-	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 dist_project/CMakeFiles/dist_project_genpy.dir/rule
-.PHONY : dist_project/CMakeFiles/dist_project_genpy.dir/rule
-
-# Convenience name for target.
-dist_project_genpy: dist_project/CMakeFiles/dist_project_genpy.dir/rule
-
-.PHONY : dist_project_genpy
-
-# fast build rule for target.
-dist_project_genpy/fast:
-	cd /home/marco/shared/working_dir/catkin_ws/build && $(MAKE) -f dist_project/CMakeFiles/dist_project_genpy.dir/build.make dist_project/CMakeFiles/dist_project_genpy.dir/build
-.PHONY : dist_project_genpy/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -369,14 +399,18 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install/local"
 	@echo "... install"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
+	@echo "... dist_project_genpy"
+	@echo "... dist_project_generate_messages_py"
 	@echo "... test"
 	@echo "... dist_project_generate_messages"
 	@echo "... _dist_project_generate_messages_check_deps_robot_data"
 	@echo "... dist_project_generate_messages_lisp"
+	@echo "... install/local"
+	@echo "... _dist_project_generate_messages_check_deps_target_data"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... _dist_project_generate_messages_check_deps_target_assignment_data"
 	@echo "... dist_project_generate_messages_eus"
 	@echo "... _dist_project_generate_messages_check_deps_uwb_data"
 	@echo "... dist_project_geneus"
@@ -386,8 +420,6 @@ help:
 	@echo "... dist_project_generate_messages_cpp"
 	@echo "... dist_project_generate_messages_nodejs"
 	@echo "... dist_project_gennodejs"
-	@echo "... dist_project_generate_messages_py"
-	@echo "... dist_project_genpy"
 .PHONY : help
 
 

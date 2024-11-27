@@ -41,6 +41,8 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/dist_project/msg" TYPE FILE FILES
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/uwb_data.msg"
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
+    "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+    "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
     )
 endif()
 
@@ -116,10 +118,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/altitude_stabilizer_drone.py")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/initialize_robot.py")
 endif()
 
@@ -137,5 +135,9 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/kalman_localization_3d.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/dist_project" TYPE PROGRAM FILES "/home/marco/shared/working_dir/catkin_ws/build/dist_project/catkin_generated/installspace/motion_planner_drone.py")
 endif()
 
