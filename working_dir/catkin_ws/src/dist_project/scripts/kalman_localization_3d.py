@@ -38,6 +38,8 @@ class KalmanEstimator:
         self.velocity_semaphore = Status.RED
         self.imu_data = None
         self.velocity_data = None
+        self.number_of_predictions = 0
+        self.number_of_corrections = 0
 
         # Publisher for estimated state
         self.pub = rospy.Publisher('localization_data_topic', Pose, queue_size=10)
@@ -57,6 +59,7 @@ class KalmanEstimator:
         # self.get_anchors_pos()
 
     def prediction_step(self):
+        self.number_of_predictions += 1
         # Local variable initialization
         x, y, z, roll, pitch, yaw = self.mu
 
@@ -121,9 +124,6 @@ class KalmanEstimator:
 
         # Now it published the estimated state
         self.publish_data(self.mu[0], self.mu[1], self.mu[2])
-
-        self.imu_semaphore = Status.RED
-        self.velocity_semaphore = Status.RED
 
     def correction_step(self, uwb_data: uwb_data):
         # Local variable initialization
@@ -251,8 +251,8 @@ class KalmanEstimator:
 
         rospy.loginfo("Correction step completed. Updated state: " + str(self.mu))
 
-
     def correction_step_with_gps(self, gps_data: Point):
+        self.number_of_corrections += 1
         # Extract predicted state (mean vector)
         x, y, z, roll, pitch, yaw = self.mu
 
@@ -299,23 +299,37 @@ class KalmanEstimator:
         # Publish the updated state
         self.publish_data(self.mu[0], self.mu[1], self.mu[2])
 
+    # def subscribe_imu_data(self, imu_data: Imu):
+    #     # Callback function to the reception of a message from Odometry
+    #     # With the data from the sensors on the unicyle I compute the prediction step
+    #     if self.imu_semaphore == Status.RED:
+    #         self.imu_data = imu_data
+    #         self.imu_semaphore = Status.GREEN
+    #         if self.velocity_semaphore == Status.GREEN:
+    #             self.prediction_step()
+
     def subscribe_imu_data(self, imu_data: Imu):
         # Callback function to the reception of a message from Odometry
         # With the data from the sensors on the unicyle I compute the prediction step
-        if self.imu_semaphore == Status.RED:
-            self.imu_data = imu_data
-            self.imu_semaphore = Status.GREEN
-            if self.velocity_semaphore == Status.GREEN:
-                self.prediction_step()
+        self.imu_data = imu_data
+        self.imu_semaphore = Status.GREEN
+        if self.velocity_semaphore == Status.GREEN:
+            self.prediction_step()
+
+    # def subscribe_velocity_data(self, velocity_data: Vector3Stamped):
+    #     # Callback function to the reception of a message from Odometry
+    #     # With the data from the sensors on the unicyle I compute the prediction step
+    #     if self.velocity_semaphore == Status.RED:
+    #         self.velocity_data = velocity_data
+    #         self.velocity_semaphore = Status.GREEN
+    #         if self.imu_semaphore == Status.GREEN:
+    #             self.prediction_step()
 
     def subscribe_velocity_data(self, velocity_data: Vector3Stamped):
         # Callback function to the reception of a message from Odometry
         # With the data from the sensors on the unicyle I compute the prediction step
-        if self.velocity_semaphore == Status.RED:
-            self.velocity_data = velocity_data
-            self.velocity_semaphore = Status.GREEN
-            if self.imu_semaphore == Status.GREEN:
-                self.prediction_step()
+        self.velocity_data = velocity_data
+        self.velocity_semaphore = Status.GREEN
 
     def subscribe_uwb_data(self, uwb_data: uwb_data):
         # Callback function to the reception of a message from the uwb anchors
@@ -403,5 +417,9 @@ if __name__ == "__main__":
             rate.sleep()
     except rospy.ROSInterruptException:
         rospy.loginfo("Program shutdown: Kalman filter estimator node interrupted")
+        rospy.loginfo(f"Number of predictions: {estimator.number_of_predictions}")
+        rospy.loginfo(f"Number of corrections: {estimator.number_of_corrections}")
     except rospy.ROSInternalException:
         rospy.loginfo("Kalman localization node interrupted")
+        rospy.loginfo(f"Number of predictions: {estimator.number_of_predictions}")
+        rospy.loginfo(f"Number of corrections: {estimator.number_of_corrections}")
