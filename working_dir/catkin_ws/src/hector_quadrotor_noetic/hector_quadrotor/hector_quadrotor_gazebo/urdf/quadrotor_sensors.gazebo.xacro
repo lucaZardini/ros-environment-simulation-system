@@ -6,16 +6,16 @@
   <xacro:macro name="quadrotor_sensors">
         <gazebo>
           <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
-            <updateRate>100.0</updateRate>
+            <updateRate>10.0</updateRate>
             <bodyName>base_link</bodyName>
             <frameId>base_link</frameId>
             <topicName>raw_imu</topicName>
             <rpyOffset>0 0 0</rpyOffset> <!-- deprecated -->
             <gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
-            <accelDrift>0.5 0.5 0.5</accelDrift>
-            <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
-            <rateDrift>0.1 0.1 0.1</rateDrift>
-            <rateGaussianNoise>0.05 0.05 0.015</rateGaussianNoise>
+            <accelDrift>0.0 0.0 0.0</accelDrift>
+            <accelGaussianNoise>0.0 0.0 0.0</accelGaussianNoise>
+            <rateDrift>0.0 0.0 0.0</rateDrift>
+            <rateGaussianNoise>0.0 0.0 0.0</rateGaussianNoise>
           </plugin>
 
           <plugin name="quadrotor_baro_sim" filename="libhector_gazebo_ros_baro.so">
@@ -25,8 +25,8 @@
             <topicName>pressure_height</topicName>
             <altimeterTopicName>altimeter</altimeterTopicName>
             <offset>0</offset>
-            <drift>10.0</drift>
-            <gaussianNoise>0.1</gaussianNoise>
+            <drift>0.0</drift>
+            <gaussianNoise>0.0</gaussianNoise>
           </plugin>
 
           <plugin name="quadrotor_magnetic_sim" filename="libhector_gazebo_ros_magnetic.so">
@@ -47,10 +47,11 @@
             <velocityTopicName>fix_velocity</velocityTopicName>
             <referenceLatitude>49.860246</referenceLatitude>
             <referenceLongitude>8.687077</referenceLongitude>
-            <drift>5.0 5.0 5.0</drift>
-            <gaussianNoise>0.01 0.01 0.01</gaussianNoise>
+            <referenceAltitude>0.0</referenceAltitude>
+            <drift>0.0 0.0 0.0</drift>
+            <gaussianNoise>0.00 0.00 0.00</gaussianNoise>
             <velocityDrift>0 0 0</velocityDrift>
-            <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
+            <velocityGaussianNoise>0.00 0.00 0.00</velocityGaussianNoise>
           </plugin>
 
           <plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">

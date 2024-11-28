@@ -5,6 +5,7 @@
       <plugin name="quadrotor_controller" filename="libgazebo_ros_control.so">
         <controlPeriod>0.01</controlPeriod>
         <robotSimType>hector_quadrotor_controller_gazebo/QuadrotorHardwareSim</robotSimType>
+        <robotParam>/drone_description</robotParam>
       </plugin>
     </gazebo>
   </xacro:macro>
