@@ -36,7 +36,7 @@ class BlobDetector:
         self.bridge = CvBridge()
 
         # Subscribing topics
-        self.image_sub = rospy.Subscriber("front_cam/camera/image", Image, self.callback)
+        self.image_sub = rospy.Subscriber("downward_cam/camera/image", Image, self.callback)
 
     # Blob detecting function: returns keypoints and mask
     def blob_detect(self, image,                  # The frame (cv standard)
