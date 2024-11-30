@@ -2,10 +2,12 @@
 
 <!-- TODO: check if the recursion is correct -->
 <launch>
-<arg name="num_drones" default="1" />
+<arg name="num_drones" default="2" />
 <arg name="nd" default="$(arg num_drones)" />
 <group ns="$(eval 'drone' + str(arg('nd') - 1 ))">
-    <node name="planner_drone" pkg="dist_project" type="motion_planner_drone.py" output="screen" />
+    <node name="planner_drone" pkg="dist_project" type="motion_planner_drone.py" output="screen">
+        <param name="namespace" value="$(eval int(arg('nd')) - 1)" />
+    </node>
 </group>
 <include file="$(find dist_project)/launch/run_execution.launch" if="$(eval arg('nd') - 1 > 0)">
     <arg name="num_drones" value="$(eval arg('nd') - 1)" />

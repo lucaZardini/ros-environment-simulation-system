@@ -23,7 +23,6 @@ class RobotInitializer:
 
         # self.sub = rospy.Subscriber("fix", NavSatFix, self.gps_callback)  # TODO: rename
 
-
     def run_initialization(self):
         if self.robot_type == RobotType.DRONE:
             self.initialize_drone()
@@ -56,7 +55,13 @@ class RobotInitializer:
 if __name__ == "__main__":
 
     rospy.init_node("robot_initializer_node", anonymous=True)
-    robot_initializer = RobotInitializer(RobotType.DRONE)
+    drone_id = rospy.get_param("~namespace")
+    rospy.loginfo(f"Drone ID: {drone_id}")
+    if drone_id == 0 or drone_id == "0":
+        height = 2.5
+    else:
+        height = 3.5
+    robot_initializer = RobotInitializer(RobotType.DRONE, drone_height=height)
     try:
         rospy.spin()
     except rospy.ROSInterruptException:

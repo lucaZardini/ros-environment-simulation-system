@@ -14,6 +14,7 @@ from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point
 
+
 class BlobDetector:
 
     # Initializer definition

@@ -34,7 +34,7 @@ class MotionPlanner3d:
         self.drones_positions = {}
         self.targets_positions = {}
         self.estimated_drones_positions = {}
-        self.robots_required_per_rescue = 1  # Number of robots required to rescue a target
+        self.robots_required_per_rescue = 2  # Number of robots required to rescue a target
         # TODO: define it
         self.min_x = -7.5
         self.max_x = 7.5
@@ -81,7 +81,7 @@ class MotionPlanner3d:
         self.init_sub = rospy.Subscriber('init', Pose, self.init_callback)
 
         # Parameters
-        self.targets_to_find = 2  # Total number of targets TODO: parametrize
+        self.targets_to_find = 1  # Total number of targets TODO: parametrize
         self.targets_rescued = []  # Total number of targets TODO: parametrize
         self.found_targets = []  # List of found target locations
 
@@ -175,8 +175,8 @@ class MotionPlanner3d:
         target_data_cell.z = msg.position.z
         self.neighbor_pub.publish(target_data_cell)
 
-    def assignment_callback(self, msg):
-        if msg.assigned_robot_id != self.drone_id:
+    def assignment_callback(self, msg: target_assignment_data):
+        if msg.assigned_robot_id == self.drone_id and msg.sender_robot_id != self.drone_id:
             # communication range
             sender_robot_id = msg.sender_robot_id
             sender_position = self.drones_positions[sender_robot_id]
@@ -186,7 +186,7 @@ class MotionPlanner3d:
                 if self.current_state == RobotState.SEARCH:
                     self.target_location = msg
                     self.current_state = RobotState.RESCUE
-                elif self.current_state == RobotState.RESCUE and self.target_location.robot_id <= msg.robot_id:
+                elif self.current_state == RobotState.RESCUE and self.drone_id <= msg.sender_robot_id:
                     self.target_location = msg
 
     def neighbor_callback(self, msg):
@@ -244,8 +244,12 @@ class MotionPlanner3d:
     def generate_random_goal(self):
         # x = random.uniform(self.min_x, self.max_x)
         # y = random.uniform(self.min_y, self.max_y)
-        x = 1
-        y = 0
+        if self.drone_id == 0:
+            x = 1
+            y = 0
+        else:
+            x = 2
+            y = 2
         point = Point()
         point.x = x
         point.y = y
@@ -305,14 +309,22 @@ class MotionPlanner3d:
         self.vel_pub.publish(twist)
 
     def blob_callback(self, msg):
-        target_location = Point()
+        target_location = target_assignment_data()
         # TODO: here I am using the current, but it should be the estimated one
-        target_location.x = self.current_position.x - msg.y
-        target_location.y = self.current_position.y - msg.x
+        projected_x = msg.y
+        projected_y = msg.x
 
-        rospy.loginfo(f"Drone at {self.current_position}")
-        rospy.loginfo(f"Message at {msg}")
-        rospy.loginfo(f"Target at {target_location}")
+        # height_difference = self.current_position.z - 1.2  # TODO: real value? -> in reality use the sensor
+        # scaled_x = projected_x * (self.current_position.z / height_difference)
+        # scaled_y = projected_y * (self.current_position.z / height_difference)
+        #
+        # target_location.x = self.current_position.x + scaled_x
+        # target_location.y = self.current_position.y + scaled_y
+        target_location.x = self.current_position.x - projected_x
+        target_location.y = self.current_position.y - projected_y
+        target_location.sender_robot_id = self.drone_id
+        target_location.assigned_robot_id = self.drone_id
+
         # Simulate detecting a target (e.g., through a sensor or camera)
         # rospy.loginfo(f"Drone {self.drone_id} found a target at {target_location}")
 
@@ -327,23 +339,23 @@ class MotionPlanner3d:
                 # rospy.loginfo(f"Drone {self.drone_id} already knows the existence of target at {target_location}")
                 new_target = False
 
-        # if new_target:
-        #     self.found_target_pub.publish(target_data_cell)
-        #     self.found_targets.append(target_data_cell)
-        #     # TODO: explore all or rescue one?
-        #     # if len(self.found_targets) >= self.targets_to_find:
-        #     #     self.all_targets_found = True
-        #     #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
-        #     self.target_location = target_location
-        #     self.current_state = RobotState.RESCUE
-        #     self.start_rescue(target_data_cell)  # Case 2: Start rescue immediately for this target
+        if new_target:
+            self.found_target_pub.publish(target_data_cell)
+            self.found_targets.append(target_data_cell)
+            # TODO: explore all or rescue one?
+            # if len(self.found_targets) >= self.targets_to_find:
+            #     self.all_targets_found = True
+            #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
+            self.target_location = target_location
+            self.current_state = RobotState.RESCUE
+            self.start_rescue(target_data_cell)  # Case 2: Start rescue immediately for this target
 
     def start_rescue(self, target):
         """Start rescuing based on the current targets and state."""
         rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation.")
         nearby_robots = self.find_nearby_robots(target)
-        if len(nearby_robots) >= self.robots_required_per_rescue:
-            self.assign_rescue_task(target, nearby_robots[:self.robots_required_per_rescue])
+        if len(nearby_robots) >= self.robots_required_per_rescue - 1:
+            self.assign_rescue_task(target, nearby_robots[:self.robots_required_per_rescue - 1])
 
     def find_nearby_robots(self, target):
         """Find robots within communication range of a target."""
@@ -387,35 +399,35 @@ class MotionPlanner3d:
             while self.current_state == RobotState.SEARCH:
                 random_goal = self.generate_random_goal()
                 reached = False
-                rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
+                # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
 
                 while not reached and self.current_state == RobotState.SEARCH:
                     reached = self.move_to_point(random_goal)
 
-            # while self.current_state == RobotState.RESCUE:
-            #     self.move_to_target(self.target_location)
-            #     # rospy.loginfo(f"Drone {self.drone_id} start to rescue the target at {self.target_location}")
-            #
-            # while self.current_state == RobotState.RESCUING:
-            #     # rospy.loginfo(f"Drone {self.drone_id} is rescuing the target at {self.target_location}")
-            #     target_data_cell = target_data()
-            #     target_data_cell.robot_id = self.drone_id
-            #     # TODO: here I am using the current, but it should be the estimated one
-            #     target_data_cell.x = self.current_position.x
-            #     target_data_cell.y = self.current_position.y
-            #     self.ready_to_rescue_pub.publish(target_data_cell)
-            #
-            # if len(self.targets_rescued) >= self.targets_to_find:
-            #     rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
-            #     self.all_targets_found = True
-            #     self.current_state = RobotState.FINISH
+            while self.current_state == RobotState.RESCUE:
+                self.move_to_target(self.target_location)
+                # rospy.loginfo(f"Drone {self.drone_id} start to rescue the target at {self.target_location}")
+
+            while self.current_state == RobotState.RESCUING:
+                # rospy.loginfo(f"Drone {self.drone_id} is rescuing the target at {self.target_location}")
+                target_data_cell = target_data()
+                target_data_cell.robot_id = self.drone_id
+                # TODO: here I am using the current, but it should be the estimated one
+                target_data_cell.x = self.current_position.x
+                target_data_cell.y = self.current_position.y
+                self.ready_to_rescue_pub.publish(target_data_cell)
+
+            if len(self.targets_rescued) >= self.targets_to_find:
+                rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
+                self.all_targets_found = True
+                self.current_state = RobotState.FINISH
 
             rate.sleep()
 
 
 if __name__ == '__main__':
     rospy.init_node('motion_planner', anonymous=True)
-    drone_id = rospy.get_param('~namespace', 0)  # Get unique ID for this drone
+    drone_id = rospy.get_param('~namespace')  # Get unique ID for this drone
     drone = MotionPlanner3d(drone_id)
     try:
         drone.main_loop()
