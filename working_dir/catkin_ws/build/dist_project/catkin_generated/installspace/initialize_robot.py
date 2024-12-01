@@ -19,9 +19,6 @@ class RobotInitializer:
         self.drone_speed = drone_speed
         self.pub = rospy.Publisher("cmd_vel", Twist, queue_size=1)
         self.init_pub = rospy.Publisher("init", Pose, queue_size=1)
-        self.run_initialization()
-
-        # self.sub = rospy.Subscriber("fix", NavSatFix, self.gps_callback)  # TODO: rename
 
     def run_initialization(self):
         if self.robot_type == RobotType.DRONE:
@@ -55,15 +52,15 @@ class RobotInitializer:
 if __name__ == "__main__":
 
     rospy.init_node("robot_initializer_node", anonymous=True)
-    drone_id = rospy.get_param("~namespace")
+    drone_id = rospy.get_param("~namespace", None)
     rospy.loginfo(f"Drone ID: {drone_id}")
-    if drone_id == 0 or drone_id == "0":
-        height = 2.5
-    else:
-        height = 3.5
+    height = 0
+    if drone_id is not None:
+        drone_id = int(drone_id)
+        height = 1.6 + 0.5 * drone_id
     robot_initializer = RobotInitializer(RobotType.DRONE, drone_height=height)
     try:
-        rospy.spin()
+        robot_initializer.run_initialization()
     except rospy.ROSInterruptException:
         rospy.loginfo("Program shutdown: robot initializer node interrupted")
     except rospy.ROSInternalException:

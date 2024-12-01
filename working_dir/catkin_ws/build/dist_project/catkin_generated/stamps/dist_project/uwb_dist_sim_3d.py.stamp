@@ -22,7 +22,7 @@ class UwbSimulation3D:
         self.max_anchors = 20
         # Function to be called once, it scans for every uwb anchor in the area and stores their position
         self.get_anchor_pos()
-        self.tag_height = 3  # TODO: parametrize
+        self.tag_height = 1.2  # TODO: parametrize
 
         # Initialization of current ground truth pose of the robot
         self.robot_pose = Odometry()

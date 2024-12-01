@@ -105,7 +105,6 @@ class KalmanEstimator:
         pitch_new = pitch + delta_pitch * delta_t
         yaw_new = (yaw + delta_yaw * delta_t + np.pi) % (2 * np.pi) - np.pi # Doing so I modify theta_new in order to obtain a value in [-pi, pi]
 
-        # TODO: HERE
         # Jacobian of the dynamics with respect to the state
         A = np.array([
             [1.0, 0.0, 0.0, 0.0, 0.0, -delta_vel_y * delta_t],
@@ -193,7 +192,6 @@ class KalmanEstimator:
 
         # Theta normalization to have it in [-pi, pi]
         self.mu[2] = (self.mu[2] + np.pi) % (2 * np.pi) - np.pi
-
 
     def correction_step_with_uwb_data(self, uwb_data: uwb_data):
         # Local variable initialization
