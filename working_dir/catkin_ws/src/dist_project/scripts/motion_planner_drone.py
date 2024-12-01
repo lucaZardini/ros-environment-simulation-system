@@ -111,6 +111,11 @@ class MotionPlanner3d:
             if not is_already_present:
                 self.targets_rescued.append(msg)
 
+            if self.current_state == RobotState.RESCUE and self.target_location.x - 0.5 < msg.x < self.target_location.x + 0.5 and self.target_location.y - 0.5 < msg.y < self.target_location.y + 0.5:
+                # The target has been rescued, no need to rescue it again
+                self.rescue_drones = []
+                self.current_state = RobotState.SEARCH
+
             if len(self.targets_rescued) >= self.targets_to_find:
                 self.all_targets_found = True
                 self.current_state = RobotState.FINISH
@@ -168,6 +173,7 @@ class MotionPlanner3d:
             self.remove_rescued_target(msg)
             if len(self.targets_rescued) >= self.targets_to_find:
                 self.all_targets_found = True
+                self.rescue_drones = []
                 self.current_state = RobotState.FINISH
                 twist = Twist()
                 twist.linear.x = 0
@@ -275,6 +281,11 @@ class MotionPlanner3d:
         Callback to signal that all targets have been rescued
         """
         self.all_targets_found = msg.data
+        self.current_state = RobotState.FINISH
+        twist = Twist()
+        twist.linear.x = 0
+        twist.linear.y = 0
+        self.vel_pub.publish(twist)
         if msg.data:
             rospy.loginfo(f"Drone {self.drone_id} received signal: All targets rescued!")
 
@@ -390,34 +401,53 @@ class MotionPlanner3d:
                 # rospy.loginfo(f"Drone {self.drone_id} already knows the existence of target at {target_location}")
                 new_target = False
 
-        if new_target:
-            self.found_target_pub.publish(target_data_cell)
-            self.found_targets.append(target_data_cell)
-            # TODO: explore all or rescue one?
-            # if len(self.found_targets) >= self.targets_to_find:
-            #     self.all_targets_found = True
-            #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
-            self.target_location = target_location
-            self.current_state = RobotState.RESCUE
-            self.start_rescue(target_data_cell)  # Case 2: Start rescue immediately for this target
+        # Se il target è nuovo, e il drone sta già andando ad aiutare un altro drone, allora cosa deve fare?
+        #  1. deve andare a salvare il nuovo target e fermare il salvataggio in corso?
+        #  2. deve continuare il salvataggio in corso e ignorare il nuovo target?
+        #  Cosa mi consigli di fare caro copilot??
+        # Copilot: "Dipende dal numero di droni richiesti per salvare il target. Se il numero di droni richiesti è
+        #  maggiore di 1, allora il drone deve andare a salvare il nuovo target. Se il numero di droni richiesti è 1,
+        #  allora il drone deve continuare il salvataggio in corso e ignorare il nuovo target."
+        # Domanda: quale è il target a cui stai alludendo? Quello nuovo o quello vecchio?
+        # Copilot: "Il target a cui sto alludendo è il target a cui il drone sta andando ad aiutare. Se il drone sta
+        #  andando ad aiutare un altro drone, allora deve continuare il salvataggio in corso e ignorare il nuovo target.
+        #  Se il drone non sta andando ad aiutare un altro drone, allora deve andare a salvare il nuovo
+        #  target."
+        # Domanda: Perchè dovrebbe ignorare il nuovo target?
+        # Copilot: "Perchè il drone sta già andando ad aiutare un altro drone. Se il drone si ferma per andare a salvare
+        #  il nuovo target, allora il salvataggio in corso non verrà completato e il target non verrà salvato. Quindi il
+        #  drone deve continuare il salvataggio in corso e ignorare il nuovo target."
 
-    def start_rescue(self, target):
+        if new_target:
+            if self.current_state != RobotState.RESCUE:
+                self.found_target_pub.publish(target_data_cell)
+                self.found_targets.append(target_data_cell)
+                # TODO: explore all or rescue one?
+                # if len(self.found_targets) >= self.targets_to_find:
+                #     self.all_targets_found = True
+                #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
+                self.target_location = target_location
+                self.current_state = RobotState.RESCUE
+                rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation.")
+                self.start_and_find_rescuers(target_data_cell)  # Case 2: Start rescue immediately for this target
+            else:
+                rospy.loginfo(f"Drone {self.drone_id} is already rescuing another target, ignoring the new target.")
+
+    def start_and_find_rescuers(self, target):
         """
         Start rescuing based on the current targets and state.
         If the drone is rescuing, then it is waiting for other required drones to rescue the target (if needed).
         Found the nearest drones to the target, and if the number of drones is enough, then assign the target to the
         drones publishing the target assignment message.
         """
-        rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation.")
         nearby_robots = self.find_nearby_robots(target)
-        # TODO: what if the condition not holds?
         if len(nearby_robots) >= self.robots_required_per_rescue - 1:
             self.assign_rescue_task(target, nearby_robots[:self.robots_required_per_rescue - 1])
 
     def find_nearby_robots(self, target):
         """
         To find the nearest robots to the target, the drone knows the estimates of the positions of the other drones.
-        Then it sends the message only if the real position of the receiving drone is inside the communication range.
+        Then it sends the message only if the estimated position of the receiving drone is inside the communication range.
         """
         nearby_robots = []
         for drone_id, position in self.estimated_drones_positions.items():
@@ -484,7 +514,7 @@ class MotionPlanner3d:
                 target_data_cell = target_data()
                 target_data_cell.robot_id = self.drone_id
                 # TODO: here I am using the current, but it should be the estimated one
-                # TODO: could be that it continue to send the target assignment message to the other drones?
+                self.start_and_find_rescuers(target_data_cell)
                 target_data_cell.x = self.current_position.x
                 target_data_cell.y = self.current_position.y
                 self.ready_to_rescue_pub.publish(target_data_cell)
@@ -498,6 +528,7 @@ class MotionPlanner3d:
 
 
 if __name__ == '__main__':
+    # TODO: muoversi verso la posizione del robot e cercare fino a quando non si trova il target? In questo modo l'incertezza sulla posizione del target è minore?
     rospy.init_node('motion_planner', anonymous=True)
     drone_id = rospy.get_param('~namespace')  # Get unique ID for this drone
     drone = MotionPlanner3d(drone_id)
