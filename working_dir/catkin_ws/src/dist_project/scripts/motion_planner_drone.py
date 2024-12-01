@@ -27,7 +27,6 @@ class MotionPlanner3d:
     def __init__(self, drone_id):
         self.drone_id = drone_id
         self.current_state = RobotState.INIT
-        self.target_found = False
         self.target_location = None
         self.all_targets_found = False
         self.rescue_drones = []
@@ -40,6 +39,9 @@ class MotionPlanner3d:
         self.max_x = 7.5
         self.min_y = -5
         self.max_y = 5
+        self.targets_to_find = 1  # Total number of targets TODO: parametrize
+        self.targets_rescued = []  # Total number of targets TODO: parametrize
+        self.found_targets = []  # List of found target locations
 
         # ROS publishers and subscribers
 
@@ -80,16 +82,17 @@ class MotionPlanner3d:
         # Subscribe to the init topic to start the movement when the drone is ready
         self.init_sub = rospy.Subscriber('init', Pose, self.init_callback)
 
-        # Parameters
-        self.targets_to_find = 1  # Total number of targets TODO: parametrize
-        self.targets_rescued = []  # Total number of targets TODO: parametrize
-        self.found_targets = []  # List of found target locations
-
     @property
     def current_position(self):
+        """
+        Get the real current position of the drone, used to check if it is inside the communication range
+        """
         return self.drones_positions[self.drone_id]
 
     def init_callback(self, msg):
+        """
+        When the robot is initialized, i.e. it is flying at the desired height, then it is ready to start the mission.
+        """
         self.current_state = RobotState.SEARCH
         self.init_sub.unregister()
 
@@ -117,6 +120,11 @@ class MotionPlanner3d:
                 self.vel_pub.publish(twist)
 
     def remove_rescued_target(self, msg):
+        """
+        The target has been rescued, so to avoid other drones to rescue the same target, the target is removed from the
+        simulation. Since multiple drones can rescue the same target, this function will fail if the target has already
+        been removed.
+        """
         # Find the name of the target to remove. For now, it is the target with less distance from the message
         target_to_remove = None
         min_distance = None
@@ -171,6 +179,9 @@ class MotionPlanner3d:
                 self.rescue_drones = []
 
     def position_callback(self, msg):
+        """
+        Read the estimated position of the drone from the localization system and publish it to the neighbors.
+        """
         target_data_cell = target_data()
         target_data_cell.robot_id = self.drone_id
         target_data_cell.x = msg.position.x
@@ -179,6 +190,15 @@ class MotionPlanner3d:
         self.neighbor_pub.publish(target_data_cell)
 
     def assignment_callback(self, msg: target_assignment_data):
+        """
+        The robot receives a message from another robot that assigns a target to the receiving robot.
+        This is a global topic, so it is received by all the drones (also the sender).
+        Condition: the message is received only if the real position of the receiving drone is inside the communication
+        range, the message is not sent by the receiving drone, and it is assigned to the receiving drone.
+
+        If the drone is searching, then it is assigned to the target. If the drone is rescuing, then it is assigned to
+        the target only if the sender has a lower ID than the previous sender.
+        """
         if msg.assigned_robot_id == self.drone_id and msg.sender_robot_id != self.drone_id:
             # communication range
             sender_robot_id = msg.sender_robot_id
@@ -189,10 +209,15 @@ class MotionPlanner3d:
                 if self.current_state == RobotState.SEARCH:
                     self.target_location = msg
                     self.current_state = RobotState.RESCUE
-                elif self.current_state == RobotState.RESCUE and self.drone_id <= msg.sender_robot_id:
+                elif self.current_state == RobotState.RESCUE and msg.sender_robot_id <= self.target_location.sender_robot_id:
                     self.target_location = msg
 
     def neighbor_callback(self, msg):
+        """
+        Callback from global topic where the estimated position of the neighbors is published.
+        The message is received only if the real position of the receiving drone is inside the communication range, and it
+        helps to estimate the position of the neighbors used to assign the target.
+        """
         # This message arrive only if the real position of the receiving drone is inside the communication range
         robot_id = msg.robot_id
         if robot_id != self.drone_id:
@@ -205,6 +230,9 @@ class MotionPlanner3d:
                 self.estimated_drones_positions.pop(robot_id, None)
 
     def odom_callback(self, msg):
+        """
+        Helper function to get the real position of the drones and the targets from the gazebo model states
+        """
         # Callback to get the current position of the drones
         for i, name in enumerate(msg.name):
             if "drone" in name:  # Assuming all drones have "drone" in their names
@@ -217,7 +245,11 @@ class MotionPlanner3d:
                 self.targets_positions[name] = position
 
     def target_callback(self, msg):
-        # This message arrive only if the real position of the receiving drone is inside the communication range
+        """
+        Global topic to receive the target location from the other drones. When a drone individuates a target, it sends
+        the target location to all the other drones.
+        Each drone has a list of found targets, and if the target is already present in the list, then it is substituted.
+        """
         robot_id = msg.robot_id
         # if distance between robot_id and self.drone_id is less than the communication range, then the message is received
         sender_position = self.drones_positions[robot_id]
@@ -239,12 +271,17 @@ class MotionPlanner3d:
                     self.found_targets.append(msg)
 
     def all_targets_callback(self, msg):
-        # Callback to signal that all targets have been found
+        """
+        Callback to signal that all targets have been rescued
+        """
         self.all_targets_found = msg.data
         if msg.data:
-            rospy.loginfo(f"Drone {self.drone_id} received signal: All targets found!")
+            rospy.loginfo(f"Drone {self.drone_id} received signal: All targets rescued!")
 
     def generate_random_goal(self):
+        """
+        To move randomly in the environment, the drone generates a random point in the environment and moves to it.
+        """
         # x = random.uniform(self.min_x, self.max_x)
         # y = random.uniform(self.min_y, self.max_y)
         if self.drone_id == 0:
@@ -259,6 +296,9 @@ class MotionPlanner3d:
         return point
 
     def move_to_point(self, random_goal):
+        """
+        Move the drone to the random goal point. If the drone is close enough to the point, then it stops.
+        """
         # Navigate to the target's location
         # TODO: here I am using the current, but it should be the estimated one
         dx = random_goal.x - self.current_position.x
@@ -284,6 +324,10 @@ class MotionPlanner3d:
         return False
 
     def move_to_target(self, target):
+        """
+        Move the drone to the target location. If the drone is close enough to the target, then it stops and changes
+        the state to RESCUING.
+        """
         # Navigate to the target's location
         # rospy.loginfo(f"Drone {self.drone_id} is moving to target at {target}")
 
@@ -312,6 +356,10 @@ class MotionPlanner3d:
         self.vel_pub.publish(twist)
 
     def blob_callback(self, msg):
+        """
+        Callback to receive the target location from the point blob topic. When a drone detects a target, it sends the
+        target location to all the other drones. It then starts to move to the target location to rescue the target.
+        """
         target_location = target_assignment_data()
         # TODO: here I am using the current, but it should be the estimated one
         projected_x = msg.y
@@ -354,14 +402,23 @@ class MotionPlanner3d:
             self.start_rescue(target_data_cell)  # Case 2: Start rescue immediately for this target
 
     def start_rescue(self, target):
-        """Start rescuing based on the current targets and state."""
+        """
+        Start rescuing based on the current targets and state.
+        If the drone is rescuing, then it is waiting for other required drones to rescue the target (if needed).
+        Found the nearest drones to the target, and if the number of drones is enough, then assign the target to the
+        drones publishing the target assignment message.
+        """
         rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation.")
         nearby_robots = self.find_nearby_robots(target)
+        # TODO: what if the condition not holds?
         if len(nearby_robots) >= self.robots_required_per_rescue - 1:
             self.assign_rescue_task(target, nearby_robots[:self.robots_required_per_rescue - 1])
 
     def find_nearby_robots(self, target):
-        """Find robots within communication range of a target."""
+        """
+        To find the nearest robots to the target, the drone knows the estimates of the positions of the other drones.
+        Then it sends the message only if the real position of the receiving drone is inside the communication range.
+        """
         nearby_robots = []
         for drone_id, position in self.estimated_drones_positions.items():
             if drone_id != self.drone_id:
@@ -376,7 +433,9 @@ class MotionPlanner3d:
         return ((position.x - target.x) ** 2 + (position.y - target.y) ** 2) ** 0.5
 
     def assign_rescue_task(self, target, rescuers):
-        """Assign a rescue task to the selected robots."""
+        """
+        Send the target assignment message to the drones that are assigned to rescue the target.
+        """
         rospy.loginfo(f"Assigning rescue for target at {target} to drones {rescuers}.")
         # Notify the rescuing robots
 
@@ -390,6 +449,15 @@ class MotionPlanner3d:
             self.target_assignment_pub.publish(target_assignment_data_cell)
 
     def main_loop(self):
+        """
+        Continue to spin until the mission is completed.
+        The states are:
+        - INIT: the drone is initializing (no movement)
+        - SEARCH: the drone is moving randomly in the environment
+        - RESCUE: the drone is moving to the target location
+        - RESCUING: the drone is near the target location and is waiting for other drones to rescue the target
+        - FINISH: the drone has completed the mission
+        """
         rate_val = 10
         rate = rospy.Rate(rate_val)
 
@@ -416,6 +484,7 @@ class MotionPlanner3d:
                 target_data_cell = target_data()
                 target_data_cell.robot_id = self.drone_id
                 # TODO: here I am using the current, but it should be the estimated one
+                # TODO: could be that it continue to send the target assignment message to the other drones?
                 target_data_cell.x = self.current_position.x
                 target_data_cell.y = self.current_position.y
                 self.ready_to_rescue_pub.publish(target_data_cell)
