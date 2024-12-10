@@ -121,6 +121,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/kalman_localization_3d.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/motion_planner.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/motion_planner_drone.py"
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/target_coordinate.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/target_estimator.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/uwb_dist_sim.py"
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/scripts/uwb_dist_sim_3d.py"

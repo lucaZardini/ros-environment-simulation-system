@@ -174,6 +174,7 @@ catkin_install_python(PROGRAMS
   scripts/gps_to_coordinate.py
   scripts/kalman_localization_3d.py
   scripts/motion_planner_drone.py
+  scripts/target_coordinate.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

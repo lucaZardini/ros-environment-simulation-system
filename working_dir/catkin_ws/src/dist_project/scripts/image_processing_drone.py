@@ -207,6 +207,8 @@ class BlobDetector:
         center_y = 0.5 * rows
         x = (keyPoint.pt[0] - center_x) / center_x
         y = (keyPoint.pt[1] - center_y) / center_y
+
+        rospy.loginfo(f"Rows = {rows}, Cols = {cols}, keyPointx = {keyPoint.pt[0]}, keyPointy = {keyPoint.pt[1]}")
         return x, y
 
     def callback(self, data):
@@ -240,10 +242,11 @@ class BlobDetector:
                 print("kp %d: s = %3d   x = %3d  y= %3d" % (i, s, x, y))
                 
                 # Find x and y position in camera adimensional frame
-                x, y = self.get_blob_relative_position(cv_image, keyPoint)
+                # x, y = self.get_blob_relative_position(cv_image, keyPoint)
                 
                 self.blob_point.x = x
                 self.blob_point.y = y
+                self.blob_point.z = s
                 self.blob_pub.publish(self.blob_point)
                 break
 
@@ -264,7 +267,7 @@ if __name__ == '__main__':
     x_min = 0.2
     x_max = 0.8
     y_min = 0.1
-    y_max = 0.5
+    y_max = 0.9
 
     detection_window = [x_min, y_min, x_max, y_max]
 
