@@ -33,7 +33,7 @@
         <!-- NODE THAT IF UNCOMMENTED LAUNCH A SIMPLE TERMINAL CONTROLLER FOR THE ROBOT, USED FOR PLOTTING PURPOSES -->
         <!-- <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" /> -->
     </group>
-    <include file="$(find dist_project)/launch/start_nodes.launch" if="$(eval arg('ns') - 1 >= 0)">
+    <include file="$(find dist_project)/launch/start_unicycle_nodes.launch" if="$(eval arg('ns') - 1 >= 0)">
         <arg name="num_unicycles" value="$(eval arg('ns') - 1)" />
     </include>
 </launch>

@@ -55,7 +55,7 @@
 <!--                 <param name="namespace" value="$(arg nd)" /> -->
 <!--             </node> -->
         </group>
-        <include file="$(find dist_project)/launch/start_nodes.launch" if="$(eval arg('nd') - 1 >= 0)">
+        <include file="$(find dist_project)/launch/start_drone_nodes.launch" if="$(eval arg('nd') - 1 >= 0)">
             <arg name="num_drones" value="$(eval arg('nd') - 1)" />
         </include>
 

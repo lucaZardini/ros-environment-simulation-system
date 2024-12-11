@@ -3,7 +3,7 @@
 <!-- TODO: check if the recursion is correct -->
 <launch>
 
-<arg name="num_drones" default="1" />
+<arg name="num_drones" default="5" />
 <arg name="nd" default="$(arg num_drones)" />
 <group ns="$(eval 'drone' + str(arg('nd') - 1 ))">
 

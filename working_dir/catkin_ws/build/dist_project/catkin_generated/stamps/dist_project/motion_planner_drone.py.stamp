@@ -10,8 +10,8 @@ from gazebo_msgs.msg import ModelStates
 from gazebo_msgs.srv import DeleteModel
 from dist_project.msg import target_data, target_assignment_data
 
-MIN_VEL = -0.2
-MAX_VEL = 0.2
+MIN_VEL = -0.5
+MAX_VEL = 0.5
 COMMUNICATION_RANGE = 20
 
 
@@ -41,7 +41,9 @@ class MotionPlanner3d:
         self.max_x = 7.5
         self.min_y = -5
         self.max_y = 5
-        self.targets_to_find = 1  # Total number of targets TODO: parametrize
+        self.x_accepted_error = 0.8
+        self.y_accepted_error = 0.8
+        self.targets_to_find = 4  # Total number of targets TODO: parametrize
         self.targets_rescued = []  # Total number of targets TODO: parametrize
         self.found_targets = []  # List of found target locations
 
@@ -104,16 +106,18 @@ class MotionPlanner3d:
         Add this target to the list of rescued targets. If the number of rescued targets is enough, then the drone
         stops and the mission is completed.
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         if msg.robot_id != self.drone_id:
             # TODO: communication_range
             is_already_present = False
             for rescued in self.targets_rescued:
-                if abs(rescued.x - msg.x) < 0.5 and abs(rescued.y - msg.y) < 0.5:
+                if abs(rescued.x - msg.x) < self.x_accepted_error and abs(rescued.y - msg.y) < self.y_accepted_error:
                     is_already_present = True
             if not is_already_present:
                 self.targets_rescued.append(msg)
 
-            if self.current_state == RobotState.MOVING_TO_TARGET and self.target_location.x - 0.5 < msg.x < self.target_location.x + 0.5 and self.target_location.y - 0.5 < msg.y < self.target_location.y + 0.5:
+            if self.current_state in [RobotState.MOVING_TO_TARGET, RobotState.WAITING_FOR_SUPPORT] and self.target_location.x - self.x_accepted_error < msg.x < self.target_location.x + self.x_accepted_error and self.target_location.y - self.y_accepted_error < msg.y < self.target_location.y + self.y_accepted_error:
                 # The target has been rescued, no need to rescue it again
                 self.rescue_drones = []
                 self.current_state = RobotState.SEARCHING
@@ -164,15 +168,18 @@ class MotionPlanner3d:
         Effect: add the drone to the list of drones that are ready to rescue the target. If the number of drones is
         enough, then the target is rescued.
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         if msg.robot_id != self.drone_id:
             if self.current_state == RobotState.WAITING_FOR_SUPPORT:
-                if self.target_location.x - 0.5 < msg.x < self.target_location.x + 0.5 and self.target_location.y - 0.5 < msg.y < self.target_location.y + 0.5:
+                if self.target_location.x - self.x_accepted_error < msg.x < self.target_location.x + self.x_accepted_error and self.target_location.y - self.y_accepted_error < msg.y < self.target_location.y + self.y_accepted_error:
                     self.rescue_drones.append(msg.robot_id)
 
         if len(self.rescue_drones) >= self.robots_required_per_rescue:
             self.targets_rescued.append(msg)
             # try to unspawn the target
             self.remove_rescued_target(msg)
+            self.target_rescued_pub.publish(msg)
             if len(self.targets_rescued) >= self.targets_to_find:
                 self.all_targets_found = True
                 self.rescue_drones = []
@@ -181,7 +188,6 @@ class MotionPlanner3d:
                 twist.linear.x = 0
                 twist.linear.y = 0
                 self.vel_pub.publish(twist)
-                self.target_rescued_pub.publish(msg)
             else:
                 self.current_state = RobotState.SEARCHING
                 self.rescue_drones = []
@@ -207,6 +213,8 @@ class MotionPlanner3d:
         If the drone is searching, then it is assigned to the target. If the drone is rescuing, then it is assigned to
         the target only if the sender has a lower ID than the previous sender.
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         if msg.assigned_robot_id == self.drone_id and msg.sender_robot_id != self.drone_id:
             # communication range
             sender_robot_id = msg.sender_robot_id
@@ -217,6 +225,7 @@ class MotionPlanner3d:
                 if self.current_state == RobotState.SEARCHING:
                     self.target_location = msg
                     self.current_state = RobotState.MOVING_TO_TARGET
+                    rospy.loginfo(f"Drone {self.drone_id} is moving to target at {msg}")
                 elif self.current_state == RobotState.MOVING_TO_TARGET and msg.sender_robot_id <= self.target_location.sender_robot_id:
                     self.target_location = msg
 
@@ -252,12 +261,14 @@ class MotionPlanner3d:
                 position = msg.pose[i].position
                 self.targets_positions[name] = position
 
-    def target_callback(self, msg):
+    def target_callback(self, msg: target_data):
         """
         Global topic to receive the target location from the other drones. When a drone individuates a target, it sends
         the target location to all the other drones.
         Each drone has a list of found targets, and if the target is already present in the list, then it is substituted.
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         robot_id = msg.robot_id
         # if distance between robot_id and self.drone_id is less than the communication range, then the message is received
         sender_position = self.drones_positions[robot_id]
@@ -267,7 +278,7 @@ class MotionPlanner3d:
                 already_found = False
                 target_to_substitute = None
                 for target in self.found_targets:
-                    if abs(target.x - msg.x) < 0.5 or abs(target.y - msg.y) < 0.5:
+                    if abs(target.x - msg.x) < self.x_accepted_error or abs(target.y - msg.y) < self.y_accepted_error:
                         already_found = True
                         target_to_substitute = target
 
@@ -281,13 +292,20 @@ class MotionPlanner3d:
                     msg.y = target_value_y
                     self.found_targets.remove(target_to_substitute)
                     self.found_targets.append(msg)
-                if self.target_location is not None and abs(self.target_location.x - msg.x) < 0.5 and abs(self.target_location.y - msg.y) < 0.5:
-                    self.target_location = msg
+                if self.target_location is not None and abs(self.target_location.x - msg.x) < self.x_accepted_error and abs(self.target_location.y - msg.y) < self.y_accepted_error:
+                    target_assignment_data_cell = target_assignment_data()
+                    target_assignment_data_cell.sender_robot_id = self.drone_id
+                    target_assignment_data_cell.assigned_robot_id = robot_id
+                    target_assignment_data_cell.x = msg.x
+                    target_assignment_data_cell.y = msg.y
+                    self.target_location = target_assignment_data_cell
 
     def all_targets_callback(self, msg):
         """
         Callback to signal that all targets have been rescued
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         self.all_targets_found = msg.data
         self.current_state = RobotState.FINISH
         twist = Twist()
@@ -350,12 +368,14 @@ class MotionPlanner3d:
         dy = target.y - self.current_position.y
 
         distance = (dx ** 2 + dy ** 2) ** 0.5
-        if distance < 0.1:
+        if distance < 0.2:
             twist = Twist()
             twist.linear.x = 0
             twist.linear.y = 0
             self.vel_pub.publish(twist)
             self.current_state = RobotState.SEARCHING_AROUND
+            rospy.loginfo(f"Drone {self.drone_id} reached the target at {target}.")
+            return
 
         unit_dx = dx / distance
         unit_dy = dy / distance
@@ -405,6 +425,8 @@ class MotionPlanner3d:
         Callback to receive the target location from the point blob topic. When a drone detects a target, it sends the
         target location to all the other drones. It then starts to move to the target location to rescue the target.
         """
+        if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
+            return
         target_location = target_assignment_data()
         # TODO: here I am using the current, but it should be the estimated one
 
@@ -433,7 +455,7 @@ class MotionPlanner3d:
         new_target = True
         iteration = None
         for i, found_target in enumerate(self.found_targets):
-            if abs(found_target.x - target_location.x) < 0.5 and abs(found_target.y - target_location.y) < 0.5:
+            if abs(found_target.x - target_location.x) < self.x_accepted_error and abs(found_target.y - target_location.y) < self.y_accepted_error:
                 # rospy.loginfo(f"Drone {self.drone_id} already knows the existence of target at {target_location}")
                 new_target = False
                 iteration = i
@@ -459,15 +481,21 @@ class MotionPlanner3d:
                 #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
                 self.target_location = target_location
                 self.current_state = RobotState.MOVING_TO_TARGET
-                rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation.")
+                rospy.loginfo(f"Drone {self.drone_id} initiating rescue operation to target {self.target_location}.")
                 self.start_and_find_rescuers(target_data_cell)  # Case 2: Start rescue immediately for this target
             else:
                 rospy.loginfo(f"Drone {self.drone_id} is already rescuing another target, ignoring the new target.")
         else:
             if self.current_state in [RobotState.MOVING_TO_TARGET, RobotState.WAITING_FOR_SUPPORT]:
-                self.target_location = self.found_targets[iteration]
+                self.target_location.x = self.found_targets[iteration].x
+                self.target_location.y = self.found_targets[iteration].y
             elif self.current_state == RobotState.SEARCHING_AROUND:
                 self.current_state = RobotState.WAITING_FOR_SUPPORT
+                twist = Twist()
+                twist.linear.x = 0
+                twist.linear.y = 0
+                self.vel_pub.publish(twist)
+                rospy.loginfo(f"Drone {self.drone_id} is waiting for support to rescue the target at {self.target_location}.")
                 self.rescue_drones.append(self.drone_id)
             self.found_target_pub.publish(target_data_cell)
 
@@ -504,7 +532,7 @@ class MotionPlanner3d:
         """
         Send the target assignment message to the drones that are assigned to rescue the target.
         """
-        rospy.loginfo(f"Assigning rescue for target at {target} to drones {rescuers}.")
+        # rospy.loginfo(f"Assigning rescue for target at {target} to drones {rescuers}.")
         # Notify the rescuing robots
 
         for rescuer in rescuers:
@@ -538,6 +566,7 @@ class MotionPlanner3d:
             while self.current_state == RobotState.SEARCHING:
                 random_goal = self.generate_random_goal()
                 reached = False
+                rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
                 # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
 
                 while not reached and self.current_state == RobotState.SEARCHING:
@@ -555,14 +584,35 @@ class MotionPlanner3d:
             while self.current_state == RobotState.SEARCHING_AROUND:
                 radius = radius + radius_increase
                 while not reached_point and self.current_state == RobotState.SEARCHING_AROUND:
+                    point = Point()
                     if increase_counter % increase_radius_after == 0:
-                        reached_point = self.move_to_point(Point(self.target_location.x - radius, self.target_location.y - radius))
+                        if self.target_location.x - radius > self.min_x and self.target_location.y - radius > self.min_y:
+                            point.x = self.target_location.x - radius
+                            point.y = self.target_location.y - radius
+                            reached_point = self.move_to_point(point)
+                        else:
+                            reached_point = True
                     elif increase_counter % increase_radius_after == 1:
-                        reached_point = self.move_to_point(Point(self.target_location.x - radius, self.target_location.y + radius))
+                        if self.target_location.x - radius > self.min_x and self.target_location.y + radius < self.max_y:
+                            point.x = self.target_location.x - radius
+                            point.y = self.target_location.y + radius
+                            reached_point = self.move_to_point(point)
+                        else:
+                            reached_point = True
                     elif increase_counter % increase_radius_after == 2:
-                        reached_point = self.move_to_point(Point(self.target_location.x + radius, self.target_location.y + radius))
+                        if self.target_location.x + radius < self.max_x and self.target_location.y + radius < self.max_y:
+                            point.x = self.target_location.x + radius
+                            point.y = self.target_location.y + radius
+                            reached_point = self.move_to_point(point)
+                        else:
+                            reached_point = True
                     elif increase_counter % increase_radius_after == 3:
-                        reached_point = self.move_to_point(Point(self.target_location.x + radius, self.target_location.y - radius))
+                        if self.target_location.x + radius < self.max_x and self.target_location.y - radius > self.min_y:
+                            point.x = self.target_location.x + radius
+                            point.y = self.target_location.y - radius
+                            reached_point = self.move_to_point(point)
+                        else:
+                            reached_point = True
                 increase_counter += 1
 
             while self.current_state == RobotState.WAITING_FOR_SUPPORT:
