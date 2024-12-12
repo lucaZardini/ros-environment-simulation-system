@@ -154,7 +154,7 @@ class MotionPlanner3d:
 
                 # Call the service with the model name
                 response = delete_model_service(target_to_remove)
-                rospy.loginfo(f"Model {target_to_remove} rescued: {response.success}")
+                rospy.loginfo(f"Drone {self.drone_id} deleted {target_to_remove}. Success: {response.success}")
                 self.targets_positions.pop(target_to_remove, None)
             except rospy.ServiceException as e:
                 rospy.info(f"Unabled to remove target {target_to_remove}: {e}, maybe it was already removed")
@@ -175,22 +175,23 @@ class MotionPlanner3d:
                 if self.target_location.x - self.x_accepted_error < msg.x < self.target_location.x + self.x_accepted_error and self.target_location.y - self.y_accepted_error < msg.y < self.target_location.y + self.y_accepted_error:
                     self.rescue_drones.append(msg.robot_id)
 
-        if len(self.rescue_drones) >= self.robots_required_per_rescue:
-            self.targets_rescued.append(msg)
-            # try to unspawn the target
-            self.remove_rescued_target(msg)
-            self.target_rescued_pub.publish(msg)
-            if len(self.targets_rescued) >= self.targets_to_find:
-                self.all_targets_found = True
-                self.rescue_drones = []
-                self.current_state = RobotState.FINISH
-                twist = Twist()
-                twist.linear.x = 0
-                twist.linear.y = 0
-                self.vel_pub.publish(twist)
-            else:
-                self.current_state = RobotState.SEARCHING
-                self.rescue_drones = []
+                if len(self.rescue_drones) >= self.robots_required_per_rescue:
+                    self.targets_rescued.append(msg)
+                    # try to unspawn the target
+                    self.remove_rescued_target(msg)
+                    self.target_rescued_pub.publish(msg)
+                    if len(self.targets_rescued) >= self.targets_to_find:
+                        self.all_targets_found = True
+                        self.rescue_drones = []
+                        self.current_state = RobotState.FINISH
+                        twist = Twist()
+                        twist.linear.x = 0
+                        twist.linear.y = 0
+                        self.vel_pub.publish(twist)
+                    else:
+                        self.current_state = RobotState.SEARCHING
+                        self.target_location = None
+                        self.rescue_drones = []
 
     def position_callback(self, msg):
         """
@@ -472,7 +473,7 @@ class MotionPlanner3d:
         # 2. The target is already known, so it updates the position of the target with the average of the previous
         #    position and the new one.
         if new_target:
-            if self.current_state != RobotState.MOVING_TO_TARGET:
+            if self.current_state == RobotState.SEARCHING:
                 self.found_target_pub.publish(target_data_cell)
                 self.found_targets.append(target_data_cell)
                 # TODO: explore all or rescue one?
@@ -486,7 +487,8 @@ class MotionPlanner3d:
             else:
                 rospy.loginfo(f"Drone {self.drone_id} is already rescuing another target, ignoring the new target.")
         else:
-            if self.current_state in [RobotState.MOVING_TO_TARGET, RobotState.WAITING_FOR_SUPPORT]:
+            self.found_target_pub.publish(target_data_cell)
+            if self.current_state == RobotState.WAITING_FOR_SUPPORT:
                 self.target_location.x = self.found_targets[iteration].x
                 self.target_location.y = self.found_targets[iteration].y
             elif self.current_state == RobotState.SEARCHING_AROUND:
@@ -497,7 +499,6 @@ class MotionPlanner3d:
                 self.vel_pub.publish(twist)
                 rospy.loginfo(f"Drone {self.drone_id} is waiting for support to rescue the target at {self.target_location}.")
                 self.rescue_drones.append(self.drone_id)
-            self.found_target_pub.publish(target_data_cell)
 
     def start_and_find_rescuers(self, target):
         """
