@@ -31,16 +31,18 @@ class MotionPlanner3d:
         self.current_state = RobotState.WAITING_FOR_START
         self.target_location = None
         self.all_targets_found = False
-        self.rescue_drones = []
+        # create empty set
+        self.rescue_drones = set()
+        # self.rescue_drones = []
         self.drones_positions = {}
         self.targets_positions = {}
         self.estimated_drones_positions = {}
         self.robots_required_per_rescue = 2  # Number of robots required to rescue a target
         # TODO: define it
-        self.min_x = -7.5
-        self.max_x = 7.5
-        self.min_y = -5
-        self.max_y = 5
+        self.min_x = -6.5
+        self.max_x = 6.5
+        self.min_y = -4
+        self.max_y = 4
         self.x_accepted_error = 0.8
         self.y_accepted_error = 0.8
         self.targets_to_find = 4  # Total number of targets TODO: parametrize
@@ -112,14 +114,14 @@ class MotionPlanner3d:
             # TODO: communication_range
             is_already_present = False
             for rescued in self.targets_rescued:
-                if abs(rescued.x - msg.x) < self.x_accepted_error and abs(rescued.y - msg.y) < self.y_accepted_error:
+                if self._are_points_close(rescued, msg):
                     is_already_present = True
             if not is_already_present:
                 self.targets_rescued.append(msg)
 
-            if self.current_state in [RobotState.MOVING_TO_TARGET, RobotState.WAITING_FOR_SUPPORT] and self.target_location.x - self.x_accepted_error < msg.x < self.target_location.x + self.x_accepted_error and self.target_location.y - self.y_accepted_error < msg.y < self.target_location.y + self.y_accepted_error:
+            if self.current_state in [RobotState.MOVING_TO_TARGET, RobotState.SEARCHING_AROUND,   RobotState.WAITING_FOR_SUPPORT] and self._are_points_close(self.target_location, msg):
                 # The target has been rescued, no need to rescue it again
-                self.rescue_drones = []
+                self.rescue_drones = set()
                 self.current_state = RobotState.SEARCHING
 
             if len(self.targets_rescued) >= self.targets_to_find:
@@ -129,6 +131,20 @@ class MotionPlanner3d:
                 twist.linear.x = 0
                 twist.linear.y = 0
                 self.vel_pub.publish(twist)
+
+    def _are_points_close(self, first_point, second_point) -> bool:
+        is_x_close = abs(first_point.x - second_point.x) < self.x_accepted_error
+        is_y_close = abs(first_point.y - second_point.y) < self.y_accepted_error
+        return is_x_close and is_y_close
+
+    def _is_already_rescued(self, target):
+        """
+        Check if the target is already rescued by the drone
+        """
+        for rescued in self.targets_rescued:
+            if self._are_points_close(rescued, target):
+                return True
+        return False
 
     def remove_rescued_target(self, msg):
         """
@@ -172,26 +188,28 @@ class MotionPlanner3d:
             return
         if msg.robot_id != self.drone_id:
             if self.current_state == RobotState.WAITING_FOR_SUPPORT:
-                if self.target_location.x - self.x_accepted_error < msg.x < self.target_location.x + self.x_accepted_error and self.target_location.y - self.y_accepted_error < msg.y < self.target_location.y + self.y_accepted_error:
-                    self.rescue_drones.append(msg.robot_id)
+                if self._are_points_close(self.target_location, msg):
+                    self.rescue_drones.add(msg.robot_id)
 
-                if len(self.rescue_drones) >= self.robots_required_per_rescue:
-                    self.targets_rescued.append(msg)
-                    # try to unspawn the target
-                    self.remove_rescued_target(msg)
-                    self.target_rescued_pub.publish(msg)
-                    if len(self.targets_rescued) >= self.targets_to_find:
-                        self.all_targets_found = True
-                        self.rescue_drones = []
-                        self.current_state = RobotState.FINISH
-                        twist = Twist()
-                        twist.linear.x = 0
-                        twist.linear.y = 0
-                        self.vel_pub.publish(twist)
-                    else:
-                        self.current_state = RobotState.SEARCHING
-                        self.target_location = None
-                        self.rescue_drones = []
+                    if len(self.rescue_drones) >= self.robots_required_per_rescue:
+
+                        rospy.loginfo(f"Drones {self.rescue_drones} are ready to rescue the target at {self.target_location}.")
+                        self.targets_rescued.append(msg)
+                        # try to unspawn the target
+                        self.remove_rescued_target(msg)
+                        self.target_rescued_pub.publish(msg)
+                        if len(self.targets_rescued) >= self.targets_to_find:
+                            self.all_targets_found = True
+                            self.rescue_drones = set()
+                            self.current_state = RobotState.FINISH
+                            twist = Twist()
+                            twist.linear.x = 0
+                            twist.linear.y = 0
+                            self.vel_pub.publish(twist)
+                        else:
+                            self.current_state = RobotState.SEARCHING
+                            self.target_location = None
+                            self.rescue_drones = set()
 
     def position_callback(self, msg):
         """
@@ -224,9 +242,10 @@ class MotionPlanner3d:
             if distance < COMMUNICATION_RANGE:
                 # Assign
                 if self.current_state == RobotState.SEARCHING:
-                    self.target_location = msg
-                    self.current_state = RobotState.MOVING_TO_TARGET
-                    rospy.loginfo(f"Drone {self.drone_id} is moving to target at {msg}")
+                    if not self._is_already_rescued(msg):
+                        self.target_location = msg
+                        self.current_state = RobotState.MOVING_TO_TARGET
+                        rospy.loginfo(f"Drone {self.drone_id} is moving to target at {msg}")
                 elif self.current_state == RobotState.MOVING_TO_TARGET and msg.sender_robot_id <= self.target_location.sender_robot_id:
                     self.target_location = msg
 
@@ -279,7 +298,7 @@ class MotionPlanner3d:
                 already_found = False
                 target_to_substitute = None
                 for target in self.found_targets:
-                    if abs(target.x - msg.x) < self.x_accepted_error or abs(target.y - msg.y) < self.y_accepted_error:
+                    if self._are_points_close(target, msg):
                         already_found = True
                         target_to_substitute = target
 
@@ -293,7 +312,7 @@ class MotionPlanner3d:
                     msg.y = target_value_y
                     self.found_targets.remove(target_to_substitute)
                     self.found_targets.append(msg)
-                if self.target_location is not None and abs(self.target_location.x - msg.x) < self.x_accepted_error and abs(self.target_location.y - msg.y) < self.y_accepted_error:
+                if self.target_location is not None and self._are_points_close(self.target_location, msg):
                     target_assignment_data_cell = target_assignment_data()
                     target_assignment_data_cell.sender_robot_id = self.drone_id
                     target_assignment_data_cell.assigned_robot_id = robot_id
@@ -456,7 +475,7 @@ class MotionPlanner3d:
         new_target = True
         iteration = None
         for i, found_target in enumerate(self.found_targets):
-            if abs(found_target.x - target_location.x) < self.x_accepted_error and abs(found_target.y - target_location.y) < self.y_accepted_error:
+            if self._are_points_close(found_target, target_location):
                 # rospy.loginfo(f"Drone {self.drone_id} already knows the existence of target at {target_location}")
                 new_target = False
                 iteration = i
@@ -498,7 +517,7 @@ class MotionPlanner3d:
                 twist.linear.y = 0
                 self.vel_pub.publish(twist)
                 rospy.loginfo(f"Drone {self.drone_id} is waiting for support to rescue the target at {self.target_location}.")
-                self.rescue_drones.append(self.drone_id)
+                self.rescue_drones.add(self.drone_id)
 
     def start_and_find_rescuers(self, target):
         """
