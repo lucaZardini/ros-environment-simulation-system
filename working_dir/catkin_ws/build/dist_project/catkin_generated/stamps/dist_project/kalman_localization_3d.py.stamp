@@ -88,10 +88,10 @@ class KalmanEstimator:
         # Kinematic model noise redistribution
         G = np.array([[np.cos(yaw) * np.cos(pitch), 0.0, 0.0, 0.0, 0.0, 0.0],
                       [np.sin(yaw) * np.cos(pitch), 0.0, 0.0, 0.0, 0.0, 0.0],
-                      [-np.sin(yaw), 0.0, 0.0, 0.0, 0.0, 0.0],
-                      [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
-                      [0.0, 0.0, 1.0, 0.0, 0.0, 0.0],
-                      [0.0, 0.0, 0.0, 1.0, 1.0, 0.0]])
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
+                      [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]])
 
         # Update of the state with model knowledge
         # Instead of multiplying by the delta t I divide by the odometry topic publishing frequency
@@ -107,8 +107,8 @@ class KalmanEstimator:
 
         # Jacobian of the dynamics with respect to the state
         A = np.array([
-            [1.0, 0.0, 0.0, 0.0, 0.0, -delta_vel_y * delta_t],
-            [0.0, 1.0, 0.0, 0.0, 0.0, delta_vel_x * delta_t],
+            [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
             [0.0, 0.0, 1.0, 0.0, 0.0, 0.0],  # z unaffected by yaw in this case
             [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],  # roll
             [0.0, 0.0, 0.0, 0.0, 1.0, 0.0],  # pitch
