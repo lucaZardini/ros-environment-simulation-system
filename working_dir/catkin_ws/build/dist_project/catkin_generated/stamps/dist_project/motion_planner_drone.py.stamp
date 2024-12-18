@@ -95,6 +95,13 @@ class MotionPlanner3d:
         """
         return self.drones_positions[self.drone_id]
 
+    @property
+    def estimated_position(self):
+        """
+        Get the estimated current position of the drone, used to check if it is inside the communication range
+        """
+        return self.estimated_drones_positions[self.drone_id]
+
     def init_callback(self, msg):
         """
         When the robot is initialized, i.e. it is flying at the desired height, then it is ready to start the mission.
@@ -351,9 +358,12 @@ class MotionPlanner3d:
         Move the drone to the random goal point. If the drone is close enough to the point, then it stops.
         """
         # Navigate to the target's location
-        # TODO: here I am using the current, but it should be the estimated one
-        dx = random_goal.x - self.current_position.x
-        dy = random_goal.y - self.current_position.y
+
+        # dx = random_goal.x - self.current_position.x
+        # dy = random_goal.y - self.current_position.y
+
+        dx = random_goal.x - self.estimated_position.x
+        dy = random_goal.y - self.estimated_position.y
 
         distance = (dx ** 2 + dy ** 2) ** 0.5
         if distance < 0.1:
@@ -381,11 +391,14 @@ class MotionPlanner3d:
         """
         # Navigate to the target's location
         # rospy.loginfo(f"Drone {self.drone_id} is moving to target at {target}")
-        # TODO: here I am using the current, but it should be the estimated one
+
         target_x = target.x
-        current_position_x = self.current_position.x
-        dx = target_x - current_position_x
-        dy = target.y - self.current_position.y
+
+        # dx = target_x - self.current_position.x
+        # dy = target.y - self.current_position.y
+
+        dx = target_x - self.estimated_position.x
+        dy = target.y - self.estimated_position.y
 
         distance = (dx ** 2 + dy ** 2) ** 0.5
         if distance < 0.2:
@@ -448,11 +461,13 @@ class MotionPlanner3d:
         if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
             return
         target_location = target_assignment_data()
-        # TODO: here I am using the current, but it should be the estimated one
 
         x_pixels = msg.x
         y_pixels = msg.y
-        current_position = self.current_position
+
+        # current_position = self.current_position
+        current_position = self.estimated_position
+
         target_height = 1.10
 
         z_distance = current_position.z - target_height

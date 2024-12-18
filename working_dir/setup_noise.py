@@ -10,13 +10,12 @@ quadrotor_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distribu
 # sonar_sensor_file = "catkin_ws/src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
 sonar_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
 
-# TODO: sonar
 
 def load_yaml_config(yaml_file):
     with open(yaml_file, 'r') as file:
         return yaml.safe_load(file)
 
-# Update XML values based on the YAML config
+
 def update_xacro_file(xml_file, config):
     # Define the correct namespace
     namespace_uri = "http://ros.org/wiki/xacro"
