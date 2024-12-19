@@ -222,6 +222,7 @@ class MotionPlanner3d:
         """
         Read the estimated position of the drone from the localization system and publish it to the neighbors.
         """
+        self.estimated_drones_positions[self.drone_id] = msg.position
         target_data_cell = target_data()
         target_data_cell.robot_id = self.drone_id
         target_data_cell.x = msg.position.x

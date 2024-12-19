@@ -1,0 +1,68 @@
+sensors:
+    sonar:
+        gaussianNoise: 0.0
+    imu:
+        updateRate: 10.0
+        rpyOffset:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        gaussianNoise: 0.0
+        accelDrift:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        accelGaussianNoise:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        rateDrift:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        rateGaussianNoise:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+    barometer:
+          updateRate: 10.0
+          offset: 0.0
+          drift: 0.0
+          gaussianNoise: 1.0
+    gps:
+        updateRate: 4.0
+        drift:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        gaussianNoise:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        velocityDrift:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        velocityGaussianNoise:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+    magnetic:
+        updateRate: 10.0
+        offset:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        drift:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+        gaussianNoise:
+            x: 0.0
+            y: 0.0
+            z: 0.0
+    p3d:
+        updateRate: 100.0
+        gaussianNoise: 0.0
+    motor:
+        type: hector_quadrotor_controller/MotorController

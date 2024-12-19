@@ -1,10 +1,9 @@
 import yaml
 import os
-import xml.etree.ElementTree as ET
 from lxml import etree
 
 # quadrotor_sensor_file = "catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors2.gazebo.xacro"
-quadrotor_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors2.gazebo.xacro"
+quadrotor_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors.gazebo.xacro"
 # Load parameters from the YAML file
 
 # sonar_sensor_file = "catkin_ws/src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
@@ -69,7 +68,7 @@ def update_sonar_file(xml_file, config):
 
     # Save the updated file
     base_dir = os.path.dirname(xml_file)
-    updated_file = os.path.join(base_dir, "updated_" + os.path.basename(xml_file))
+    updated_file = os.path.join(base_dir, os.path.basename(xml_file))
 
     # Write XML back with correct namespaces
     with open(updated_file, "wb") as f:
