@@ -2,6 +2,16 @@ import rosbag
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+def seconds_to_minutes_seconds(total_seconds):
+
+    # Calculate minutes and remaining seconds
+    minutes = int(total_seconds // 60)
+    seconds = total_seconds % 60
+
+    return minutes, seconds
+
+
 if __name__ == "__main__":
 
     # Path of the rosbag file to extract data from
@@ -14,6 +24,7 @@ if __name__ == "__main__":
     init_topic = "/cmd_vel"
     start_topic = []
     finish_topic = ["/all_targets_found"]
+    # finish_topic = ["/target_rescued"]
     for drone in range(num_drones):
         start_topic.append(f"/drone{drone}{init_topic}")
 
@@ -32,4 +43,6 @@ if __name__ == "__main__":
         for topic, msg, t in bag.read_messages(topics=finish_topic):
             finish_t = t
 
-    print(f"Total time: {finish_t - smallest_t}")
+    elasped_time = finish_t - smallest_t
+    minutes, seconds = seconds_to_minutes_seconds(elasped_time.secs)
+    print(f"Total time to rescue all targets: {minutes} minutes and {seconds} seconds")
