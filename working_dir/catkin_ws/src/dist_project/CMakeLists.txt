@@ -10,6 +10,7 @@ project(dist_project)
 find_package(catkin REQUIRED COMPONENTS
  rospy
  std_msgs
+ geometry_msgs
  message_generation
 )
 
@@ -52,6 +53,7 @@ add_message_files(
   uwb_data.msg
   robot_data.msg
   target_data.msg
+  targets_data.msg
   target_assignment_data.msg
 )
 
@@ -73,6 +75,7 @@ add_message_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
+  geometry_msgs
 )
 
 ################################################
@@ -107,7 +110,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES dist_project
-#  CATKIN_DEPENDS message_generation rospy std_msgs
+#  CATKIN_DEPENDS message_generation rospy std_msgs geometry_msgs
 #  DEPENDS system_lib
 )
 

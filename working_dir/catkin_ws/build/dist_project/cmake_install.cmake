@@ -42,6 +42,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/uwb_data.msg"
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg"
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg"
+    "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
     "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
     )
 endif()

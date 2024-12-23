@@ -2,12 +2,9 @@ import yaml
 import os
 from lxml import etree
 
-# quadrotor_sensor_file = "catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors2.gazebo.xacro"
-quadrotor_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors.gazebo.xacro"
-# Load parameters from the YAML file
 
-# sonar_sensor_file = "catkin_ws/src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
-sonar_sensor_file = "/home/luca/Documenti/Università/AIS/3Semestre/Distributed_robot_system/ros-environment-simulation-system/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
+quadrotor_sensor_file = "../../hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors.gazebo.xacro"
+sonar_sensor_file = "../../hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro"
 
 
 def load_yaml_config(yaml_file):
@@ -91,11 +88,11 @@ def update_plugin_params(plugin, params):
                 tag.text = f"{value}"
 
 if __name__ == "__main__":
-    yaml_file = "catkin_ws/src/dist_project/params/drone_simulation.yaml"
+    yaml_file = "../params/drone_simulation.yaml"
     sonar_file = sonar_sensor_file
     xml_file = quadrotor_sensor_file
 
     config = load_yaml_config(yaml_file)
-    # update_xacro_file(xml_file, config)
+    update_xacro_file(xml_file, config)
     update_sonar_file(sonar_file, config)
     # print(f"Updated {xml_file} based on {yaml_file}")

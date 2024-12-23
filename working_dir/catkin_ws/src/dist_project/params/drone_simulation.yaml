@@ -1,13 +1,13 @@
 sensors:
     sonar:
-        gaussianNoise: 0.0
+        gaussianNoise: 10.0
     imu:
         updateRate: 10.0
         rpyOffset:
             x: 0.0
             y: 0.0
             z: 0.0
-        gaussianNoise: 0.0
+        gaussianNoise: 10.5
         accelDrift:
             x: 0.0
             y: 0.0
@@ -36,9 +36,9 @@ sensors:
             y: 0.0
             z: 0.0
         gaussianNoise:
-            x: 0.0
-            y: 0.0
-            z: 0.0
+            x: 20.0
+            y: 20.0
+            z: 20.0
         velocityDrift:
             x: 0.0
             y: 0.0

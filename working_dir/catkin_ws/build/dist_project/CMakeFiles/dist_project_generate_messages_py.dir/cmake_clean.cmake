@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "/home/marco/shared/working_dir/catkin_ws/devel/lib/python3/dist-packages/dist_project/msg/_robot_data.py"
   "/home/marco/shared/working_dir/catkin_ws/devel/lib/python3/dist-packages/dist_project/msg/_target_assignment_data.py"
   "/home/marco/shared/working_dir/catkin_ws/devel/lib/python3/dist-packages/dist_project/msg/_target_data.py"
+  "/home/marco/shared/working_dir/catkin_ws/devel/lib/python3/dist-packages/dist_project/msg/_targets_data.py"
   "/home/marco/shared/working_dir/catkin_ws/devel/lib/python3/dist-packages/dist_project/msg/_uwb_data.py"
   "CMakeFiles/dist_project_generate_messages_py"
 )

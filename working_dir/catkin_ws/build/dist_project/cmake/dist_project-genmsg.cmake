@@ -1,8 +1,8 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "dist_project: 4 messages, 0 services")
+message(STATUS "dist_project: 5 messages, 0 services")
 
-set(MSG_I_FLAGS "-Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Idist_project:/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -30,6 +30,11 @@ add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
 add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dist_project" "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" ""
+)
+
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
+add_custom_target(_dist_project_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "dist_project" "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" "geometry_msgs/Point"
 )
 
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
@@ -62,6 +67,12 @@ _generate_msg_cpp(dist_project
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dist_project
 )
 _generate_msg_cpp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/dist_project
+)
+_generate_msg_cpp(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
@@ -87,6 +98,8 @@ add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messa
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_cpp _dist_project_generate_messages_check_deps_${_filename})
@@ -119,6 +132,12 @@ _generate_msg_eus(dist_project
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project
 )
 _generate_msg_eus(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project
+)
+_generate_msg_eus(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
@@ -144,6 +163,8 @@ add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messa
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_eus _dist_project_generate_messages_check_deps_${_filename})
@@ -176,6 +197,12 @@ _generate_msg_lisp(dist_project
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project
 )
 _generate_msg_lisp(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project
+)
+_generate_msg_lisp(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
@@ -201,6 +228,8 @@ add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_mess
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_lisp _dist_project_generate_messages_check_deps_${_filename})
@@ -233,6 +262,12 @@ _generate_msg_nodejs(dist_project
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project
 )
 _generate_msg_nodejs(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project
+)
+_generate_msg_nodejs(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
@@ -258,6 +293,8 @@ add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_me
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/robot_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_nodejs _dist_project_generate_messages_check_deps_${_filename})
@@ -290,6 +327,12 @@ _generate_msg_py(dist_project
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project
 )
 _generate_msg_py(dist_project
+  "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project
+)
+_generate_msg_py(dist_project
   "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg"
   "${MSG_I_FLAGS}"
   ""
@@ -316,6 +359,8 @@ get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/d
 add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/targets_data.msg" NAME_WE)
+add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/marco/shared/working_dir/catkin_ws/src/dist_project/msg/target_assignment_data.msg" NAME_WE)
 add_dependencies(dist_project_generate_messages_py _dist_project_generate_messages_check_deps_${_filename})
 
@@ -338,6 +383,9 @@ endif()
 if(TARGET std_msgs_generate_messages_cpp)
   add_dependencies(dist_project_generate_messages_cpp std_msgs_generate_messages_cpp)
 endif()
+if(TARGET geometry_msgs_generate_messages_cpp)
+  add_dependencies(dist_project_generate_messages_cpp geometry_msgs_generate_messages_cpp)
+endif()
 
 if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/dist_project)
   # install generated code
@@ -348,6 +396,9 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/di
 endif()
 if(TARGET std_msgs_generate_messages_eus)
   add_dependencies(dist_project_generate_messages_eus std_msgs_generate_messages_eus)
+endif()
+if(TARGET geometry_msgs_generate_messages_eus)
+  add_dependencies(dist_project_generate_messages_eus geometry_msgs_generate_messages_eus)
 endif()
 
 if(genlisp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/dist_project)
@@ -360,6 +411,9 @@ endif()
 if(TARGET std_msgs_generate_messages_lisp)
   add_dependencies(dist_project_generate_messages_lisp std_msgs_generate_messages_lisp)
 endif()
+if(TARGET geometry_msgs_generate_messages_lisp)
+  add_dependencies(dist_project_generate_messages_lisp geometry_msgs_generate_messages_lisp)
+endif()
 
 if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/dist_project)
   # install generated code
@@ -370,6 +424,9 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET std_msgs_generate_messages_nodejs)
   add_dependencies(dist_project_generate_messages_nodejs std_msgs_generate_messages_nodejs)
+endif()
+if(TARGET geometry_msgs_generate_messages_nodejs)
+  add_dependencies(dist_project_generate_messages_nodejs geometry_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist_project)
@@ -382,4 +439,7 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/dist
 endif()
 if(TARGET std_msgs_generate_messages_py)
   add_dependencies(dist_project_generate_messages_py std_msgs_generate_messages_py)
+endif()
+if(TARGET geometry_msgs_generate_messages_py)
+  add_dependencies(dist_project_generate_messages_py geometry_msgs_generate_messages_py)
 endif()

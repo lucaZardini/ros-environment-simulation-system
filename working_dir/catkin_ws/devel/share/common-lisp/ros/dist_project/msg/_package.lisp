@@ -7,6 +7,8 @@
    "TARGET_ASSIGNMENT_DATA"
    "<TARGET_DATA>"
    "TARGET_DATA"
+   "<TARGETS_DATA>"
+   "TARGETS_DATA"
    "<UWB_DATA>"
    "UWB_DATA"
   ))
