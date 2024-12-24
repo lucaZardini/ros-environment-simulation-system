@@ -44,7 +44,7 @@ class MotionPlanner3d:
         self.max_y = 4
         self.x_accepted_error = 0.8
         self.y_accepted_error = 0.8
-        self.targets_to_find = 4  # Total number of targets TODO: parametrize
+        self.targets_to_find = 2  # Total number of targets TODO: parametrize
         self.targets_rescued = []  # Total number of targets TODO: parametrize
         self.found_targets = []  # List of found target locations
 
@@ -219,9 +219,9 @@ class MotionPlanner3d:
                 rospy.loginfo(f"Drone {self.drone_id} deleted {target_to_remove}. Success: {response.success}")
                 self.targets_positions.pop(target_to_remove, None)
             except rospy.ServiceException as e:
-                rospy.info(f"Unabled to remove target {target_to_remove}: {e}, maybe it was already removed")
+                rospy.loginfo(f"Unabled to remove target {target_to_remove}: {e}, maybe it was already removed")
             except Exception as e:
-                rospy.info(f"Unabled to remove target {target_to_remove}: {e}, maybe it was already removed")
+                rospy.loginfo(f"Unabled to remove target {target_to_remove}: {e}, maybe it was already removed")
 
     def ready_to_rescue_callback(self, msg):
         """
@@ -232,32 +232,30 @@ class MotionPlanner3d:
         """
         if self.current_state in [RobotState.WAITING_FOR_START, RobotState.FINISH]:
             return
-        if msg.robot_id != self.drone_id:
+        if msg.robot_id != self.drone_id and self.current_state == RobotState.WAITING_FOR_SUPPORT:
             sender_position = self.drones_positions[msg.robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
-                if self.current_state == RobotState.WAITING_FOR_SUPPORT:
-                    if self._are_points_close(self.target_location, msg):
-                        self.rescue_drones.add(msg.robot_id)
+            if distance < COMMUNICATION_RANGE and self._are_points_close(self.target_location, msg):
+                self.rescue_drones.add(msg.robot_id)
+                if len(self.rescue_drones) >= self.robots_required_per_rescue:
 
-                        if len(self.rescue_drones) >= self.robots_required_per_rescue:
-
-                            rospy.loginfo(f"Drones {self.rescue_drones} are ready to rescue the target at {self.target_location}.")
-                            self.targets_rescued.append(msg)
-                            # try to unspawn the target
-                            self.remove_rescued_target(msg)
-                            self.rescue_drones = set()
-                            self.target_rescued_pub.publish(msg)
-                            if self.is_mission_completed:
-                                self.current_state = RobotState.FINISH
-                                twist = Twist()
-                                twist.linear.x = 0
-                                twist.linear.y = 0
-                                self.vel_pub.publish(twist)
-                            else:
-                                self.current_state = RobotState.SEARCHING
-                                self.target_location = None
-                                self.rescue_drones = set()
+                    rospy.loginfo(f"Drones {self.rescue_drones} are ready to rescue the target at {self.target_location}.")
+                    previous_len = len(self.targets_rescued)
+                    self.targets_rescued = self._update_point(self.target_location, self.targets_rescued)
+                    if len(self.targets_rescued) > previous_len:
+                        # try to unspawn the target
+                        self.remove_rescued_target(msg)
+                        self.target_rescued_pub.publish(msg)
+                    rospy.loginfo(f"Setting the drone {self.drone_id} to SEARCHING state.")
+                    self.current_state = RobotState.SEARCHING
+                    self.rescue_drones = set()
+                    self.target_location = None
+                    if self.is_mission_completed:
+                        self.current_state = RobotState.FINISH
+                        twist = Twist()
+                        twist.linear.x = 0
+                        twist.linear.y = 0
+                        self.vel_pub.publish(twist)
 
     def position_callback(self, msg):
         """
@@ -663,20 +661,24 @@ class MotionPlanner3d:
         rate = rospy.Rate(rate_val)
 
         while not rospy.is_shutdown():
-            if self.is_mission_completed:
-                rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
-                self.all_targets_pub.publish(True)
-                break
+            # if self.is_mission_completed:
+            #     rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
+            #     self.all_targets_pub.publish(True)
+            #     break
 
             while self.current_state == RobotState.SEARCHING:
+                rospy.loginfo(f"Drone {self.drone_id} is searching for targets.")
                 random_goal = self.generate_random_goal()
                 self.publish_targets()
                 reached = False
-                rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
+                # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
                 # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
 
                 while not reached and self.current_state == RobotState.SEARCHING:
                     reached = self.move_to_point(random_goal)
+
+                if self.is_mission_completed:
+                    self.current_state = RobotState.FINISH
 
             while self.current_state == RobotState.MOVING_TO_TARGET:
                 # self.publish_targets()
@@ -687,51 +689,61 @@ class MotionPlanner3d:
             radius_increase = 0.5
             increase_radius_after = 4
             increase_counter = 0
-            reached_point = False
             while self.current_state == RobotState.SEARCHING_AROUND:
+                rospy.loginfo(f"Drone {self.drone_id} is searching around the target at {self.target_location}")
                 self.publish_targets()
                 radius = radius + radius_increase
-                while not reached_point and self.current_state == RobotState.SEARCHING_AROUND:
-                    point = Point()
-                    if increase_counter % increase_radius_after == 0:
-                        if self.target_location.x - radius > self.min_x and self.target_location.y - radius > self.min_y:
-                            point.x = self.target_location.x - radius
-                            point.y = self.target_location.y - radius
-                            reached_point = self.move_to_point(point)
-                        else:
-                            reached_point = True
-                    elif increase_counter % increase_radius_after == 1:
-                        if self.target_location.x - radius > self.min_x and self.target_location.y + radius < self.max_y:
-                            point.x = self.target_location.x - radius
-                            point.y = self.target_location.y + radius
-                            reached_point = self.move_to_point(point)
-                        else:
-                            reached_point = True
-                    elif increase_counter % increase_radius_after == 2:
-                        if self.target_location.x + radius < self.max_x and self.target_location.y + radius < self.max_y:
-                            point.x = self.target_location.x + radius
-                            point.y = self.target_location.y + radius
-                            reached_point = self.move_to_point(point)
-                        else:
-                            reached_point = True
-                    elif increase_counter % increase_radius_after == 3:
-                        if self.target_location.x + radius < self.max_x and self.target_location.y - radius > self.min_y:
-                            point.x = self.target_location.x + radius
-                            point.y = self.target_location.y - radius
-                            reached_point = self.move_to_point(point)
-                        else:
-                            reached_point = True
-                increase_counter += 1
+                while_counter = 0
+                while while_counter < 4 and self.current_state == RobotState.SEARCHING_AROUND:
+                    reached_point = False
+                    while not reached_point and self.current_state == RobotState.SEARCHING_AROUND:
+                        point = Point()
+                        if increase_counter % increase_radius_after == 0:
+                            if self.target_location.x - radius > self.min_x and self.target_location.y - radius > self.min_y:
+                                point.x = self.target_location.x - radius
+                                point.y = self.target_location.y - radius
+                                reached_point = self.move_to_point(point)
+                            else:
+                                reached_point = True
+                        elif increase_counter % increase_radius_after == 1:
+                            if self.target_location.x - radius > self.min_x and self.target_location.y + radius < self.max_y:
+                                point.x = self.target_location.x - radius
+                                point.y = self.target_location.y + radius
+                                reached_point = self.move_to_point(point)
+                            else:
+                                reached_point = True
+                        elif increase_counter % increase_radius_after == 2:
+                            if self.target_location.x + radius < self.max_x and self.target_location.y + radius < self.max_y:
+                                point.x = self.target_location.x + radius
+                                point.y = self.target_location.y + radius
+                                reached_point = self.move_to_point(point)
+                            else:
+                                reached_point = True
+                        elif increase_counter % increase_radius_after == 3:
+                            if self.target_location.x + radius < self.max_x and self.target_location.y - radius > self.min_y:
+                                point.x = self.target_location.x + radius
+                                point.y = self.target_location.y - radius
+                                reached_point = self.move_to_point(point)
+                            else:
+                                reached_point = True
+                        if reached_point:
+                            twist = Twist()
+                            twist.linear.x = 0
+                            twist.linear.y = 0
+                            self.vel_pub.publish(twist)
+                            while_counter += 1
+                            increase_counter += 1
 
             while self.current_state == RobotState.WAITING_FOR_SUPPORT:
                 # self.publish_targets()
-                # rospy.loginfo(f"Drone {self.drone_id} is rescuing the target at {self.target_location}")
+                rospy.loginfo(f"Drone {self.drone_id} is rescuing the target at {self.target_location}. Rescue drones are {self.rescue_drones}.")
                 target_data_cell = target_data()
                 target_data_cell.robot_id = self.drone_id
-                target_data_cell.x = self.target_location.x
-                target_data_cell.y = self.target_location.y
-                self.start_and_find_rescuers(target_data_cell)
-                self.ready_to_rescue_pub.publish(target_data_cell)
+                if self.target_location is not None:
+                    target_data_cell.x = self.target_location.x
+                    target_data_cell.y = self.target_location.y
+                    self.start_and_find_rescuers(target_data_cell)
+                    self.ready_to_rescue_pub.publish(target_data_cell)
                 # twist = Twist()
                 # twist.linear.x = 0
                 # twist.linear.y = 0
@@ -752,6 +764,8 @@ if __name__ == '__main__':
     try:
         drone.main_loop()
     except rospy.ROSInterruptException:
-        rospy.loginfo("Program shutdown: Altitude stabilizer node interrupted")
+        rospy.loginfo("Program shutdown: motion planner node interrupted")
     except rospy.ROSInternalException:
-        rospy.loginfo("Altitude stabilizer node interrupted")
+        rospy.loginfo("Motion planner node interrupted")
+    except Exception as e:
+        rospy.loginfo(f"Error: {e}")

@@ -1,7 +1,6 @@
-
+import os
 
 # Define the bag file to process
-bagfile = '/home/marco/shared/working_dir/catkin_ws/src/dist_project/quad_test.bag'
 
 import rosbag
 import numpy as np
@@ -44,44 +43,73 @@ def process_detections(bagfile, ground_truth_positions, radius=0.5):
     return targets, robot_detections
 
 
+bag_root = '/home/marco/shared/working_dir/catkin_ws/src/dist_project/bagfiles/drones'
+bag_folder = "noise_communication_range"
+bag_experiment = "comm_range"
+
+bagfiles = os.listdir(os.path.join(os.path.join(bag_root, bag_folder), bag_experiment))
+
 # Define the ground truth positions for the targets
 # Example: Ground truth positions in the form of (x, y, z)
 ground_truth_positions = [
     np.array([-3.0, 3.0, 0.0]),  # Target 1
     np.array([3.0, -2.0, 0.0]),  # Target 2
-    np.array([4.0, 2.0, 0.0])  # Target 3
+    np.array([4.0, 2.0, 0.0]),  # Target 3
+    np.array([-4.0, -2.0, 0.0])  # Target 4
 ]
 
-# Process the detections and get the updated targets
-targets, robot_detections = process_detections(bagfile, ground_truth_positions)
+for bagfile in bagfiles:
+    bagfile = os.path.join(os.path.join(os.path.join(bag_root, bag_folder), bag_experiment), bagfile)
+    # Process the detections and get the updated targets
+    targets, robot_detections = process_detections(bagfile, ground_truth_positions, radius=1)
 
-# Plotting
-fig, ax = plt.subplots()
+    # Plotting
+    fig, ax = plt.subplots()
 
-# Plot ground truth targets
-for idx, position in enumerate(ground_truth_positions):
-    ax.scatter(position[0], position[1], marker='*', color='green', label=f"Ground Truth Target {idx + 1}", s=100, zorder=2)
+    # Plot ground truth targets
+    for idx, position in enumerate(ground_truth_positions):
+        ax.scatter(position[0], position[1], marker='*', color='green', label=f"Ground Truth Target {idx + 1}", s=100, zorder=2)
 
-# Plot robot detections with smaller, semi-transparent circles
-for robot_id, position in robot_detections:
-    ax.scatter(position[0], position[1], alpha=0.5, s=20, zorder=1)
+    # Plot robot detections with smaller, semi-transparent circles
+    for robot_id, position in robot_detections:
+        ax.scatter(position[0], position[1], alpha=0.5, s=20, zorder=1)
 
-# # Plot robot detections
-# for robot_id, position in robot_detections:
-#     ax.scatter(position[0], position[1], alpha=0.5)
+    # # Plot robot detections
+    # for robot_id, position in robot_detections:
+    #     ax.scatter(position[0], position[1], alpha=0.5)
 
-# Plot the targets
-for idx, (position, robot_ids) in enumerate(targets):
-    ax.scatter(position[0], position[1], marker='x', color='red', label=f"Target {idx + 1}")
+    # Plot the targets
+    for idx, (position, robot_ids) in enumerate(targets):
+        ax.scatter(position[0], position[1], marker='x', color='red', label=f"Target {idx + 1}")
 
-# Customize the plot
-ax.set_xlabel('X Position')
-ax.set_ylabel('Y Position')
-ax.set_title('Target Estimation and Robot Detections')
-ax.legend(loc='best')
+    # Customize the plot
+    ax.set_xlabel('X Position')
+    ax.set_ylabel('Y Position')
+    ax.set_title('Target Estimation and Robot Detections')
+    ax.legend(loc='best')
 
-plt.show()
+    plt.show()
 
-# Print results for each target
-for idx, (position, robot_ids) in enumerate(targets):
-    print(f"Target {idx + 1}: Position = {position}, Detected by robots {robot_ids}")
+    assert len(targets) == len(ground_truth_positions)
+
+    # print(f"Targets type: {type(targets)} targets: {targets}")
+    # print(f"Ground truth type: {type(ground_truth_positions)} ground truth: {ground_truth_positions}")
+
+    targets = sorted(targets, key=lambda x: (x[0][0], x[0][1]))
+    ground_truth_positions = sorted(ground_truth_positions, key=lambda x: (x[0], x[1]))
+
+
+    estimation_error = []
+    for target, gt_target in zip(targets, ground_truth_positions):
+        error = np.linalg.norm(target[0] - gt_target)
+        estimation_error.append(error)
+
+    print(f"Estimation error: {estimation_error}")
+    print(f"Mean estimation error: {np.mean(estimation_error)}")
+    print(f"Median estimation error: {np.median(estimation_error)}")
+    print(f"Max estimation error: {np.max(estimation_error)}")
+    print(f"Min estimation error: {np.min(estimation_error)}")
+
+    # # Print results for each target
+    # for idx, (position, robot_ids) in enumerate(targets):
+    #     print(f"Target {idx + 1}: Position = {position}, Detected by robots {robot_ids}")
