@@ -37,15 +37,14 @@ class MotionPlanner3d:
         self.targets_positions = {}
         self.estimated_drones_positions = {}
         self.robots_required_per_rescue = 2  # Number of robots required to rescue a target
-        # TODO: define it
         self.min_x = -6.5
         self.max_x = 6.5
         self.min_y = -4
         self.max_y = 4
         self.x_accepted_error = 0.8
         self.y_accepted_error = 0.8
-        self.targets_to_find = 2  # Total number of targets TODO: parametrize
-        self.targets_rescued = []  # Total number of targets TODO: parametrize
+        self.targets_to_find = 4  # Total number of targets
+        self.targets_rescued = []  # Total number of targets
         self.found_targets = []  # List of found target locations
 
         # ROS publishers and subscribers
@@ -549,7 +548,7 @@ class MotionPlanner3d:
             if self.current_state == RobotState.SEARCHING:
                 self.found_target_pub.publish(target_data_cell)
                 self.found_targets.append(target_data_cell)
-                # TODO: explore all or rescue one?
+                # To change the type of mission, here is the point
                 # if self.is_mission_completed:
                 #     self.start_rescue()  # Case 1: Start rescue after all targets are localized
                 self.target_location = target_location
@@ -661,18 +660,16 @@ class MotionPlanner3d:
         rate = rospy.Rate(rate_val)
 
         while not rospy.is_shutdown():
-            # if self.is_mission_completed:
-            #     rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
-            #     self.all_targets_pub.publish(True)
-            #     break
+            if self.is_mission_completed:
+                rospy.loginfo(f"Drone {self.drone_id} has completed its mission!")
+                self.all_targets_pub.publish(True)
+                break
 
             while self.current_state == RobotState.SEARCHING:
-                rospy.loginfo(f"Drone {self.drone_id} is searching for targets.")
                 random_goal = self.generate_random_goal()
                 self.publish_targets()
                 reached = False
-                # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
-                # rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
+                rospy.loginfo(f"Drone {self.drone_id} is searching randomly moving to point [{random_goal.x}, {random_goal.y}]")
 
                 while not reached and self.current_state == RobotState.SEARCHING:
                     reached = self.move_to_point(random_goal)
@@ -744,10 +741,6 @@ class MotionPlanner3d:
                     target_data_cell.y = self.target_location.y
                     self.start_and_find_rescuers(target_data_cell)
                     self.ready_to_rescue_pub.publish(target_data_cell)
-                # twist = Twist()
-                # twist.linear.x = 0
-                # twist.linear.y = 0
-                # self.vel_pub.publish(twist)
 
             if self.is_mission_completed:
                 self.publish_targets()
