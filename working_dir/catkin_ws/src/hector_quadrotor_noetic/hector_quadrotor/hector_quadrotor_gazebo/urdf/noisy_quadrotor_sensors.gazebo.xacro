@@ -49,9 +49,9 @@
             <referenceLongitude>8.687077</referenceLongitude>
             <referenceAltitude>0.0</referenceAltitude>
             <drift>0.0 0.0 0.0</drift>
-            <gaussianNoise>0.5 0.5 0.5</gaussianNoise>
+            <gaussianNoise>0.021 0.021 0.021</gaussianNoise>
             <velocityDrift>0 0 0</velocityDrift>
-            <velocityGaussianNoise>0.3 0.3 0.3</velocityGaussianNoise>
+            <velocityGaussianNoise>0.05 0.05 0.05</velocityGaussianNoise>
           </plugin>
 
           <plugin name="quadrotor_groundtruth_sim" filename="libgazebo_ros_p3d.so">
