@@ -2,7 +2,6 @@ from enum import Enum
 
 import numpy as np
 import rospy
-from nav_msgs.msg import Odometry
 from dist_project.msg import uwb_data
 from geometry_msgs.msg import Pose, Vector3Stamped, Point
 from sensor_msgs.msg import Imu
@@ -297,15 +296,6 @@ class KalmanEstimator:
         # Publish the updated state
         self.publish_data(self.mu[0], self.mu[1], self.mu[2])
 
-    # def subscribe_imu_data(self, imu_data: Imu):
-    #     # Callback function to the reception of a message from Odometry
-    #     # With the data from the sensors on the unicyle I compute the prediction step
-    #     if self.imu_semaphore == Status.RED:
-    #         self.imu_data = imu_data
-    #         self.imu_semaphore = Status.GREEN
-    #         if self.velocity_semaphore == Status.GREEN:
-    #             self.prediction_step()
-
     def subscribe_imu_data(self, imu_data: Imu):
         # Callback function to the reception of a message from Odometry
         # With the data from the sensors on the unicyle I compute the prediction step
@@ -313,15 +303,6 @@ class KalmanEstimator:
         self.imu_semaphore = Status.GREEN
         if self.velocity_semaphore == Status.GREEN:
             self.prediction_step()
-
-    # def subscribe_velocity_data(self, velocity_data: Vector3Stamped):
-    #     # Callback function to the reception of a message from Odometry
-    #     # With the data from the sensors on the unicyle I compute the prediction step
-    #     if self.velocity_semaphore == Status.RED:
-    #         self.velocity_data = velocity_data
-    #         self.velocity_semaphore = Status.GREEN
-    #         if self.imu_semaphore == Status.GREEN:
-    #             self.prediction_step()
 
     def subscribe_velocity_data(self, velocity_data: Vector3Stamped):
         # Callback function to the reception of a message from Odometry

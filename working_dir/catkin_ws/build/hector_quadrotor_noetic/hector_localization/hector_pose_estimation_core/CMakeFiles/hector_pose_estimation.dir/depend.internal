@@ -936,6 +936,7 @@ hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFil
  /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o
  /home/marco/shared/working_dir/catkin_ws/devel/include/hector_pose_estimation/matrix_config.h
+ /home/marco/shared/working_dir/catkin_ws/devel/include/hector_uav_msgs/Altimeter.h
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/MatrixBaseAddons.h
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/QuaternionBaseAddons.h
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/collection.h
@@ -963,15 +964,25 @@ hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFil
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/system_model.inl
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/types.h
  /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/src/measurements/baro.cpp
+ /opt/ros/noetic/include/ros/builtin_message_traits.h
  /opt/ros/noetic/include/ros/console.h
  /opt/ros/noetic/include/ros/console_backend.h
+ /opt/ros/noetic/include/ros/datatypes.h
  /opt/ros/noetic/include/ros/duration.h
  /opt/ros/noetic/include/ros/exception.h
  /opt/ros/noetic/include/ros/macros.h
+ /opt/ros/noetic/include/ros/message_forward.h
+ /opt/ros/noetic/include/ros/message_operations.h
+ /opt/ros/noetic/include/ros/message_traits.h
  /opt/ros/noetic/include/ros/platform.h
+ /opt/ros/noetic/include/ros/roscpp_serialization_macros.h
  /opt/ros/noetic/include/ros/rostime_decl.h
+ /opt/ros/noetic/include/ros/serialization.h
+ /opt/ros/noetic/include/ros/serialized_message.h
  /opt/ros/noetic/include/ros/time.h
+ /opt/ros/noetic/include/ros/types.h
  /opt/ros/noetic/include/rosconsole/macros_generated.h
+ /opt/ros/noetic/include/std_msgs/Header.h
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
  /usr/include/eigen3/Eigen/Geometry

@@ -248,15 +248,6 @@ if __name__ == "__main__":
     uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
     roslaunch.configure_logging(uuid)
 
-    # I specify the path of the new launch file and the argument corresponding to the total number of unicycle robots
-    # launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_nodes.launch',
-    #                    'num_unicycles:=' + str(unicycle_number),
-    #                    'num_drones:=' + str(drone_number)]
-    # roslaunch_args = launch_argument[1:]
-    # roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(launch_argument)[0], roslaunch_args)]
-    # launch = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
-    # launch.start()
-
     if len(unicycle_positions) > 0:
         unicycle_number = len(unicycle_positions) - 1
         launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_unicycle_nodes.launch',

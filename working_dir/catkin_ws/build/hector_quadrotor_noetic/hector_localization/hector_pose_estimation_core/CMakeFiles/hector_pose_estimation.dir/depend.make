@@ -935,6 +935,7 @@ hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFil
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurement.cpp.o: /usr/include/eigen3/Eigen/src/plugins/MatrixCwiseUnaryOps.h
 
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/devel/include/hector_pose_estimation/matrix_config.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/devel/include/hector_uav_msgs/Altimeter.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/MatrixBaseAddons.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/QuaternionBaseAddons.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/collection.h
@@ -962,15 +963,25 @@ hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFil
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/system_model.inl
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/types.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/src/measurements/baro.cpp
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/builtin_message_traits.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/console.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/console_backend.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/datatypes.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/duration.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/exception.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/macros.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/message_forward.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/message_operations.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/message_traits.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/platform.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/roscpp_serialization_macros.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/rostime_decl.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/serialization.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/serialized_message.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/time.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/ros/types.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/rosconsole/macros_generated.h
+hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /opt/ros/noetic/include/std_msgs/Header.h
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /usr/include/eigen3/Eigen/Cholesky
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /usr/include/eigen3/Eigen/Core
 hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/CMakeFiles/hector_pose_estimation.dir/src/measurements/baro.cpp.o: /usr/include/eigen3/Eigen/Geometry

@@ -100,8 +100,6 @@ if __name__ == "__main__":
     # Node initialization
     rospy.init_node('gps_conversion', anonymous=True)
 
-    # Parameters import
-    # TODO: define this value
     rate_val = rospy.get_param("/localization_rate")
 
     # Class initialization

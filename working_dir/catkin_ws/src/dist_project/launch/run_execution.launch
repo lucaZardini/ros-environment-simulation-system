@@ -8,10 +8,10 @@
     <node name="robot_initializer_node" pkg="dist_project" type="initialize_robot.py">
         <param name="namespace" value="$(eval int(arg('nd')) - 1)" />
     </node>
-    <node name="uwb_simulation_3d" pkg="dist_project" type="uwb_dist_sim_3d.py">
-        <param name="namespace" value="$(eval int(arg('nd')) - 1)" />
-    </node>
-    <node name="image_processing_drone" pkg="dist_project" type="image_processing_drone.py" output="screen">
+<!--     <node name="uwb_simulation_3d" pkg="dist_project" type="search_and_rescue/uwb_dist_sim.py"> -->
+<!--         <param name="namespace" value="$(eval int(arg('nd')) - 1)" /> -->
+<!--     </node> -->
+    <node name="image_processing_3d" pkg="dist_project" type="image_processing_3d.py" output="screen">
         <param name="namespace" value="$(eval int(arg('nd')) - 1)" />
     </node>
     <node name="gps_conversion" pkg="dist_project" type="gps_to_coordinate.py">

@@ -44,6 +44,24 @@ geometry_msgs/Quaternion.h
 
 /home/marco/shared/working_dir/catkin_ws/devel/include/hector_pose_estimation/matrix_config.h
 
+/home/marco/shared/working_dir/catkin_ws/devel/include/hector_uav_msgs/Altimeter.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+std_msgs/Header.h
+-
+
 /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/MatrixBaseAddons.h
 
 /home/marco/shared/working_dir/catkin_ws/src/hector_quadrotor_noetic/hector_localization/hector_pose_estimation_core/include/hector_pose_estimation/Eigen/QuaternionBaseAddons.h

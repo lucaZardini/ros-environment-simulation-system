@@ -166,18 +166,17 @@ include_directories(
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
   scripts/gazebo_init.py
-  scripts/uwb_dist_sim.py
-  scripts/motion_planner.py
-  scripts/kalman_localization.py
-  scripts/image_processing.py
-  scripts/target_estimator.py
   scripts/initialize_robot.py
-  scripts/uwb_dist_sim_3d.py
-  scripts/image_processing_drone.py
-  scripts/gps_to_coordinate.py
-  scripts/kalman_localization_3d.py
-  scripts/motion_planner_drone.py
-  scripts/target_coordinate.py
+  scripts/target_estimation/image_processing.py
+  scripts/target_estimation/kalman_localization.py
+  scripts/target_estimation/motion_planner.py
+  scripts/target_estimation/target_estimator.py
+  scripts/target_estimation/uwb_dist_sim.py
+  scripts/search_and_rescue/gps_to_coordinate.py
+  scripts/search_and_rescue/image_processing_3d.py
+  scripts/search_and_rescue/kalman_localization_3d.py
+  scripts/search_and_rescue/motion_planner_drone.py
+  scripts/search_and_rescue/uwb_dist_sim_3d.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
