@@ -1,34 +1,31 @@
-<?xml version="1.0"?>
-
+<?xml version='1.0' encoding='UTF-8'?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="sonar_sensor" params="name parent *origin ros_topic update_rate min_range max_range field_of_view ray_count">
     <joint name="${name}_joint" type="fixed">
-      <xacro:insert_block name="origin" />
+      <xacro:insert_block name="origin"/>
       <parent link="${parent}"/>
       <child link="${name}_link"/>
     </joint>
-
     <link name="${name}_link">
       <inertial>
-        <mass value="0.001" />
-        <origin xyz="0 0 0" rpy="0 0 0" />
-        <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+        <mass value="0.001"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017"/>
       </inertial>
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <!--<box size="0.01 0.01 0.01" /> -->
           <mesh filename="package://hector_sensors_description/meshes/sonar_sensor/max_sonar_ez4.dae"/>
         </geometry>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <box size="0.01 0.01 0.01" />
+          <box size="0.01 0.01 0.01"/>
         </geometry>
       </collision>
     </link>
-
     <gazebo reference="${name}_link">
       <sensor type="ray" name="${name}">
         <always_on>true</always_on>
@@ -56,9 +53,8 @@
             <resolution>0.01</resolution>
           </range>
         </ray>
-
         <plugin name="gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_sonar.so">
-          <gaussianNoise>0.5</gaussianNoise>
+          <gaussianNoise>10.0</gaussianNoise>
           <topicName>${ros_topic}</topicName>
           <frameId>${name}_link</frameId>
         </plugin>
