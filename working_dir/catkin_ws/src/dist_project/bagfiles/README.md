@@ -12,9 +12,17 @@ ROS bagfiles have been used to store simulations' runs in order to manipulate th
 
 The following commands have been used to acquire the files:
 
+### Target estimation task
+
 ```sh
 rosbag record /robot0/localization_data_topic /robot0/ground_truth/state -O few_tags.bag
 ```
 ```sh
 rosbag record -e "(.*)localization_data_topic(.*)" "(.*)ground_truth/state(.*)" "(.*)target_estimate(.*)" -O total_bag.bag
+```
+
+### Search and rescue task
+
+```sh
+rosbag record -e "^(/drone\d+/(altimeter|fix|fix_velocity|ground_truth/state|magnetic|pressure_height|raw_imu|scan|sonar_height|target/point_blob|cmd_vel|gps_cartesian_point|init_move|localization_data_topic)|/(found_targets|neighbors|ready_to_rescue|target_assignment|all_targets_found|target_rescued|gazebo/model_states))$" --output-name sim1.bag
 ```

@@ -16,13 +16,8 @@
   <!-- SPAWN ROOM PARAMETERS DEFINITION -->
   <param name="room_sdf_file" type="str" value="$(find dist_project)/models/room/model.sdf" />
 
-  <!-- UNICYCLE PARAMETER DEFINITION-->
-  <arg name="model" default="$(find dist_project)/urdf/unicycle.urdf.xacro" />
-  <param name="unicycle_description" command="$(find xacro)/xacro $(arg model)" />
-  <param name="unicycle_coordinate_file" type="str" value="$(find dist_project)/coordinates/unicycle_coordinates.csv" />
-
   <!-- DRONE PARAMETER DEFINITION-->
-  <arg name="drone_model" default="$(find dist_project)/urdf/drone_gps2_camera_sonar.urdf.xacro" />
+  <arg name="drone_model" default="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro" />
   <param name="drone_description" command="$(find xacro)/xacro $(arg drone_model)" />
   <param name="drone_coordinate_file" type="str" value="$(find dist_project)/coordinates/drone_coordinates.csv" />
 
@@ -42,11 +37,17 @@
   <!--==================================================================-->
 
   <!-- INITIALIZE GAZEBO NODE -->
-  <node pkg="gazebo_ros" type="gazebo" name="gazebo" />
+
+  <node name="gazebo" pkg="gazebo_ros" type="gzserver" respawn="false" output="screen"/>
+  <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+
+<!--   <node pkg="gazebo_ros" type="gazebo" name="gazebo" /> -->
+  <param name="task" type="str" value="search_and_rescue" />
   <node pkg="dist_project" type="gazebo_init.py" name="gazebo_init" />
 
+
   <!-- INITIALIZE CAMERA POINT OF VIEW NODE -->
-  <node pkg="rqt_image_view" type="rqt_image_view" name="camera_blob_viewer" />  
+  <node pkg="rqt_image_view" type="rqt_image_view" name="camera_blob_viewer" />
 
   <!-- INITIALIZE PLOT MANAGER NODE -->
 <!--   <node pkg="plotjuggler" type="plotjuggler" name="plotjuggler" /> -->

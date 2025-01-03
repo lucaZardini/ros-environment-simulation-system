@@ -77,20 +77,24 @@ def update_sonar_file(xml_file, config):
 # Helper function to update plugin parameters
 def update_plugin_params(plugin, params):
     for key, value in params.items():
-        if isinstance(value, dict):
-            for axis, axis_value in value.items():
-                tag = plugin.find(key)
-                if tag is not None:
-                    tag.text = f"{axis_value}"
-        else:
-            tag = plugin.find(key)
-            if tag is not None:
-                tag.text = f"{value}"
+        tag = plugin.find(key)
+        if tag is not None:
+            if isinstance(value, str):
+                value = value.replace(',', '')
+            tag.text = f"{value}"
+
 
 if __name__ == "__main__":
+    # get current directory
+    current_dir = os.path.dirname(os.path.realpath(__file__))
+    print(f"Current directory: {current_dir}")
     yaml_file = "../params/drone_simulation.yaml"
+    yaml_file = os.path.join(current_dir, yaml_file)
+
     sonar_file = sonar_sensor_file
+    sonar_file = os.path.join(current_dir, sonar_file)
     xml_file = quadrotor_sensor_file
+    xml_file = os.path.join(current_dir, xml_file)
 
     config = load_yaml_config(yaml_file)
     update_xacro_file(xml_file, config)

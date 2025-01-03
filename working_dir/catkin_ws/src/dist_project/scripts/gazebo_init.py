@@ -25,12 +25,12 @@ target_sdf_file = rospy.get_param("target_sdf_file")
 room_sdf_file = rospy.get_param("room_sdf_file")
 
 # Unicycle parameters import
-unicycle_file_dir = rospy.get_param("unicycle_coordinate_file")
-unicycle_description = rospy.get_param("unicycle_description")
+unicycle_file_dir = rospy.get_param("unicycle_coordinate_file", None)
+unicycle_description = rospy.get_param("unicycle_description", None)
 
 # Drone parameters import
-drone_file_dir = rospy.get_param("drone_coordinate_file")
-drone_description = rospy.get_param("drone_description")
+drone_file_dir = rospy.get_param("drone_coordinate_file", None)
+drone_description = rospy.get_param("drone_description", None)
 
 # General parameters import
 init_time = rospy.get_param("/initialization_time")
@@ -177,41 +177,33 @@ def publish_static_transform(x, y, id):
     broadcaster.sendTransform(static_transformStamped)
 
 if __name__ == "__main__":
-    
+
+    task = rospy.get_param("task", None)
+    if task is None:
+        rospy.logerr("Task not specified")
+        exit(1)
+
+    if task not in ["target_estimation", "search_and_rescue"]:
+        rospy.logerr("Task not recognized")
+        exit(1)
+
     # List to add the tags' coordinates read from csv file
     tag_positions = []
     with open(tag_file_dir, 'r') as f:
-        csvreader = csv.reader(f) 
+        csvreader = csv.reader(f)
         for row in csvreader:
             # I cast to float each coordinate value
             row = [float(x) for x in row]
             tag_positions.append(row)
-    
+
     # List to add the targets' coordinates read from csv file
     target_positions = []
     with open(target_file_dir, 'r') as f:
-        csvreader = csv.reader(f) 
+        csvreader = csv.reader(f)
         for row in csvreader:
             # I cast to float each coordinate value
             row = [float(x) for x in row]
             target_positions.append(row)
-
-    # List to add the robots' initial coordinates read from csv file
-    unicycle_positions = []
-    with open(unicycle_file_dir, 'r') as f:
-        csvreader = csv.reader(f)
-        for row in csvreader:
-            # I cast to float each coordinate value
-            row = [float(x) for x in row]
-            unicycle_positions.append(row)
-
-    # List to add the drone' initial coordinates read from csv file
-    drone_positions = []
-    with open(drone_file_dir, 'r') as f:
-        csvreader = csv.reader(f)
-        for row in csvreader:
-            row = [float(x) for x in row]
-            drone_positions.append(row)
 
     # Initialization of the node
     rospy.init_node("gazebo_initializer_node")
@@ -229,14 +221,31 @@ if __name__ == "__main__":
         # I call the function for each line (target)
         spawn_target(pos[0], pos[1], str(i))
 
-    for i, pos in enumerate(unicycle_positions):
-        # I call the function for each line (unicycle)
-        spawn_robot(pos[0], pos[1], str(i))
+    # List to add the robots' initial coordinates read from csv file
+    unicycle_positions = []
+    if task == "target_estimation":
+        with open(unicycle_file_dir, 'r') as f:
+            csvreader = csv.reader(f)
+            for row in csvreader:
+                # I cast to float each coordinate value
+                row = [float(x) for x in row]
+                unicycle_positions.append(row)
+        for i, pos in enumerate(unicycle_positions):
+            # I call the function for each line (unicycle)
+            spawn_robot(pos[0], pos[1], str(i))
 
-    for i, pos in enumerate(drone_positions):
-        # I call the function for each line (drone)
-        print(pos)
-        spawn_drone(pos[0], pos[1], pos[2], str(i))
+    drone_positions = []
+    if task == "search_and_rescue":
+        # List to add the drone' initial coordinates read from csv file
+        with open(drone_file_dir, 'r') as f:
+            csvreader = csv.reader(f)
+            for row in csvreader:
+                row = [float(x) for x in row]
+                drone_positions.append(row)
+        for i, pos in enumerate(drone_positions):
+            # I call the function for each line (drone)
+            print(pos)
+            spawn_drone(pos[0], pos[1], pos[2], str(i))
 
     # Tf publishing 
     broadcaster = tf2_ros.StaticTransformBroadcaster()
@@ -248,7 +257,7 @@ if __name__ == "__main__":
     uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
     roslaunch.configure_logging(uuid)
 
-    if len(unicycle_positions) > 0:
+    if task == "target_estimation":
         unicycle_number = len(unicycle_positions) - 1
         launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_unicycle_nodes.launch',
                            'num_unicycles:=' + str(unicycle_number)]
@@ -257,7 +266,7 @@ if __name__ == "__main__":
         launch = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
         launch.start()
 
-    if len(drone_positions) > 0:
+    if task == "search_and_rescue":
         drone_number = len(drone_positions) - 1
 
         launch_argument = ['/home/marco/shared/working_dir/catkin_ws/src/dist_project/launch/start_drone_nodes.launch',

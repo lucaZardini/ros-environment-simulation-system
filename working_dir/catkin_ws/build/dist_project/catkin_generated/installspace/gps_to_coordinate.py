@@ -18,9 +18,9 @@ class KalmanEstimator:
         self.init_pub = rospy.Publisher('gps_cartesian_point', Point, queue_size=10)
 
         # Subscription to odom topic directly from gazebo simulation
-        rospy.Subscriber('fix', NavSatFix, self.subscribe_imu_data)
+        rospy.Subscriber('fix', NavSatFix, self.subscribe_gps_data)
 
-    def subscribe_imu_data(self, fix_value: NavSatFix):
+    def subscribe_gps_data(self, fix_value: NavSatFix):
         lat, lon, h = fix_value.latitude, fix_value.longitude, fix_value.altitude
         lat_ref, lon_ref, h_ref = 49.860246, 8.687077, 0.0  # Reference point (origin of local frame)
 

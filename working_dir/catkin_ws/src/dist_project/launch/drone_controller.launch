@@ -38,7 +38,7 @@
 <rosparam command="load" file="$(find hector_quadrotor_model)/param/$(arg motors).yaml" />
 </group>
 
-<include file="$(find dist_project)/launch/controller.launch" if="$(eval arg('nd') - 1 > 0)">
+<include file="$(find dist_project)/launch/drone_controller.launch" if="$(eval arg('nd') - 1 > 0)">
     <arg name="num_drones" value="$(eval arg('nd') - 1)" />
 </include>
 

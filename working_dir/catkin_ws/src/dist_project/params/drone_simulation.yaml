@@ -3,27 +3,12 @@ sensors:
         gaussianNoise: 10.0
     imu:
         updateRate: 10.0
-        rpyOffset:
-            x: 0.0
-            y: 0.0
-            z: 0.0
+        rpyOffset: 0.0, 0.0, 0.0
         gaussianNoise: 10.5
-        accelDrift:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        accelGaussianNoise:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        rateDrift:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        rateGaussianNoise:
-            x: 0.0
-            y: 0.0
-            z: 0.0
+        accelDrift: 0.0, 0.0, 0.0
+        accelGaussianNoise: 0.0, 0.0, 0.0
+        rateDrift: 0.0, 0.0, 0.0
+        rateGaussianNoise: 0.0, 0.0, 0.0
     barometer:
           updateRate: 10.0
           offset: 0.0
@@ -31,36 +16,15 @@ sensors:
           gaussianNoise: 1.0
     gps:
         updateRate: 4.0
-        drift:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        gaussianNoise:
-            x: 20.0
-            y: 20.0
-            z: 20.0
-        velocityDrift:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        velocityGaussianNoise:
-            x: 0.0
-            y: 0.0
-            z: 0.0
+        drift: 0.0, 0.0, 0.0
+        gaussianNoise: 20.0, 20.0, 20.0
+        velocityDrift: 0.0, 0.0, 0.0
+        velocityGaussianNoise: 0.0, 0.0, 0.0
     magnetic:
         updateRate: 10.0
-        offset:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        drift:
-            x: 0.0
-            y: 0.0
-            z: 0.0
-        gaussianNoise:
-            x: 0.0
-            y: 0.0
-            z: 0.0
+        offset: 0.0, 0.0, 0.0
+        drift: 0.0, 0.0, 0.0
+        gaussianNoise: 0.0, 0.0, 0.0
     p3d:
         updateRate: 100.0
         gaussianNoise: 0.0

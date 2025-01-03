@@ -12,3 +12,10 @@ For more information on the URDF file structure, please refer to the [ROS wiki](
 
 - `tag.urdf`: Simple blue cylinder to represent a UWB tag
 - `unicycle.urdf.xacro`: Unicycle with all the necessary plugin declarations for the Gazebo simulations.
+
+## Drone
+
+The URDF of the drone is available in `src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_description/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro` file.
+To change the update rate or sensor noise, you can do it by:
+- changing manually in `src/hector_quadrotor_noetic/hector_quadrotor/hector_quadrotor_gazebo/urdf/quadrotor_sensors.gazebo.xacro` and `src/hector_quadrotor_noetic/hector_models/hector_sensors_description/urdf/sonar_sensor.urdf.xacro` files
+- use the `setup_noise.py` script in `dist_project/scripts` folder to change the noise values based on `drone_simulation.yaml` file in `dist_project/param` folder.

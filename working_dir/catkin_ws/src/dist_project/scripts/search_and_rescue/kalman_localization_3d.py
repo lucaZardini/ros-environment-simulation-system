@@ -43,8 +43,6 @@ class KalmanEstimator:
         # Publisher for estimated state
         self.pub = rospy.Publisher('localization_data_topic', Pose, queue_size=10)
 
-        # Publisher to notify the motion planner to start
-        self.init_pub = rospy.Publisher('init_move', Pose, queue_size=10)
 
         # Subscription to odom topic directly from gazebo simulation
         rospy.Subscriber('raw_imu', Imu, self.subscribe_imu_data)
@@ -123,130 +121,61 @@ class KalmanEstimator:
         # Now it published the estimated state
         self.publish_data(self.mu[0], self.mu[1], self.mu[2])
 
-    def correction_step(self, uwb_data: uwb_data):
-        # Local variable initialization
-        x, y, theta = self.mu
-
-        # UWB data unpacking
-        ids = uwb_data.tag_id
-        distances = uwb_data.distance
-
-        # H and Z matrices initialization
-        H = []
-        Z = []
-        # For expected distances I intend the result of the model of the measuring system
-        expected_distances = []
-        # For every lecture from every tag
-        for i in range(len(ids)):
-            # Actual measurement
-            meas_dist = distances[i]
-            lx = self.tag_pos[i][0]
-            ly = self.tag_pos[i][1]
-            lz = self.tag_pos[i][2]
-            # I build up the H matrix that will be used later
-            dist_exp = np.sqrt((lx - x) ** 2 + (ly - y) ** 2 + (lz - 0) ** 2)
-            # I put 0 for z since the robot is bounded to the ground
-            H_i = [(x - lx) / dist_exp, (y - ly) / dist_exp, 0]
-            H.append(H_i)
-            # I append every actual measurement to the Z matrix
-            Z.append(meas_dist)
-            # I build up a matrix containing all the expected measurements (H.mu) I build it line by line
-            expected_distances.append(dist_exp)
-
-        # Covariance matrix of measurement process
-        # As previously defined the measurements are subject to a gaussian noise whose amplitude is proportional to the acutal measurement.
-        # The matrix R will be a diagonal one with elements the parameter defined before that multiplies the actual measure squared, I add a regularization term
-        R = 0.015 * np.eye(len(ids)) @ np.square(Z) + 0.5 * np.eye(len(ids))
-
-        # I convert the H list I obtained before to a numpy array
-        H = np.array(H)
-
-        # I define the matrix S_inv as the inverse of matrix S = H.sigma.H^T + R
-        S_inv = np.linalg.inv((H @ self.sigma) @ H.T + R)
-
-        # I define the Kalman gain as the matrix W
-        W = (self.sigma @ H.T) @ S_inv
-
-        # Mean vector update
-        self.mu = self.mu + W @ (np.array(Z) - np.array(expected_distances))
-
-        # Sigma vector update
-        self.sigma = (np.eye(len(self.sigma)) - W @ H) @ self.sigma
-
-        # We wait for a user-designed number of callback to wait for the kalman filter to reach a good estimate starting from null mu vector
-        # At this moment the robot is going in a straight line, we wait 10 more callback to get a new position and estimate theta as the result of a arctan2
-        number_of_callback = 30
-        if (self.actual_callback < number_of_callback + 11):
-            if self.actual_callback == number_of_callback:
-                # We get the first coordinates to compare
-                self.first_x = self.mu[0]
-                self.first_y = self.mu[1]
-            elif self.actual_callback == number_of_callback + 10:
-                # After 10 callbacks I compute the initial corrected theta estimate
-                self.mu[2] = np.arctan2(self.mu[1] - self.first_y, self.mu[0] - self.first_x)
-                # Send a message to tell the motion planner to start moving
-                message = Pose()
-                self.init_pub.publish(message)
-            self.actual_callback += 1
-
-        # Theta normalization to have it in [-pi, pi]
-        self.mu[2] = (self.mu[2] + np.pi) % (2 * np.pi) - np.pi
-
-    def correction_step_with_uwb_data(self, uwb_data: uwb_data):
-        # Local variable initialization
-        x, y, z, roll, pitch, yaw = self.mu
-
-        # UWB data unpacking
-        ids = uwb_data.tag_id
-        distances = uwb_data.distance
-
-        # H (Jacobian of the measurement model) and Z (expected measurements) matrices initialization
-        H = []
-        Z = []
-
-        # Iterate over detected UWB anchors
-        for i, anchor_id in enumerate(ids):
-            if anchor_id < len(self.tag_pos):
-                # Get anchor position
-                anchor_x, anchor_y, anchor_z = self.tag_pos[anchor_id]
-
-                # Calculate expected distance from the anchor to the robot
-                expected_distance = np.sqrt((x - anchor_x) ** 2 +
-                                            (y - anchor_y) ** 2 +
-                                            (z - anchor_z) ** 2)
-
-                # Construct the measurement Jacobian for this anchor
-                H_i = [(x - anchor_x) / expected_distance,
-                       (y - anchor_y) / expected_distance,
-                       (z - anchor_z) / expected_distance,
-                       0, 0, 0]
-
-                H.append(H_i)
-                Z.append(distances[i] - expected_distance)
-
-        if not H:
-            rospy.logwarn("No valid UWB measurements for correction step")
-            return
-
-        # Convert H and Z to numpy arrays
-        H = np.array(H)
-        Z = np.array(Z)
-
-        # R: Measurement noise covariance (assume small constant noise for UWB)
-        R = np.eye(len(Z)) * 0.1
-
-        # Kalman Gain calculation
-        S = H @ self.sigma @ H.T + R
-        K = self.sigma @ H.T @ np.linalg.inv(S)
-
-        # Update state vector (mu)
-        self.mu = self.mu + K @ Z
-
-        # Update covariance matrix (sigma)
-        I = np.eye(len(self.mu))
-        self.sigma = (I - K @ H) @ self.sigma
-
-        rospy.loginfo("Correction step completed. Updated state: " + str(self.mu))
+    # def correction_step_with_uwb_data(self, uwb_data: uwb_data):
+    #     # Local variable initialization
+    #     x, y, z, roll, pitch, yaw = self.mu
+    #
+    #     # UWB data unpacking
+    #     ids = uwb_data.tag_id
+    #     distances = uwb_data.distance
+    #
+    #     # H (Jacobian of the measurement model) and Z (expected measurements) matrices initialization
+    #     H = []
+    #     Z = []
+    #
+    #     # Iterate over detected UWB anchors
+    #     for i, anchor_id in enumerate(ids):
+    #         if anchor_id < len(self.tag_pos):
+    #             # Get anchor position
+    #             anchor_x, anchor_y, anchor_z = self.tag_pos[anchor_id]
+    #
+    #             # Calculate expected distance from the anchor to the robot
+    #             expected_distance = np.sqrt((x - anchor_x) ** 2 +
+    #                                         (y - anchor_y) ** 2 +
+    #                                         (z - anchor_z) ** 2)
+    #
+    #             # Construct the measurement Jacobian for this anchor
+    #             H_i = [(x - anchor_x) / expected_distance,
+    #                    (y - anchor_y) / expected_distance,
+    #                    (z - anchor_z) / expected_distance,
+    #                    0, 0, 0]
+    #
+    #             H.append(H_i)
+    #             Z.append(distances[i] - expected_distance)
+    #
+    #     if not H:
+    #         rospy.logwarn("No valid UWB measurements for correction step")
+    #         return
+    #
+    #     # Convert H and Z to numpy arrays
+    #     H = np.array(H)
+    #     Z = np.array(Z)
+    #
+    #     # R: Measurement noise covariance (assume small constant noise for UWB)
+    #     R = np.eye(len(Z)) * 0.1
+    #
+    #     # Kalman Gain calculation
+    #     S = H @ self.sigma @ H.T + R
+    #     K = self.sigma @ H.T @ np.linalg.inv(S)
+    #
+    #     # Update state vector (mu)
+    #     self.mu = self.mu + K @ Z
+    #
+    #     # Update covariance matrix (sigma)
+    #     I = np.eye(len(self.mu))
+    #     self.sigma = (I - K @ H) @ self.sigma
+    #
+    #     rospy.loginfo("Correction step completed. Updated state: " + str(self.mu))
 
     def correction_step_with_gps(self, gps_data: Point):
         self.number_of_corrections += 1
@@ -310,10 +239,10 @@ class KalmanEstimator:
         self.velocity_data = velocity_data
         self.velocity_semaphore = Status.GREEN
 
-    def subscribe_uwb_data(self, uwb_data: uwb_data):
-        # Callback function to the reception of a message from the uwb anchors
-        # Now that I receive the data from other sensors I perform the correction step
-        self.correction_step(uwb_data)
+    # def subscribe_uwb_data(self, uwb_data: uwb_data):
+    #     # Callback function to the reception of a message from the uwb anchors
+    #     # Now that I receive the data from other sensors I perform the correction step
+    #     self.correction_step_with_uwb_data(uwb_data)
 
     def publish_data(self, pose_x, pose_y, pose_z, pose_yaw=0, pose_pitch=0, pose_roll=0):
 
@@ -335,45 +264,45 @@ class KalmanEstimator:
         # Finally I publish the state
         self.pub.publish(robot_pos)
 
-    def get_anchors_pos(self):
-        # Same function can be found in uwb_dist_sim.py
-        # Maximum number of anchors allowable
-        max_anchors = 20
-        tag_pos = []
-        # This is relative to how I declared the id of each anchor in the gazebo_init script in the publish_static_transform function
-        # I called them tag_0 with increasing numbers
-        uwb_id = 'uwb_anchor_'
-
-        # I start the listener from the package tf to get the transformation between the world frame and each tag. This was a easy way to implement id dynamically without using directly the coordinate csv file. I will retrieve the informations of the anchors directly from the simulation.
-        listener = tf.TransformListener()
-
-        try:
-            for i in range(max_anchors):
-
-                # For each possible tag name
-                try:
-                    time.sleep(0.5)
-                    # I store the translation of each tag w.r.t. world frame
-                    (trans, rot) = listener.lookupTransform('/world', uwb_id + str(i), rospy.Time(0))
-                    # I store the position found
-                    tag_pos.append(trans)
-
-                # Error handling
-                except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, KeyboardInterrupt):
-                    break
-
-                if tag_pos == []:
-                    # In case no uwb anchor was detected I run the function again. Usually this won't happen since I tried to make this function run after some initialization time interval to wait for the gazebo environment to correctly set up
-                    rospy.logwarn("No UWB anchor detected. Trying again")
-                    self.get_anchors_pos()
-                else:
-                    rospy.loginfo("UWB anchor list:\n" + str(tag_pos))
-                    # I update the current list of anchor positions
-                    self.tag_pos = tag_pos
-
-        except (KeyboardInterrupt):
-            # I added this nested try-except to better catch the KeyboardInterrupt exception
-            pass
+    # def get_anchors_pos(self):
+    #     # Same function can be found in uwb_dist_sim.py
+    #     # Maximum number of anchors allowable
+    #     max_anchors = 20
+    #     tag_pos = []
+    #     # This is relative to how I declared the id of each anchor in the gazebo_init script in the publish_static_transform function
+    #     # I called them tag_0 with increasing numbers
+    #     uwb_id = 'uwb_anchor_'
+    #
+    #     # I start the listener from the package tf to get the transformation between the world frame and each tag. This was a easy way to implement id dynamically without using directly the coordinate csv file. I will retrieve the informations of the anchors directly from the simulation.
+    #     listener = tf.TransformListener()
+    #
+    #     try:
+    #         for i in range(max_anchors):
+    #
+    #             # For each possible tag name
+    #             try:
+    #                 time.sleep(0.5)
+    #                 # I store the translation of each tag w.r.t. world frame
+    #                 (trans, rot) = listener.lookupTransform('/world', uwb_id + str(i), rospy.Time(0))
+    #                 # I store the position found
+    #                 tag_pos.append(trans)
+    #
+    #             # Error handling
+    #             except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException, KeyboardInterrupt):
+    #                 break
+    #
+    #             if tag_pos == []:
+    #                 # In case no uwb anchor was detected I run the function again. Usually this won't happen since I tried to make this function run after some initialization time interval to wait for the gazebo environment to correctly set up
+    #                 rospy.logwarn("No UWB anchor detected. Trying again")
+    #                 self.get_anchors_pos()
+    #             else:
+    #                 rospy.loginfo("UWB anchor list:\n" + str(tag_pos))
+    #                 # I update the current list of anchor positions
+    #                 self.tag_pos = tag_pos
+    #
+    #     except (KeyboardInterrupt):
+    #         # I added this nested try-except to better catch the KeyboardInterrupt exception
+    #         pass
 
 
 if __name__ == "__main__":

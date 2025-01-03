@@ -12,7 +12,6 @@ from dist_project.msg import target_data, targets_data, target_assignment_data
 
 MIN_VEL = -0.5
 MAX_VEL = 0.5
-COMMUNICATION_RANGE = 6
 
 
 class RobotState(Enum):
@@ -26,7 +25,7 @@ class RobotState(Enum):
 
 class MotionPlanner3d:
 
-    def __init__(self, drone_id):
+    def __init__(self, drone_id: int, num_targets: int, drone_per_rescue: int, communication_range: float):
         self.drone_id = drone_id
         self.current_state = RobotState.WAITING_FOR_START
         self.target_location = None
@@ -36,16 +35,17 @@ class MotionPlanner3d:
         self.drones_positions = {}
         self.targets_positions = {}
         self.estimated_drones_positions = {}
-        self.robots_required_per_rescue = 2  # Number of robots required to rescue a target
+        self.robots_required_per_rescue = drone_per_rescue  # Number of robots required to rescue a target
         self.min_x = -6.5
         self.max_x = 6.5
         self.min_y = -4
         self.max_y = 4
         self.x_accepted_error = 0.8
         self.y_accepted_error = 0.8
-        self.targets_to_find = 4  # Total number of targets
+        self.targets_to_find = num_targets  # Total number of targets
         self.targets_rescued = []  # Total number of targets
         self.found_targets = []  # List of found target locations
+        self.communication_range = communication_range
 
         # ROS publishers and subscribers
 
@@ -118,6 +118,10 @@ class MotionPlanner3d:
         self.init_sub.unregister()
 
     def _update_point(self, point, points):
+        """
+        Update the point in the list of points. If the point is already present, then update the position of the point
+        with the average of the previous position and the new one. If the point is not present, then add it to the list.
+        """
         already_present = False
         for i, p in enumerate(points):
             if self._are_points_close(p, point):
@@ -130,18 +134,25 @@ class MotionPlanner3d:
         return points
 
     def target_update_callback(self, msg):
+        """
+        The drone receives a message from another drone that has found a target. The drone updates the list of found
+        targets.
+        """
         if msg.robot_id != self.drone_id:
             sender_position = self.drones_positions[msg.robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 for point in msg.points:
                     self.found_targets = self._update_point(point, self.found_targets)
 
     def target_rescued_callback(self, msg):
+        """
+        The drone receives a message from another drone that has rescued a target.
+        """
         if msg.robot_id != self.drone_id:
             sender_position = self.drones_positions[msg.robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 for point in msg.points:
                     self.targets_rescued = self._update_point(point, self.targets_rescued)
 
@@ -157,7 +168,7 @@ class MotionPlanner3d:
             sender_position = self.drones_positions[msg.robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
 
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 is_already_present = False
                 for rescued in self.targets_rescued:
                     if self._are_points_close(rescued, msg):
@@ -234,7 +245,7 @@ class MotionPlanner3d:
         if msg.robot_id != self.drone_id and self.current_state == RobotState.WAITING_FOR_SUPPORT:
             sender_position = self.drones_positions[msg.robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE and self._are_points_close(self.target_location, msg):
+            if distance < self.communication_range and self._are_points_close(self.target_location, msg):
                 self.rescue_drones.add(msg.robot_id)
                 if len(self.rescue_drones) >= self.robots_required_per_rescue:
 
@@ -285,7 +296,7 @@ class MotionPlanner3d:
             sender_robot_id = msg.sender_robot_id
             sender_position = self.drones_positions[sender_robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 # Assign
                 if self.current_state == RobotState.SEARCHING:
                     if not self._is_already_rescued(msg):
@@ -307,7 +318,7 @@ class MotionPlanner3d:
             # if distance between robot_id and self.drone_id is less than the communication range, then the message is received
             sender_position = self.drones_positions[robot_id]
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 self.estimated_drones_positions[robot_id] = msg
             else:
                 self.estimated_drones_positions.pop(robot_id, None)
@@ -340,7 +351,7 @@ class MotionPlanner3d:
         sender_position = self.drones_positions[robot_id]
         if self.drone_id != robot_id:
             distance = ((self.current_position.x - sender_position.x) ** 2 + (self.current_position.y - sender_position.y) ** 2) ** 0.5
-            if distance < COMMUNICATION_RANGE:
+            if distance < self.communication_range:
                 already_found = False
                 target_to_substitute = None
                 for target in self.found_targets:
@@ -591,7 +602,7 @@ class MotionPlanner3d:
         for drone_id, position in self.estimated_drones_positions.items():
             if drone_id != self.drone_id:
                 distance = ((position.x - target.x) ** 2 + (position.y - target.y) ** 2) ** 0.5
-                if distance <= COMMUNICATION_RANGE:
+                if distance <= self.communication_range:
                     nearby_robots.append(drone_id)
         return sorted(nearby_robots, key=lambda d_id: self.distance_to_target(d_id, target))
 
@@ -753,7 +764,11 @@ class MotionPlanner3d:
 if __name__ == '__main__':
     rospy.init_node('motion_planner', anonymous=True)
     drone_id = rospy.get_param('~namespace')  # Get unique ID for this drone
-    drone = MotionPlanner3d(drone_id)
+    num_targets = int(rospy.get_param('~num_targets'))
+    drone_per_rescue = int(rospy.get_param('~drones_per_rescue'))
+    communication_range = float(rospy.get_param('~communication_range'))
+    rospy.loginfo(f"Drone {drone_id} initialized with {num_targets} targets, {drone_per_rescue} drones per rescue, and communication range {communication_range}")
+    drone = MotionPlanner3d(drone_id, num_targets, drone_per_rescue, communication_range)
     try:
         drone.main_loop()
     except rospy.ROSInterruptException:
