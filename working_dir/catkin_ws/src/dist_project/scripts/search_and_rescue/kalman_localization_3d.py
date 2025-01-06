@@ -83,9 +83,9 @@ class KalmanEstimator:
                       [0, 0, 0, 0, 0, noise + w_noise_w]])
 
         # Kinematic model noise redistribution
-        G = np.array([[np.cos(yaw) * np.cos(pitch), 0.0, 0.0, 0.0, 0.0, 0.0],
-                      [np.sin(yaw) * np.cos(pitch), 0.0, 0.0, 0.0, 0.0, 0.0],
-                      [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        G = np.array([[np.cos(yaw), -np.sin(yaw), 0.0, 0.0, 0.0, 0.0],
+                      [np.sin(yaw), np.cos(yaw), 0.0, 0.0, 0.0, 0.0],
+                      [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
                       [0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
                       [0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
                       [0.0, 0.0, 0.0, 0.0, 0.0, 1.0]])
